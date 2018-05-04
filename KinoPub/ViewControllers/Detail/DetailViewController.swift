@@ -452,7 +452,7 @@ extension DetailViewController {
         let actionVC = ActionSheet().tint(.kpBlack)
         
         for (index, season) in seasons.enumerated() {
-            actionVC.addAction("Сезон \(season.number ?? 00)", style: .default, handler: { [weak self] (_) in
+            actionVC.addAction("Сезон \(season.number)", style: .default, handler: { [weak self] (_) in
                 guard let strongSelf = self else { return }
                 strongSelf.showQualitySelectAction(inView: view, forButton: button, season: index)
             })

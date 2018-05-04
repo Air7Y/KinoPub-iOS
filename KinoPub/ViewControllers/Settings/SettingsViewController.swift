@@ -53,8 +53,8 @@ class SetViewController: FormViewController, SideMenuItemContent {
         AlertRow<String>.defaultCellUpdate = { cell, row in
             cell.textLabel?.textColor = .kpOffWhite
             cell.detailTextLabel?.textColor = .kpGreyishTwo
+            row.cancelTitle = "Отмена"
             let _ = row.onPresent({ (_, to) in
-                to.cancelTitle = "Отмена"
                 to.view.tintColor = .kpBlack
             })
         }
