@@ -89,11 +89,6 @@ open class PickerCell<T> : Cell<T>, CellType, UIPickerViewDataSource, UIPickerVi
             picker.value = picker.options[row]
         }
     }
-    
-    open func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
-        let attributedString = NSAttributedString(string: (pickerRow?.displayValueFor?(pickerRow?.options[row]))!, attributes: [NSAttributedStringKey.foregroundColor : UIColor(red: 255.0 / 255.0, green: 244.0 / 255.0, blue: 228.0 / 255.0, alpha: 1.0)])
-        return attributedString
-    }
 
 }
 

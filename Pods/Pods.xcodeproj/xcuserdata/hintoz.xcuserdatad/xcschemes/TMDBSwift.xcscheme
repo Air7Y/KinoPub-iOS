@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '86F95113E0CE8BF10017121395EE185D'
-               BlueprintName = 'TMDBSwift'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'TMDBSwift.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "D8AF8B1DB6C84A589BA59FF3D189036B"
+               BlueprintName = "TMDBSwift"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "TMDBSwift.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

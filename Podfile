@@ -34,6 +34,7 @@ target 'KinoPub' do
   pod 'NDYoutubePlayer', :git => 'https://github.com/hintoz/NDYoutubePlayer.git'
   pod 'EasyAbout'
   pod 'CircleProgressView'
+  pod 'GradientLoadingBar'
   
   pod 'Reveal-SDK', :configurations => ['Debug']
   pod 'R.swift'

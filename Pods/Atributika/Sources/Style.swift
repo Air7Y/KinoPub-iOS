@@ -25,6 +25,11 @@ public enum StyleType {
     case highlighted
 }
 
+// workaround for https://github.com/psharanda/Atributika/issues/27
+#if swift(>=4.1)
+	extension NSAttributedStringKey: Hashable { }
+#endif
+
 public struct Style {
     
     public let name: String
@@ -174,7 +179,6 @@ public struct Style {
         return merged(with: Style.writingDirection(value, type))
     }
     
-
     
     public static func font(_ value: Font, _ type: StyleType = .normal) -> Style {
         return Style("", [NSAttributedStringKey.font: value], type)

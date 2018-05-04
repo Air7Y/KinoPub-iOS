@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'B9071EBD73D3A2B84836A3C5A3DE4CDE'
-               BlueprintName = 'AZSearchView'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'AZSearchView.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B9071EBD73D3A2B84836A3C5A3DE4CDE"
+               BlueprintName = "AZSearchView"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "AZSearchView.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
