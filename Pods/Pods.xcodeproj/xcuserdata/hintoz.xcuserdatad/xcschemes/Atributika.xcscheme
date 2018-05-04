@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'CAED4DC28D9144E95794FAB6E36FA1C6'
-               BlueprintName = 'Atributika'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'Atributika.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "CAED4DC28D9144E95794FAB6E36FA1C6"
+               BlueprintName = "Atributika"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "Atributika.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

@@ -82,6 +82,32 @@ override func viewDidLoad() {
 ```
 This will change the actual icon color to red before the animation.
 
+### Custom Background Image
+You are also able to change the background image of your `backgroundImage`.
+
+```swift
+import RevealingSplashView
+
+override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //Initialize a revealing Splash with with the iconImage, the initial size and the background color
+        let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "twitterLogo")!, iconInitialSize: CGSize(width: 70, height: 70), backgroundImage: UIImage(named: "BackgroundImage")!)
+
+        revealingSplashView.useCustomIconColor = false
+        revealingSplashView.iconColor = UIColor.red
+
+        //Adds the revealing splash view as a sub view
+        self.view.addSubview(revealingSplashView)
+
+        //Starts animation
+        revealingSplashView.startAnimation(){
+            print("Completed")
+        }
+
+    }
+```
+
 ### Using NavigationBar or TabBar?
 If you are using a `NavigationBar` or `TabBar` as your entry view controller, chances are that the animation will look offset by some pixels.
 There are a couple of options here:
@@ -169,6 +195,16 @@ TODO
 :alien: Author
 ------
 Chris Jimenez - http://code.chrisjimenez.net, [@chrisjimeneznat](http://twitter.com/chrisjimeneznat)
+
+:beer: Donate
+------
+If you want to buy me a beer, you can donate to my coin addresses below:
+#### BTC
+1BeGBew4CBdLgUSmvoyiU1LrM99GpkXgkj
+#### ETH
+0xa59a3793E3Cb5f3B1AdE6887783D225EDf67192d
+#### LTC
+Ld6FB3Tqjf6B8iz9Gn9sMr7BnowAjSUXaV
 
 ## License
 `RevealingSplashView` is released under the MIT license. See [LICENSE](https://github.com/pixel16/RevealingSplashView/blob/master/LICENSE) for details.
