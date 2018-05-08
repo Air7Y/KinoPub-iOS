@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "69512B0E1F7D2EE400BF5A89"
-               BuildableName = "KinoPub.app"
-               BlueprintName = "KinoPub"
+               BuildableName = "qinoa.app"
+               BlueprintName = "qinoa"
                ReferencedContainer = "container:KinoPub.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69512B0E1F7D2EE400BF5A89"
-            BuildableName = "KinoPub.app"
-            BlueprintName = "KinoPub"
+            BuildableName = "qinoa.app"
+            BlueprintName = "qinoa"
             ReferencedContainer = "container:KinoPub.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -56,8 +56,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69512B0E1F7D2EE400BF5A89"
-            BuildableName = "KinoPub.app"
-            BlueprintName = "KinoPub"
+            BuildableName = "qinoa.app"
+            BlueprintName = "qinoa"
             ReferencedContainer = "container:KinoPub.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -75,8 +75,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "69512B0E1F7D2EE400BF5A89"
-            BuildableName = "KinoPub.app"
-            BlueprintName = "KinoPub"
+            BuildableName = "qinoa.app"
+            BlueprintName = "qinoa"
             ReferencedContainer = "container:KinoPub.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
