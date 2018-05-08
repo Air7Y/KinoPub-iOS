@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_KinoPubVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_KinoPubVersionString[];
+FOUNDATION_EXPORT double Pods_qinoaVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_qinoaVersionString[];
 

@@ -1,7 +1,7 @@
 source 'https://github.com/CocoaPods/Specs.git'
 platform :ios, '9.0'
 
-target 'KinoPub' do
+target 'qinoa' do
 
   use_frameworks!
   inhibit_all_warnings!

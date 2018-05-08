@@ -6,7 +6,7 @@
 	<string>development</string>
 	<key>keychain-access-groups</key>
 	<array>
-		<string>$(AppIdentifierPrefix)xyz.dats.KinoPub</string>
+		<string>$(AppIdentifierPrefix)bundle.qinoa</string>
 	</array>
 </dict>
 </plist>
