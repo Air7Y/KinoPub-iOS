@@ -117,6 +117,11 @@
 		698D1AC02009348E00BDE07F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698D1ABF2009348E00BDE07F /* HomeViewController.swift */; };
 		698D1AC4200935B200BDE07F /* ItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698D1AC2200935B200BDE07F /* ItemsTableViewCell.swift */; };
 		698D1AC5200935B200BDE07F /* ItemsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 698D1AC3200935B200BDE07F /* ItemsTableViewCell.xib */; };
+		69976B6620AF33F400A035C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69976B6520AF33F400A035C4 /* AppDelegate.swift */; };
+		69976B6820AF33F400A035C4 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69976B6720AF33F400A035C4 /* FirstViewController.swift */; };
+		69976B6A20AF33F400A035C4 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69976B6920AF33F400A035C4 /* SecondViewController.swift */; };
+		69976B6D20AF33F400A035C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69976B6B20AF33F400A035C4 /* Main.storyboard */; };
+		69976B6F20AF33F800A035C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69976B6E20AF33F800A035C4 /* Assets.xcassets */; };
 		699C5B1C1F87CD9D00D7DFE0 /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699C5B1B1F87CD9D00D7DFE0 /* CollectionModel.swift */; };
 		699C5B1E1F87CE3800D7DFE0 /* CollectionsNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699C5B1D1F87CE3800D7DFE0 /* CollectionsNetworkingService.swift */; };
 		699C5B201F8837B300D7DFE0 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699C5B1F1F8837B300D7DFE0 /* FilterModel.swift */; };
@@ -320,6 +325,14 @@
 		698D1ABF2009348E00BDE07F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		698D1AC2200935B200BDE07F /* ItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableViewCell.swift; sourceTree = "<group>"; };
 		698D1AC3200935B200BDE07F /* ItemsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemsTableViewCell.xib; sourceTree = "<group>"; };
+		69976B6320AF33F400A035C4 /* qinoaTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qinoaTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		69976B6520AF33F400A035C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		69976B6720AF33F400A035C4 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		69976B6920AF33F400A035C4 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		69976B6C20AF33F400A035C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		69976B6E20AF33F800A035C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		69976B7020AF33F800A035C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69976B7420AF369700A035C4 /* qinoaTV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = qinoaTV.entitlements; sourceTree = "<group>"; };
 		699C5B1B1F87CD9D00D7DFE0 /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
 		699C5B1D1F87CE3800D7DFE0 /* CollectionsNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsNetworkingService.swift; sourceTree = "<group>"; };
 		699C5B1F1F8837B300D7DFE0 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
@@ -423,6 +436,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69976B6020AF33F400A035C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -460,6 +480,7 @@
 			children = (
 				69DA0686201BD4B500D908E6 /* CHANGELOG.md */,
 				69512B111F7D2EE400BF5A89 /* KinoPub */,
+				69976B6420AF33F400A035C4 /* qinoaTV */,
 				69512B101F7D2EE400BF5A89 /* Products */,
 				72FDDD930CF66C00EE9E0FCE /* Pods */,
 				208F9DF0B187D1631AAFE995 /* Frameworks */,
@@ -470,6 +491,7 @@
 			isa = PBXGroup;
 			children = (
 				69512B0F1F7D2EE400BF5A89 /* qinoa.app */,
+				69976B6320AF33F400A035C4 /* qinoaTV.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -854,6 +876,20 @@
 			path = HomeCells;
 			sourceTree = "<group>";
 		};
+		69976B6420AF33F400A035C4 /* qinoaTV */ = {
+			isa = PBXGroup;
+			children = (
+				69976B7420AF369700A035C4 /* qinoaTV.entitlements */,
+				69976B6520AF33F400A035C4 /* AppDelegate.swift */,
+				69976B6720AF33F400A035C4 /* FirstViewController.swift */,
+				69976B6920AF33F400A035C4 /* SecondViewController.swift */,
+				69976B6B20AF33F400A035C4 /* Main.storyboard */,
+				69976B6E20AF33F800A035C4 /* Assets.xcassets */,
+				69976B7020AF33F800A035C4 /* Info.plist */,
+			);
+			path = qinoaTV;
+			sourceTree = "<group>";
+		};
 		69C4E180202F9EFC003048D5 /* TV */ = {
 			isa = PBXGroup;
 			children = (
@@ -1014,13 +1050,30 @@
 			productReference = 69512B0F1F7D2EE400BF5A89 /* qinoa.app */;
 			productType = "com.apple.product-type.application";
 		};
+		69976B6220AF33F400A035C4 /* qinoaTV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69976B7320AF33F800A035C4 /* Build configuration list for PBXNativeTarget "qinoaTV" */;
+			buildPhases = (
+				69976B5F20AF33F400A035C4 /* Sources */,
+				69976B6020AF33F400A035C4 /* Frameworks */,
+				69976B6120AF33F400A035C4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = qinoaTV;
+			productName = qinoaTV;
+			productReference = 69976B6320AF33F400A035C4 /* qinoaTV.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		69512B071F7D2EE400BF5A89 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = KinoPub;
 				TargetAttributes = {
@@ -1028,10 +1081,28 @@
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 1;
 							};
 							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+					69976B6220AF33F400A035C4 = {
+						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.BackgroundModes.appletvos = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
 								enabled = 1;
 							};
 						};
@@ -1052,6 +1123,7 @@
 			projectRoot = "";
 			targets = (
 				69512B0E1F7D2EE400BF5A89 /* qinoa */,
+				69976B6220AF33F400A035C4 /* qinoaTV */,
 			);
 		};
 /* End PBXProject section */
@@ -1104,6 +1176,15 @@
 				69F0FB1D1FEA9BD8004505EF /* UniSansBold.otf in Resources */,
 				6959226B1F7DB0C000CE3224 /* Settings.storyboard in Resources */,
 				69F1242C20018CB400E37A1F /* CommentsTableViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		69976B6120AF33F400A035C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69976B6F20AF33F800A035C4 /* Assets.xcassets in Resources */,
+				69976B6D20AF33F400A035C4 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1423,6 +1504,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69976B5F20AF33F400A035C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69976B6A20AF33F400A035C4 /* SecondViewController.swift in Sources */,
+				69976B6620AF33F400A035C4 /* AppDelegate.swift in Sources */,
+				69976B6820AF33F400A035C4 /* FirstViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -1440,6 +1531,14 @@
 				69512B1F1F7D2EE400BF5A89 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		69976B6B20AF33F400A035C4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69976B6C20AF33F400A035C4 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1603,6 +1702,46 @@
 			};
 			name = Release;
 		};
+		69976B7120AF33F800A035C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = qinoaTV/qinoaTV.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6MD7YM4YB5;
+				INFOPLIST_FILE = qinoaTV/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bundle.qinoaTV;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.3;
+			};
+			name = Debug;
+		};
+		69976B7220AF33F800A035C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = qinoaTV/qinoaTV.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6MD7YM4YB5;
+				INFOPLIST_FILE = qinoaTV/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bundle.qinoaTV;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 11.3;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1620,6 +1759,15 @@
 			buildConfigurations = (
 				69512B251F7D2EE400BF5A89 /* Debug */,
 				69512B261F7D2EE400BF5A89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		69976B7320AF33F800A035C4 /* Build configuration list for PBXNativeTarget "qinoaTV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69976B7120AF33F800A035C4 /* Debug */,
+				69976B7220AF33F800A035C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
