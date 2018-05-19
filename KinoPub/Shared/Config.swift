@@ -83,7 +83,7 @@ class Config {
         #if DEBUG
             // FIXME: Remove before production!
             let remoteConfigSettings = RemoteConfigSettings(developerModeEnabled: true)
-            remoteConfig.configSettings = remoteConfigSettings!
+        remoteConfig.configSettings = remoteConfigSettings
         #endif
         
         remoteConfig.fetch(withExpirationDuration: 0) { [unowned self] (status, error) in
