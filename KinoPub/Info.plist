@@ -94,5 +94,9 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<true/>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Для сохранения видео необходимо дать разрешение.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Для сохранения видео необходимо дать разрешение.</string>
 </dict>
 </plist>
