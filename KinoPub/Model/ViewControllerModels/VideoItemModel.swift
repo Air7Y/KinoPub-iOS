@@ -117,6 +117,7 @@ class VideoItemModel {
                     mediaItem.season = 0
                     mediaItem.url = URL(string: url)
                     mediaItems.append(mediaItem)
+                    guard files == nil else { return }
                     files = episode.files
                 }
             }
@@ -144,6 +145,7 @@ class VideoItemModel {
                             mediaItem.season = season.number
                             mediaItem.url = URL(string: url)
                             mediaItems.append(mediaItem)
+                            guard files == nil else { return }
                             files = episode.files
                         }
                     }

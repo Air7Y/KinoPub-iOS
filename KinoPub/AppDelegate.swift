@@ -23,6 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NetworkActivityLogger.shared.startLogging()
         
         analyticsManager.setup()
+        analyticsManager.debug = true
         
         // TODO: Move this to where you establish a user session
         configAppearance()
