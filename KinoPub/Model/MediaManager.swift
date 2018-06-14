@@ -130,11 +130,8 @@ class MediaManager {
 
         }
         
-        if mediaItems.first?.title != nil {
-            self.playerCustom!.playWithURL((mediaItems.first?.url)!, embeddedContentView: nil, title: mediaItems.first?.title)
-        } else {
-            self.playerCustom!.playWithURL((mediaItems.first?.url)!, embeddedContentView: nil)
-        }
+        guard let url = mediaItems.first?.url else { return }
+        self.playerCustom!.playWithURL(url, embeddedContentView: nil, title: mediaItems.first?.title)
 
         self.playerCustom!.fullScreenPreferredStatusBarStyle = .lightContent
 
