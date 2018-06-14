@@ -1766,7 +1766,7 @@
 				DEVELOPMENT_TEAM = 6MD7YM4YB5;
 				INFOPLIST_FILE = qinoaTV/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = bundle.qinoaTV;
+				PRODUCT_BUNDLE_IDENTIFIER = bundle.qinoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 4.0;
@@ -1787,7 +1787,7 @@
 				DEVELOPMENT_TEAM = 6MD7YM4YB5;
 				INFOPLIST_FILE = qinoaTV/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = bundle.qinoaTV;
+				PRODUCT_BUNDLE_IDENTIFIER = bundle.qinoa;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				SWIFT_VERSION = 4.0;
