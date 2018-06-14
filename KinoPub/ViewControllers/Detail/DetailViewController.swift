@@ -656,7 +656,7 @@ extension DetailViewController: UITableViewDataSource {
         case 3:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: TrailerTableViewCell.self), for: indexPath) as! TrailerTableViewCell
             cell.selectionStyle = .none
-            cell.config(withId: (model.item.trailer?.id)!)
+            cell.config(with: model.item.trailer)
             return cell
         case 7:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SimilarTableViewCell.self), for: indexPath) as! SimilarTableViewCell

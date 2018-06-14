@@ -3,7 +3,7 @@ import CustomLoader
 
 class TrailerTableViewCell: UITableViewCell {
     
-    var youtubeID: String!
+    var youtubeID: String?
     
     @IBOutlet weak var thumbView: UIView!
     @IBOutlet weak var thumbImageView: UIImageView!
@@ -28,8 +28,18 @@ class TrailerTableViewCell: UITableViewCell {
         playButtonView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(play)))
     }
     
-    func config(withId id: String) {
-        youtubeID = id
+    func config(with trailer: Trailer?) {
+        guard let trailer = trailer else { return }
+        if let id = trailer.id {
+            youtubeID = id
+        } else if let link = trailer.url {
+            let reversed = String(link.reversed())
+            let array = reversed.components(separatedBy: "/")
+            if let reversed = array.first?.reversed() {
+                youtubeID = String(reversed)
+            }
+        }
+        guard let id = youtubeID else { return }
         thumbImageView.af_setImage(withURL: URL(string: "https://img.youtube.com/vi/\(id)/maxresdefault.jpg")!,
                                    placeholderImage: UIImage(named: "episode.png"),
                                    imageTransition: .crossDissolve(0.2),
@@ -52,7 +62,8 @@ class TrailerTableViewCell: UITableViewCell {
         UIView.animate(withDuration: 0.8, animations: {
             self.playButtonView.alpha = 1
         })
-        MediaManager.shared.playYouTubeVideo(withID: youtubeID)
+        guard let id = youtubeID else { return }
+        MediaManager.shared.playYouTubeVideo(withID: id)
         Helper.hapticGenerate(style: .medium)
     }
     
