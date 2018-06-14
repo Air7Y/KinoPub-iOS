@@ -47,9 +47,7 @@ class FilterViewController: FormViewController {
         tableView.backgroundColor = .kpBackground
         view.backgroundColor = .kpBackground
          self.navigationItem.rightBarButtonItem?.tintColor = .kpMarigold
-//        self.navigationItem.hidesBackButton = true
-//        let newBackButton = UIBarButtonItem(title: "Применить", style: UIBarButtonItemStyle.plain, target: self, action: #selector(goBack(_:)))
-//        self.navigationItem.leftBarButtonItem = newBackButton
+        
         if #available(iOS 11.0, *) {
             
         } else {
@@ -124,51 +122,31 @@ class FilterViewController: FormViewController {
             })
         }
         
-        PickerInputRow<String>.defaultCellUpdate = { cell, row in
-            cell.backgroundColor = .clear
-            cell.textLabel?.textColor = .kpOffWhite
-            cell.detailTextLabel?.textColor = .kpGreyishTwo
-        }
-        
-        PickerInlineRow<String>.defaultCellSetup = { cell, row in
+        PickerInlineRowCustom<String>.defaultCellUpdate = { cell, row in
             cell.textLabel?.textColor = .kpOffWhite
             cell.detailTextLabel?.textColor = .kpGreyishTwo
             cell.tintColor = .kpMarigold
         }
-        
-        PickerInlineRow<String>.defaultCellUpdate = { cell, row in
-            cell.textLabel?.textColor = .kpOffWhite
-//            row.onExpandInlineRow({ (cell, row, row2) in
-//                cell.textLabel?.textColor = .kpOffWhite
-//                row2.cell.textLabel?.textColor = .kpOffWhite
-//                row2.cell.picker.setValue(UIColor.kpOffWhite, forKey: "textColor")
-//                row.cellUpdate({ (cell, row) in
-//                    cell.textLabel?.textColor = .kpOffWhite
-//                })
-//            })
-//            row.onCollapseInlineRow({ (cell, row, row2) in
-//                row.cellUpdate({ (cell, row) in
-//                    cell.textLabel?.textColor = .kpOffWhite
-//                })
-//            })
+        PickerInlineRowCustom<String>.InlineRow.defaultCellUpdate = { cell, row in
+            cell.pickerTextColor = .kpOffWhite
         }
-        
-        PickerInlineRow<SortOption>.defaultCellSetup = { cell, row in
+
+        PickerInlineRowCustom<SortOption>.defaultCellUpdate = { cell, row in
             cell.textLabel?.textColor = .kpOffWhite
             cell.detailTextLabel?.textColor = .kpGreyishTwo
             cell.tintColor = .kpMarigold
         }
-        PickerInlineRow<SortOption>.defaultCellUpdate = { cell, row in
-            cell.textLabel?.textColor = .kpOffWhite
+        PickerInlineRowCustom<SortOption>.InlineRow.defaultCellUpdate = { cell, row in
+            cell.pickerTextColor = .kpOffWhite
         }
-        
-        PickerInlineRow<SubtitlesList>.defaultCellSetup = { cell, row in
+
+        PickerInlineRowCustom<SubtitlesList>.defaultCellUpdate = { cell, row in
             cell.textLabel?.textColor = .kpOffWhite
             cell.detailTextLabel?.textColor = .kpGreyishTwo
             cell.tintColor = .kpMarigold
         }
-        PickerInlineRow<SubtitlesList>.defaultCellUpdate = { cell, row in
-            cell.textLabel?.textColor = .kpOffWhite
+        PickerInlineRowCustom<SubtitlesList>.InlineRow.defaultCellUpdate = { cell, row in
+            cell.pickerTextColor = .kpOffWhite
         }
         
         form +++ Section()
@@ -199,7 +177,7 @@ class FilterViewController: FormViewController {
                     self.model.filter.countries = row.value
                 })
             
-            <<< PickerInlineRow<String>("Year") {
+            <<< PickerInlineRowCustom<String>("Year") {
                 $0.title = "Год выхода"
                 $0.options = []
                 $0.noValueDisplayText = "Не важно"
@@ -220,7 +198,7 @@ class FilterViewController: FormViewController {
                     self.model.filter.year = row.value
                 })
         
-            <<< PickerInlineRow<String>("YearFrom") {
+            <<< PickerInlineRowCustom<String>("YearFrom") {
                 $0.hidden = .function(["Year"], { form -> Bool in
                     let row: RowOf<String>! = form.rowBy(tag: "Year")
                     return row.value == "Период" ? false : true
@@ -251,7 +229,7 @@ class FilterViewController: FormViewController {
                     self.model.filter.yearsDict!["from"] = row.value
                 })
             
-            <<< PickerInlineRow<String>("YearTo") {
+            <<< PickerInlineRowCustom<String>("YearTo") {
                 $0.hidden = .function(["Year"], { form -> Bool in
                     let row: RowOf<String>! = form.rowBy(tag: "Year")
                     return row.value == "Период" ? false : true
@@ -282,7 +260,7 @@ class FilterViewController: FormViewController {
                     self.model.filter.yearsDict!["to"] = row.value
                 })
             
-            <<< PickerInlineRow<SubtitlesList>("subs"){
+            <<< PickerInlineRowCustom<SubtitlesList>("subs"){
                 $0.title = "Субтитры"
                 $0.noValueDisplayText = "Не важно"
                 $0.options = model.subtitles
@@ -298,7 +276,7 @@ class FilterViewController: FormViewController {
                     row.options = self.model.subtitles
                 })
             
-            <<< PickerInlineRow<SortOption>("sort"){
+            <<< PickerInlineRowCustom<SortOption>("sort"){
                 $0.title = "Сортировка"
                 $0.options = SortOption.all
                 if model.type == ItemType.movies || model.type == ItemType.documovie {
@@ -334,8 +312,6 @@ class FilterViewController: FormViewController {
     func configTable() {
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.separatorStyle = .none
-//        tableView.rowHeight = UITableViewAutomaticDimension
-//        tableView.estimatedRowHeight = 140
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
