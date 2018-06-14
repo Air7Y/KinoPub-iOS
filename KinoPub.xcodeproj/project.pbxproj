@@ -132,6 +132,8 @@
 		69B6D2BE1FFEF98100CB62EE /* TrailerTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B6D2BC1FFEF98100CB62EE /* TrailerTableViewCell.swift */; };
 		69B6D2BF1FFEF98100CB62EE /* TrailerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69B6D2BD1FFEF98100CB62EE /* TrailerTableViewCell.xib */; };
 		69B6D2C11FFFAD4800CB62EE /* UIView+KPAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69B6D2C01FFFAD4800CB62EE /* UIView+KPAdditions.swift */; };
+		69C3F11020D312970039C79E /* PickerInlineRowCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C3F10F20D312970039C79E /* PickerInlineRowCustom.swift */; };
+		69C3F11220D313310039C79E /* PickerRowCustom.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C3F11120D313310039C79E /* PickerRowCustom.swift */; };
 		69C4E184202F9FCD003048D5 /* SportCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C4E183202F9FCD003048D5 /* SportCollectionViewController.swift */; };
 		69C4E186202FA149003048D5 /* SportCollectionViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69C4E185202FA149003048D5 /* SportCollectionViewController.storyboard */; };
 		69C4E18A202FA201003048D5 /* TVCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C4E188202FA201003048D5 /* TVCollectionViewCell.swift */; };
@@ -345,6 +347,8 @@
 		69B6D2BC1FFEF98100CB62EE /* TrailerTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrailerTableViewCell.swift; sourceTree = "<group>"; };
 		69B6D2BD1FFEF98100CB62EE /* TrailerTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TrailerTableViewCell.xib; sourceTree = "<group>"; };
 		69B6D2C01FFFAD4800CB62EE /* UIView+KPAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIView+KPAdditions.swift"; sourceTree = "<group>"; };
+		69C3F10F20D312970039C79E /* PickerInlineRowCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerInlineRowCustom.swift; sourceTree = "<group>"; };
+		69C3F11120D313310039C79E /* PickerRowCustom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerRowCustom.swift; sourceTree = "<group>"; };
 		69C4E183202F9FCD003048D5 /* SportCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SportCollectionViewController.swift; sourceTree = "<group>"; };
 		69C4E185202FA149003048D5 /* SportCollectionViewController.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SportCollectionViewController.storyboard; sourceTree = "<group>"; };
 		69C4E188202FA201003048D5 /* TVCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TVCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -632,6 +636,7 @@
 		69512B3F1F7D4A4600BF5A89 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				69C3F10E20D312250039C79E /* Eureka Picker */,
 				69C4E1A0203321BB003048D5 /* SettingsCell */,
 				69C4E187202FA1D1003048D5 /* TVCells */,
 				698D1AC12009359600BDE07F /* HomeCells */,
@@ -896,6 +901,15 @@
 				69976B7020AF33F800A035C4 /* Info.plist */,
 			);
 			path = qinoaTV;
+			sourceTree = "<group>";
+		};
+		69C3F10E20D312250039C79E /* Eureka Picker */ = {
+			isa = PBXGroup;
+			children = (
+				69C3F10F20D312970039C79E /* PickerInlineRowCustom.swift */,
+				69C3F11120D313310039C79E /* PickerRowCustom.swift */,
+			);
+			path = "Eureka Picker";
 			sourceTree = "<group>";
 		};
 		69C4E180202F9EFC003048D5 /* TV */ = {
@@ -1440,6 +1454,7 @@
 				6959223E1F7DA16000CE3224 /* ItemCollectionViewCell.swift in Sources */,
 				695922241F7D5C3A00CE3224 /* Genres.swift in Sources */,
 				699C5B201F8837B300D7DFE0 /* FilterModel.swift in Sources */,
+				69C3F11220D313310039C79E /* PickerRowCustom.swift in Sources */,
 				6959220C1F7D5BF500CE3224 /* AuthNetworkingService.swift in Sources */,
 				695922831F7DB20000CE3224 /* OldDetailViewController.swift in Sources */,
 				695922021F7D5BCC00CE3224 /* Defaults.swift in Sources */,
@@ -1512,6 +1527,7 @@
 				695921FE1F7D568100CE3224 /* VideoItemsModel.swift in Sources */,
 				695922661F7DB07B00CE3224 /* ProfileTableViewController.swift in Sources */,
 				694C41501F84FB0800D6BD6F /* DownloadingTableViewCell.swift in Sources */,
+				69C3F11020D312970039C79E /* PickerInlineRowCustom.swift in Sources */,
 				692EF3571F8D33D800A4D824 /* LogViewsNetworkingService.swift in Sources */,
 				6959220A1F7D5BED00CE3224 /* Extensions.swift in Sources */,
 				695922031F7D5BCE00CE3224 /* DelegatesStorage.swift in Sources */,
