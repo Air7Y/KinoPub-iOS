@@ -13,7 +13,7 @@ class AnalyticsManager {
     }
     
     func setup() {
-        Fabric.with([Crashlytics()])
+//        Fabric.with([Crashlytics()])
         FirebaseApp.configure()
     }
     
