@@ -11,7 +11,9 @@ struct Container {
     struct Service {
         static let log = { () -> SwiftyBeaver.Type in
             let log = SwiftyBeaver.self
+            let platform = SBPlatformDestination(appID: "Gw3Gap", appSecret: "sfyvuwb5Xrlfeitss3utgireKicRamnQ", encryptionKey: "7goj45Muq6nzsvnpctcjfVswNu6Vlp6h")
             log.addDestination(ConsoleDestination())
+            log.addDestination(platform)
             return log
         }()
     }

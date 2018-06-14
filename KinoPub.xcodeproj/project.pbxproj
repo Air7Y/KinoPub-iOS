@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		06BF67AAA5276B083B2F47F2 /* Pods_qinoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DAE70375B11B0E3626884978 /* Pods_qinoa.framework */; };
+		4A8CABFA67D63919F2E43C13 /* Pods_qinoaTV.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E1493C26A9967C7C05733B9 /* Pods_qinoaTV.framework */; };
 		691420532035A686005A5370 /* HiddenMenusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691420522035A686005A5370 /* HiddenMenusService.swift */; };
 		691420552035AA86005A5370 /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691420542035AA86005A5370 /* MenuItems.swift */; };
 		6922F6A62013EADE003E3713 /* UIImage+KPAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6922F6A52013EADE003E3713 /* UIImage+KPAdditions.swift */; };
@@ -16,6 +17,8 @@
 		692CF6C41F90207A007E539D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 695921F61F7D4FB200CE3224 /* Settings.bundle */; };
 		692EF3531F8D029000A4D824 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692EF3521F8D029000A4D824 /* Filter.swift */; };
 		692EF3571F8D33D800A4D824 /* LogViewsNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692EF3561F8D33D800A4D824 /* LogViewsNetworkingService.swift */; };
+		693A4D4920B04839009F8668 /* DelegatesStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69512B2F1F7D47CA00BF5A89 /* DelegatesStorage.swift */; };
+		693A4D4A20B0483D009F8668 /* ModelsAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69512B2E1F7D47CA00BF5A89 /* ModelsAssembly.swift */; };
 		693A50441F878FD900061B83 /* BookmarkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693A50421F878FD400061B83 /* BookmarkTableViewCell.swift */; };
 		693A50451F878FD900061B83 /* BookmarkTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 693A50401F878FD300061B83 /* BookmarkTableViewCell.xib */; };
 		693EC762201776CA0056FBA8 /* UIDevice+KPAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 693EC761201776CA0056FBA8 /* UIDevice+KPAdditions.swift */; };
@@ -117,6 +120,11 @@
 		698D1AC02009348E00BDE07F /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698D1ABF2009348E00BDE07F /* HomeViewController.swift */; };
 		698D1AC4200935B200BDE07F /* ItemsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 698D1AC2200935B200BDE07F /* ItemsTableViewCell.swift */; };
 		698D1AC5200935B200BDE07F /* ItemsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 698D1AC3200935B200BDE07F /* ItemsTableViewCell.xib */; };
+		69976B6620AF33F400A035C4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69976B6520AF33F400A035C4 /* AppDelegate.swift */; };
+		69976B6820AF33F400A035C4 /* FirstViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69976B6720AF33F400A035C4 /* FirstViewController.swift */; };
+		69976B6A20AF33F400A035C4 /* SecondViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69976B6920AF33F400A035C4 /* SecondViewController.swift */; };
+		69976B6D20AF33F400A035C4 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 69976B6B20AF33F400A035C4 /* Main.storyboard */; };
+		69976B6F20AF33F800A035C4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 69976B6E20AF33F800A035C4 /* Assets.xcassets */; };
 		699C5B1C1F87CD9D00D7DFE0 /* CollectionModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699C5B1B1F87CD9D00D7DFE0 /* CollectionModel.swift */; };
 		699C5B1E1F87CE3800D7DFE0 /* CollectionsNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699C5B1D1F87CE3800D7DFE0 /* CollectionsNetworkingService.swift */; };
 		699C5B201F8837B300D7DFE0 /* FilterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 699C5B1F1F8837B300D7DFE0 /* FilterModel.swift */; };
@@ -207,6 +215,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		0E1493C26A9967C7C05733B9 /* Pods_qinoaTV.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_qinoaTV.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		169CDC222ACC985DF0F44807 /* Pods-qinoaTV.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-qinoaTV.debug.xcconfig"; path = "Pods/Target Support Files/Pods-qinoaTV/Pods-qinoaTV.debug.xcconfig"; sourceTree = "<group>"; };
 		397FF13AFDD510C76EFE7A02 /* Pods-qinoa.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-qinoa.release.xcconfig"; path = "Pods/Target Support Files/Pods-qinoa/Pods-qinoa.release.xcconfig"; sourceTree = "<group>"; };
 		691420522035A686005A5370 /* HiddenMenusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenMenusService.swift; sourceTree = "<group>"; };
 		691420542035AA86005A5370 /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
@@ -320,6 +330,14 @@
 		698D1ABF2009348E00BDE07F /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		698D1AC2200935B200BDE07F /* ItemsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemsTableViewCell.swift; sourceTree = "<group>"; };
 		698D1AC3200935B200BDE07F /* ItemsTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ItemsTableViewCell.xib; sourceTree = "<group>"; };
+		69976B6320AF33F400A035C4 /* qinoaTV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = qinoaTV.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		69976B6520AF33F400A035C4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		69976B6720AF33F400A035C4 /* FirstViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstViewController.swift; sourceTree = "<group>"; };
+		69976B6920AF33F400A035C4 /* SecondViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondViewController.swift; sourceTree = "<group>"; };
+		69976B6C20AF33F400A035C4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		69976B6E20AF33F800A035C4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		69976B7020AF33F800A035C4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		69976B7420AF369700A035C4 /* qinoaTV.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = qinoaTV.entitlements; sourceTree = "<group>"; };
 		699C5B1B1F87CD9D00D7DFE0 /* CollectionModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionModel.swift; sourceTree = "<group>"; };
 		699C5B1D1F87CE3800D7DFE0 /* CollectionsNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionsNetworkingService.swift; sourceTree = "<group>"; };
 		699C5B1F1F8837B300D7DFE0 /* FilterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterModel.swift; sourceTree = "<group>"; };
@@ -404,6 +422,7 @@
 		69FCF3371F939DFB00638A77 /* AVPlayerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AVPlayerExtension.swift; sourceTree = "<group>"; };
 		69FCF3391F939E3800638A77 /* DTSPlayerNotification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTSPlayerNotification.swift; sourceTree = "<group>"; };
 		B92B856F476D54B9B5C6B1E4 /* Pods-KinoPub.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KinoPub.release.xcconfig"; path = "Pods/Target Support Files/Pods-KinoPub/Pods-KinoPub.release.xcconfig"; sourceTree = "<group>"; };
+		D7AB20F68C7C17CADCD615C8 /* Pods-qinoaTV.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-qinoaTV.release.xcconfig"; path = "Pods/Target Support Files/Pods-qinoaTV/Pods-qinoaTV.release.xcconfig"; sourceTree = "<group>"; };
 		D9C7223E45EB1E644C5CA177 /* Pods-KinoPub.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-KinoPub.debug.xcconfig"; path = "Pods/Target Support Files/Pods-KinoPub/Pods-KinoPub.debug.xcconfig"; sourceTree = "<group>"; };
 		DAE70375B11B0E3626884978 /* Pods_qinoa.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_qinoa.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE4D48B0CD4F6451DBED8C0B /* Pods_KinoPub.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_KinoPub.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -423,6 +442,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69976B6020AF33F400A035C4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				4A8CABFA67D63919F2E43C13 /* Pods_qinoaTV.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -431,6 +458,7 @@
 			children = (
 				DE4D48B0CD4F6451DBED8C0B /* Pods_KinoPub.framework */,
 				DAE70375B11B0E3626884978 /* Pods_qinoa.framework */,
+				0E1493C26A9967C7C05733B9 /* Pods_qinoaTV.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -460,6 +488,7 @@
 			children = (
 				69DA0686201BD4B500D908E6 /* CHANGELOG.md */,
 				69512B111F7D2EE400BF5A89 /* KinoPub */,
+				69976B6420AF33F400A035C4 /* qinoaTV */,
 				69512B101F7D2EE400BF5A89 /* Products */,
 				72FDDD930CF66C00EE9E0FCE /* Pods */,
 				208F9DF0B187D1631AAFE995 /* Frameworks */,
@@ -470,6 +499,7 @@
 			isa = PBXGroup;
 			children = (
 				69512B0F1F7D2EE400BF5A89 /* qinoa.app */,
+				69976B6320AF33F400A035C4 /* qinoaTV.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -854,6 +884,20 @@
 			path = HomeCells;
 			sourceTree = "<group>";
 		};
+		69976B6420AF33F400A035C4 /* qinoaTV */ = {
+			isa = PBXGroup;
+			children = (
+				69976B7420AF369700A035C4 /* qinoaTV.entitlements */,
+				69976B6520AF33F400A035C4 /* AppDelegate.swift */,
+				69976B6720AF33F400A035C4 /* FirstViewController.swift */,
+				69976B6920AF33F400A035C4 /* SecondViewController.swift */,
+				69976B6B20AF33F400A035C4 /* Main.storyboard */,
+				69976B6E20AF33F800A035C4 /* Assets.xcassets */,
+				69976B7020AF33F800A035C4 /* Info.plist */,
+			);
+			path = qinoaTV;
+			sourceTree = "<group>";
+		};
 		69C4E180202F9EFC003048D5 /* TV */ = {
 			isa = PBXGroup;
 			children = (
@@ -985,6 +1029,8 @@
 				B92B856F476D54B9B5C6B1E4 /* Pods-KinoPub.release.xcconfig */,
 				F5042E3D1CF8AB0D68FA254D /* Pods-qinoa.debug.xcconfig */,
 				397FF13AFDD510C76EFE7A02 /* Pods-qinoa.release.xcconfig */,
+				169CDC222ACC985DF0F44807 /* Pods-qinoaTV.debug.xcconfig */,
+				D7AB20F68C7C17CADCD615C8 /* Pods-qinoaTV.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -1014,13 +1060,32 @@
 			productReference = 69512B0F1F7D2EE400BF5A89 /* qinoa.app */;
 			productType = "com.apple.product-type.application";
 		};
+		69976B6220AF33F400A035C4 /* qinoaTV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 69976B7320AF33F800A035C4 /* Build configuration list for PBXNativeTarget "qinoaTV" */;
+			buildPhases = (
+				C311AD0640A9170ABF4BE50A /* [CP] Check Pods Manifest.lock */,
+				69976B5F20AF33F400A035C4 /* Sources */,
+				69976B6020AF33F400A035C4 /* Frameworks */,
+				69976B6120AF33F400A035C4 /* Resources */,
+				41E261E038CE350415F7A928 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = qinoaTV;
+			productName = qinoaTV;
+			productReference = 69976B6320AF33F400A035C4 /* qinoaTV.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		69512B071F7D2EE400BF5A89 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0900;
+				LastSwiftUpdateCheck = 0930;
 				LastUpgradeCheck = 0930;
 				ORGANIZATIONNAME = KinoPub;
 				TargetAttributes = {
@@ -1028,10 +1093,28 @@
 						CreatedOnToolsVersion = 9.0;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 1;
 							};
 							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+					69976B6220AF33F400A035C4 = {
+						CreatedOnToolsVersion = 9.3;
+						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.ApplicationGroups.iOS = {
+								enabled = 1;
+							};
+							com.apple.BackgroundModes.appletvos = {
+								enabled = 1;
+							};
+							com.apple.Keychain = {
 								enabled = 1;
 							};
 						};
@@ -1052,6 +1135,7 @@
 			projectRoot = "";
 			targets = (
 				69512B0E1F7D2EE400BF5A89 /* qinoa */,
+				69976B6220AF33F400A035C4 /* qinoaTV */,
 			);
 		};
 /* End PBXProject section */
@@ -1107,6 +1191,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69976B6120AF33F400A035C4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				69976B6F20AF33F800A035C4 /* Assets.xcassets in Resources */,
+				69976B6D20AF33F400A035C4 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -1118,7 +1211,7 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-qinoa/Pods-qinoa-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/AZSearchView/AZSearchView.framework",
-				"${BUILT_PRODUCTS_DIR}/Alamofire/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-iOS/Alamofire.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireImage/AlamofireImage.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger/AlamofireNetworkActivityLogger.framework",
 				"${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper/AlamofireObjectMapper.framework",
@@ -1143,12 +1236,12 @@
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper/ObjectMapper.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library/Rswift.framework",
-				"${PODS_ROOT}/Reveal-SDK/RevealServer-14/iOS/RevealServer.framework",
+				"${PODS_ROOT}/Reveal-SDK/RevealServer-15/iOS/RevealServer.framework",
 				"${BUILT_PRODUCTS_DIR}/RevealingSplashView/RevealingSplashView.framework",
 				"${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework",
 				"${BUILT_PRODUCTS_DIR}/SubtleVolume/SubtleVolume.framework",
 				"${BUILT_PRODUCTS_DIR}/SwifterSwift/SwifterSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver/SwiftyBeaver.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver-iOS/SwiftyBeaver.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults/SwiftyUserDefaults.framework",
 				"${BUILT_PRODUCTS_DIR}/TMDBSwift/TMDBSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
@@ -1196,6 +1289,26 @@
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-qinoa/Pods-qinoa-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		41E261E038CE350415F7A928 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-qinoaTV/Pods-qinoaTV-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver-tvOS/SwiftyBeaver.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Alamofire.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-qinoaTV/Pods-qinoaTV-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		6936A39C1F9E5998009D60D8 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1208,6 +1321,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" f74c5aad8e6589dca3987411b4fe66c40bed16f6 92144ccd7892ca97dd0b931e82730c73180839977b2e618f5af10ce7a8358c61\n\"${PODS_ROOT}/EasyAbout/settings-script.sh\"\n";
+		};
+		C311AD0640A9170ABF4BE50A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-qinoaTV-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		E34D55A379218CE7A69B50B5 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -1423,6 +1554,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		69976B5F20AF33F400A035C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				693A4D4A20B0483D009F8668 /* ModelsAssembly.swift in Sources */,
+				693A4D4920B04839009F8668 /* DelegatesStorage.swift in Sources */,
+				69976B6A20AF33F400A035C4 /* SecondViewController.swift in Sources */,
+				69976B6620AF33F400A035C4 /* AppDelegate.swift in Sources */,
+				69976B6820AF33F400A035C4 /* FirstViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -1440,6 +1583,14 @@
 				69512B1F1F7D2EE400BF5A89 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		69976B6B20AF33F400A035C4 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				69976B6C20AF33F400A035C4 /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -1603,6 +1754,48 @@
 			};
 			name = Release;
 		};
+		69976B7120AF33F800A035C4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 169CDC222ACC985DF0F44807 /* Pods-qinoaTV.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = qinoaTV/qinoaTV.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6MD7YM4YB5;
+				INFOPLIST_FILE = qinoaTV/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bundle.qinoa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Debug;
+		};
+		69976B7220AF33F800A035C4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = D7AB20F68C7C17CADCD615C8 /* Pods-qinoaTV.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_ENTITLEMENTS = qinoaTV/qinoaTV.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 6MD7YM4YB5;
+				INFOPLIST_FILE = qinoaTV/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = bundle.qinoa;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 10.0;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1620,6 +1813,15 @@
 			buildConfigurations = (
 				69512B251F7D2EE400BF5A89 /* Debug */,
 				69512B261F7D2EE400BF5A89 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		69976B7320AF33F800A035C4 /* Build configuration list for PBXNativeTarget "qinoaTV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				69976B7120AF33F800A035C4 /* Debug */,
+				69976B7220AF33F800A035C4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

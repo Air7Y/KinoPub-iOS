@@ -1,11 +1,14 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
+use_frameworks!
+inhibit_all_warnings!
+
+pod 'Alamofire'
+
+pod 'SwiftyBeaver'
 
 target 'qinoa' do
+    platform :ios, '9.0'
 
-  use_frameworks!
-  inhibit_all_warnings!
-  pod 'Alamofire'
   pod 'AlamofireObjectMapper'
   pod 'AlamofireNetworkActivityLogger'
   pod 'AlamofireImage'
@@ -39,9 +42,13 @@ target 'qinoa' do
   pod 'Reveal-SDK', :configurations => ['Debug']
   pod 'R.swift'
   pod 'Mixpanel'
-  pod 'SwiftyBeaver'
+  
   pod 'Kingfisher'
 
+end
+
+target 'qinoaTV' do
+    platform :tvos, '10.0'
 end
 
 post_install do |installer|
