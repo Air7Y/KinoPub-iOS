@@ -1934,6 +1934,7 @@
 		8B77E060A0223A6F9F6FF4AB42D4781E /* NSThread+MPHelpers.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSThread+MPHelpers.m"; path = "Mixpanel/NSThread+MPHelpers.m"; sourceTree = "<group>"; };
 		8BC1E43A65B21F60488255D875BC74AF /* Alamofire.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Alamofire.swift; path = Source/Alamofire.swift; sourceTree = "<group>"; };
 		8C15793FCFEF6A4DFD37237C32E53DEE /* UIButtonExtensions.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = UIButtonExtensions.swift; path = Sources/Extensions/UIKit/UIButtonExtensions.swift; sourceTree = "<group>"; };
+		8C65FD543326174213ADEFF52DE79383 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "RevealServer-15/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		8D2882E0026E0C3CF5408CD96C25F0C6 /* SwifterSwift-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "SwifterSwift-umbrella.h"; sourceTree = "<group>"; };
 		8D3E924A00B9DCF3F96CF8D0B4A8AED3 /* ObjectMapper.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; name = ObjectMapper.framework; path = ObjectMapper.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8D98FDB778019BD6162CF4D043221759 /* AnimatedImageView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = AnimatedImageView.swift; path = Sources/AnimatedImageView.swift; sourceTree = "<group>"; };
@@ -1983,7 +1984,6 @@
 		975B4C958B20536920E538053B73AAF2 /* MPSwizzler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = MPSwizzler.m; path = Mixpanel/MPSwizzler.m; sourceTree = "<group>"; };
 		976CB0D671928CB421A25AC0F863C77E /* LKAlertController-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "LKAlertController-prefix.pch"; sourceTree = "<group>"; };
 		97B01232DDCE8FC5142247D3337A1592 /* Pods-qinoa-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-qinoa-dummy.m"; sourceTree = "<group>"; };
-		97B14EEC06A7FAFADA29EE41D6DB106E /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RevealServer.framework; path = "RevealServer-14/iOS/RevealServer.framework"; sourceTree = "<group>"; };
 		98E2DB3CA2E3B23A026CA8E8CEFA0A67 /* placeholder-image.png */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = image.png; name = "placeholder-image.png"; path = "Mixpanel/Images/placeholder-image.png"; sourceTree = "<group>"; };
 		98FE78699FAC763B4F9212A3AC5B3EB0 /* SnapKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = SnapKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		99040502494FF6D77DB792657C78E9B6 /* RowProtocols.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = RowProtocols.swift; path = Source/Core/RowProtocols.swift; sourceTree = "<group>"; };
@@ -2832,6 +2832,14 @@
 			name = Foundation;
 			sourceTree = "<group>";
 		};
+		0AC11B6F34D8A1AA4D8B15E759592EB8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8C65FD543326174213ADEFF52DE79383 /* RevealServer.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		0C00D3A711F409220D7E5BA64477E53C /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -3085,14 +3093,6 @@
 			);
 			name = LKAlertController;
 			path = LKAlertController;
-			sourceTree = "<group>";
-		};
-		34F5F7C6F0078FCE84318FB2967999A3 /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				97B14EEC06A7FAFADA29EE41D6DB106E /* RevealServer.framework */,
-			);
-			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		38869256B35F64966B0BD35B3987FBAC /* TMDBSwift */ = {
@@ -3361,7 +3361,7 @@
 		58A01A5D956B338861D8218BA15D09AC /* Reveal-SDK */ = {
 			isa = PBXGroup;
 			children = (
-				34F5F7C6F0078FCE84318FB2967999A3 /* Frameworks */,
+				0AC11B6F34D8A1AA4D8B15E759592EB8 /* Frameworks */,
 			);
 			name = "Reveal-SDK";
 			path = "Reveal-SDK";

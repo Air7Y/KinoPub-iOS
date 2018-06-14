@@ -1,6 +1,4 @@
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '9.0'
-platform :tvos, '10.0'
 use_frameworks!
 inhibit_all_warnings!
 
@@ -9,6 +7,7 @@ pod 'Alamofire'
 pod 'SwiftyBeaver'
 
 target 'qinoa' do
+    platform :ios, '9.0'
 
   pod 'AlamofireObjectMapper'
   pod 'AlamofireNetworkActivityLogger'
@@ -49,7 +48,7 @@ target 'qinoa' do
 end
 
 target 'qinoaTV' do
-    
+    platform :tvos, '10.0'
 end
 
 post_install do |installer|
