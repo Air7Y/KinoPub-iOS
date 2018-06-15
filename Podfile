@@ -33,6 +33,7 @@ target 'qinoa' do
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
   pod 'Firebase/RemoteConfig'
+  pod 'Firebase/Performance'
   pod 'AZSearchView', :git => 'https://github.com/hintoz/AZSearchView.git'
   pod 'NDYoutubePlayer', :git => 'https://github.com/hintoz/NDYoutubePlayer.git'
   pod 'EasyAbout'

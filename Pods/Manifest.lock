@@ -26,6 +26,9 @@ PODS:
   - Firebase/Messaging (5.2.0):
     - Firebase/CoreOnly
     - FirebaseMessaging (= 3.0.2)
+  - Firebase/Performance (5.2.0):
+    - Firebase/Core
+    - FirebasePerformance (= 2.0.0)
   - Firebase/RemoteConfig (5.2.0):
     - Firebase/Core
     - FirebaseRemoteConfig (= 3.0.0)
@@ -46,6 +49,15 @@ PODS:
     - FirebaseInstanceID (~> 3.0)
     - GoogleToolboxForMac/Logger (~> 2.1)
     - Protobuf (~> 3.1)
+  - FirebasePerformance (2.0.0):
+    - FirebaseAnalytics (~> 5.0)
+    - FirebaseInstanceID (~> 3.0)
+    - FirebaseSwizzlingUtilities/ISASwizzling (~> 2.0)
+    - FirebaseSwizzlingUtilities/MethodSwizzling (~> 2.0)
+    - GoogleToolboxForMac/Logger (~> 2.1)
+    - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
+    - GTMSessionFetcher/Core (~> 1.1)
+    - Protobuf (~> 3.5)
   - FirebaseRemoteConfig (3.0.0):
     - FirebaseABTesting (~> 2.0)
     - FirebaseAnalytics (~> 5.0)
@@ -53,12 +65,16 @@ PODS:
     - FirebaseInstanceID (~> 3.0)
     - "GoogleToolboxForMac/NSData+zlib (~> 2.1)"
     - Protobuf (~> 3.5)
+  - FirebaseSwizzlingUtilities/ISASwizzling (2.0.0)
+  - FirebaseSwizzlingUtilities/MethodSwizzling (2.0.0):
+    - FirebaseCore (~> 5.0)
   - GoogleToolboxForMac/Defines (2.1.4)
   - GoogleToolboxForMac/Logger (2.1.4):
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - "GoogleToolboxForMac/NSData+zlib (2.1.4)":
     - GoogleToolboxForMac/Defines (= 2.1.4)
   - GradientLoadingBar (1.1.11)
+  - GTMSessionFetcher/Core (1.1.15)
   - InteractiveSideMenu (2.3)
   - KeychainSwift (11.0.0)
   - Kingfisher (4.8.0)
@@ -121,6 +137,7 @@ DEPENDENCIES:
   - Fabric
   - Firebase/Core
   - Firebase/Messaging
+  - Firebase/Performance
   - Firebase/RemoteConfig
   - GradientLoadingBar
   - InteractiveSideMenu
@@ -161,9 +178,12 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseInstanceID
     - FirebaseMessaging
+    - FirebasePerformance
     - FirebaseRemoteConfig
+    - FirebaseSwizzlingUtilities
     - GoogleToolboxForMac
     - GradientLoadingBar
+    - GTMSessionFetcher
     - InteractiveSideMenu
     - KeychainSwift
     - Kingfisher
@@ -235,9 +255,12 @@ SPEC CHECKSUMS:
   FirebaseCore: a3c87242451633fff8490183898075ce77d168d2
   FirebaseInstanceID: 05d779cbb97bd5bd5c51a38a903fc9cfe1b2454a
   FirebaseMessaging: 6894b8fe0a0cf26c3b13dad729f1131654ae0bdb
+  FirebasePerformance: 1ec6c40e5dad2543ca4c4f25d15168bde6322c2c
   FirebaseRemoteConfig: 3c57e4644bd6976b671ae0b725cd709f198bd1f5
+  FirebaseSwizzlingUtilities: 6c22677c50d0b6f5f0dc637c1233f13694a3003f
   GoogleToolboxForMac: 91c824d21e85b31c2aae9bb011c5027c9b4e738f
   GradientLoadingBar: d06c05c4732c6a1404d47f33342de8fb3062d5e2
+  GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   InteractiveSideMenu: d503a508c6d62a4d5d4372d9fb9e1795637a8e45
   KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
   Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
@@ -262,6 +285,6 @@ SPEC CHECKSUMS:
   SwiftyUserDefaults: 3d273b1739b68ada3145dc754a70ec775bc5c8be
   TMDBSwift: d3dacaa215b99df4e535962b10bf2f3845f25b2e
 
-PODFILE CHECKSUM: 8a3fc046b80cb4f3b4556fa711f54f75d68eb691
+PODFILE CHECKSUM: 91305a67789503c9c64da4f6b23933e0f10c9cba
 
 COCOAPODS: 1.5.3
