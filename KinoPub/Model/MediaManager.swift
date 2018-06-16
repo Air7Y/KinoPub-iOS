@@ -73,6 +73,11 @@ class MediaManager {
     }
     
     func playVideo(mediaItems: [MediaItem], userinfo: [AnyHashable : Any]? = nil, isLive: Bool = false) {
+        guard playerCustom == nil else {
+            playerCustom?.replaceToPlayWithURL((mediaItems.first?.url)!, title: mediaItems.first?.title)
+            playerCustom?.toFull()
+            return
+        }
         releaseNativePlayer()
         releasePlayer()
         self.isLive = isLive
