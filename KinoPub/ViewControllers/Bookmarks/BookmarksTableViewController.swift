@@ -2,30 +2,35 @@ import UIKit
 import CustomLoader
 import LKAlertController
 import InteractiveSideMenu
+import UIEmptyState
 
 class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
     let viewModel = Container.ViewModel.bookmarks()
     
     let control = UIRefreshControl()
+    var tableViewFooter: UIView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        viewModel.delegate = self
-        
         beginLoad()
+        configView()
+        configHint()
+        loadContent()
+        configEmptyTable()
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func configView() {
+        viewModel.delegate = self
+        title = "Закладки"
         
         tableView.register(UINib(nibName: String(describing: BookmarkTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: BookmarkTableViewCell.self))
-        
-        title = "Закладки"
         tableView.backgroundColor = .kpBackground
-//        let hintsView: HintsView = HintsView.fromNib()
-//        hintsView.setHint(text: "Для удаления папки просто проведите по ней справа налево. Также вы можете переносить фильмы из одной папки в другие.")
-//        tableView.tableFooterView = hintsView
-//        tableView.tableFooterView = UIView(frame: CGRect.zero)
-        configHint()
-
-        loadContent()
+        tableView.tintColor = UIColor.kpOffWhite
         
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
@@ -45,14 +50,15 @@ class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
             tableView?.addSubview(control)
         }
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    func configEmptyTable() {
+        emptyStateDataSource = self
+        emptyStateDelegate = self
+        reloadEmptyStateForTableView(tableView)
     }
     
     func configHint() {
-        let tableViewFooter = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 66))
+        tableViewFooter = UIView(frame: CGRect(x: 0, y: 0, width: tableView.frame.width, height: 66))
         tableViewFooter.backgroundColor = .clear
         let label = UILabel(frame: CGRect(x: 15, y: 10, width: tableView.frame.width - 30, height: 46))
         label.font = label.font.withSize(12)
@@ -63,12 +69,11 @@ class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
         
         tableViewFooter.addSubview(label)
         
-        tableView.tableFooterView  = tableViewFooter
+//        tableView.tableFooterView = tableViewFooter
     }
     
     func loadContent() {
         viewModel.loadBookmarks { [weak self] (_) in
-            self?.tableView.reloadData()
             self?.endLoad()
         }
     }
@@ -76,7 +81,6 @@ class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
     @objc func refresh() {
         beginLoad()
         loadContent()
-        control.endRefreshing()
     }
     
     func beginLoad() {
@@ -84,6 +88,10 @@ class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
     }
     
     func endLoad() {
+        tableView.reloadData()
+        reloadEmptyStateForTableView(tableView)
+        tableView.tableFooterView = viewModel.bookmarks.isEmpty ? UIView(frame: .zero) : tableViewFooter
+        control.endRefreshing()
 //        view.removeLoadingViews(animated: true)
         
     }
@@ -109,6 +117,7 @@ class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
     }
     
     @IBAction func addFolderButtonTapped(_ sender: UIBarButtonItem) {
+        Helper.hapticGenerate(style: .medium)
         showNewFolderAlert()
     }
     
@@ -175,6 +184,41 @@ extension BookmarksTableViewController: BookmarksModelDelegate {
     }
     func didAddedBookmarks() {
         refresh()
+    }
+}
+
+extension BookmarksTableViewController: UIEmptyStateDelegate, UIEmptyStateDataSource {
+    // MARK: - Empty State Data Source
+    var emptyStateImage: UIImage? {
+        return UIImage(named: "Folder")
+    }
+    
+    var emptyStateTitle: NSAttributedString {
+        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite,
+                     NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)]
+        return NSAttributedString(string: "Здесь будут отображаться ваши папки. Создайте первую, нажав на кнопку ниже.", attributes: attrs)
+    }
+    
+    var emptyStateButtonTitle: NSAttributedString? {
+        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.black,
+                     NSAttributedStringKey.font: UIFont.init(name: "UniSansSemiBold", size: 12) ?? UIFont.systemFont(ofSize: 12)]
+        return NSAttributedString(string: "СОЗДАТЬ", attributes: attrs)
+    }
+    
+    var emptyStateButtonSize: CGSize? {
+        return CGSize(width: 200, height: 36)
+    }
+    
+    // MARK: - Empty State Delegate
+    func emptyStateViewWillShow(view: UIView) {
+        guard let emptyView = view as? UIEmptyStateView else { return }
+        emptyView.button.layer.cornerRadius = 4
+        emptyView.button.layer.backgroundColor = UIColor.kpMarigold.cgColor
+    }
+    
+    func emptyStatebuttonWasTapped(button: UIButton) {
+        Helper.hapticGenerate(style: .medium)
+        showNewFolderAlert()
     }
 }
 
