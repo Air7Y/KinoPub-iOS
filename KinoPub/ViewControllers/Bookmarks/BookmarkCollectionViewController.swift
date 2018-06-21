@@ -105,8 +105,20 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
         endLoad()
     }
     
-    func showBookmarkFolders(_ indexPath: IndexPath) {
+    func loadItemFolders(_ indexPath: IndexPath) {
         let cell = collectionView?.cellForItem(at: indexPath) as! ItemCollectionViewCell
+        guard let itemId = viewModel.items[indexPath.row].id else { return }
+        _ = LoadingView.system(withStyle: .white).show(inView: cell.moveFromBookmarkButton)
+        viewModel.getItemFolders(item: itemId.string) { [weak self] (bookmarks) in
+            defer { cell.moveFromBookmarkButton.removeLoadingViews(animated: true) }
+            guard let folders = bookmarks else { return }
+            self?.showBookmarkFolders(indexPath, folders: folders)
+        }
+    }
+    
+    func showBookmarkFolders(_ indexPath: IndexPath, folders: [Bookmarks]) {
+        let cell = collectionView?.cellForItem(at: indexPath) as! ItemCollectionViewCell
+        guard let itemId = viewModel.items[indexPath.row].id else { return }
         _ = LoadingView.system(withStyle: .white).show(inView: cell.moveFromBookmarkButton)
         viewModel.loadBookmarks { [weak self] (bookmarks) in
             guard let strongSelf = self else { return }
@@ -114,19 +126,18 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
                 Helper.hapticGenerate(style: .medium)
                 cell.moveFromBookmarkButton.removeLoadingViews(animated: true)
             }
-            guard let bookmarks = bookmarks else { return }
+            guard var bookmarks = bookmarks else { return }
+            bookmarks = bookmarks.filter { !folders.contains($0) }
             guard !bookmarks.isEmpty else {
                 strongSelf.showNewFolderAlert(indexPath)
                 return
             }
-            guard let itemId = strongSelf.viewModel.items[indexPath.row].id else { return }
             
             let action = ActionSheet(message: "Выберите папку").tint(.kpBlack)
             action.addAction("+ Новая папка", style: .default, handler: { (_) in
                 strongSelf.showNewFolderAlert(indexPath)
             })
             for folder in bookmarks {
-                guard folder.title != strongSelf.title else { continue }
                 action.addAction(folder.title!, style: .default, handler: { (_) in
                     strongSelf.viewModel.toggleItemToFolder(item: itemId.string, folder: folder.id.string)
                     strongSelf.removeFromBookmark(item: strongSelf.viewModel.items[indexPath.row], indexPath: indexPath)
@@ -201,7 +212,7 @@ extension BookmarkCollectionViewController: ItemCollectionViewCellDelegate {
     func didPressMoveButton(_ item: Item) {
         guard let index = viewModel.items.index(where: { $0 === item }) else { return }
         let indexPath = IndexPath(row: index, section: 0)
-        showBookmarkFolders(indexPath)
+        loadItemFolders(indexPath)
     }
 }
 
