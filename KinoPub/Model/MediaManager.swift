@@ -6,13 +6,7 @@ import AVFoundation
 import MediaPlayer
 import SubtleVolume
 import NDYoutubePlayer
-
 import AVKit
-
-protocol MediaManagerDelegate: class {
-    func playDidFinish(model: MediaManager)
-}
-
 
 class MediaManager {
     fileprivate let logViewsManager = Container.Manager.logViews
@@ -27,8 +21,6 @@ class MediaManager {
     var time: TimeInterval = 0
     var volume: SubtleVolume?
     var isLive = false
-
-    weak var delegate: MediaManagerDelegate?
 
     static let shared = MediaManager()
     init() {
@@ -50,8 +42,8 @@ class MediaManager {
     }
     
     private func addPlayerItemTimeObserver(){
-        self.timeObserver = self.playerNative?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(Config.shared.delayViewMarkTime, CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main, using: { time in
-            NotificationCenter.default.post(name: .DTSPlayerPlaybackTimeDidChange, object: self, userInfo:nil)
+        timeObserver = playerNative?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(Config.shared.delayViewMarkTime, CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main, using: { time in
+            NotificationCenter.default.post(name: .DTSPlayerPlaybackTimeDidChange, object: self, userInfo: nil)
         })
     }
     
@@ -60,8 +52,7 @@ class MediaManager {
         releasePlayer()
         NDYoutubeClient.shared.getVideoWithIdentifier(videoIdentifier: id) { [weak self] (video, error) in
             guard let video = video else {
-                Alert(title: "Ошибка", message: "Трейлер не найден. \n По возможности сообщите в стол заказов в Telegram.")
-                .showOkay()
+                Alert(title: "Ошибка", message: "Трейлер не найден. \n По возможности сообщите в стол заказов в Telegram.").showOkay()
                 return
             }
             guard let streamURLs = video.streamURLs else { return }
@@ -73,6 +64,11 @@ class MediaManager {
     }
     
     func playVideo(mediaItems: [MediaItem], userinfo: [AnyHashable : Any]? = nil, isLive: Bool = false) {
+        guard playerCustom == nil else {
+            playerCustom?.replaceToPlayWithURL((mediaItems.first?.url)!, title: mediaItems.first?.title)
+            playerCustom?.toFull()
+            return
+        }
         releaseNativePlayer()
         releasePlayer()
         self.isLive = isLive
@@ -88,13 +84,11 @@ class MediaManager {
     // Native Player
     func playWithNativePlayer(mediaItems: [AVPlayerItem], userinfo: [AnyHashable : Any]? = nil) {
         guard let activityViewController = DTSPlayerUtils.activityViewController() else { return }
-//        playerNative = AVPlayer(url: mediaItem.url!)
-        
         playerNative = AVQueuePlayer(items: mediaItems)
         
         playerNative?.allowsExternalPlayback = true
         playerNative?.usesExternalPlaybackWhileExternalScreenIsActive = true
-        self.time = Date().timeIntervalSinceReferenceDate
+        time = Date().timeIntervalSinceReferenceDate
         !isLive ? addPlayerItemTimeObserver() : nil
         fullScreenViewController = DTSPlayerFullScreenViewController()
         fullScreenViewController?.player = playerNative
@@ -116,34 +110,28 @@ class MediaManager {
     
     //Custom Player
     func playWithCustomPlayer(mediaItems: [MediaItem], userinfo: [AnyHashable : Any]? = nil ) {
-        self.playerCustom = EZPlayer()
+        playerCustom = EZPlayer()
 
-        self.playerCustom!.backButtonBlock = { fromDisplayMode in
-            if fromDisplayMode == .embedded {
-                self.releasePlayer()
-            } else if fromDisplayMode == .fullscreen {
-                    self.releasePlayer()
-
-            } else if fromDisplayMode == .float {
-                self.releasePlayer()
+        playerCustom!.backButtonBlock = { [weak self] fromDisplayMode in
+            switch fromDisplayMode {
+            case .embedded, .fullscreen, .float:
+                self?.releasePlayer()
+            default:
+                break
             }
-
         }
         
         guard let url = mediaItems.first?.url else { return }
-        self.playerCustom!.playWithURL(url, embeddedContentView: nil, title: mediaItems.first?.title)
+        playerCustom!.playWithURL(url, embeddedContentView: nil, title: mediaItems.first?.title)
 
-        self.playerCustom!.fullScreenPreferredStatusBarStyle = .lightContent
+        playerCustom!.fullScreenPreferredStatusBarStyle = .lightContent
 
         updateDisplayFromDefaults()
-
         configVolumeView()
     }
     
     @objc func playPauseToggle() {
-        guard let player = self.playerCustom else {
-            return
-        }
+        guard let player = playerCustom else { return }
         if player.isPlaying {
             player.pause()
             changeMarkTime(force: true)
@@ -153,30 +141,28 @@ class MediaManager {
     }
 
     func releasePlayer() {
-        self.playerCustom?.stop()
-        self.playerCustom?.view.removeFromSuperview()
-        self.playerCustom = nil
+        playerCustom?.stop()
+        playerCustom?.view.removeFromSuperview()
+        playerCustom = nil
         if playerNative == nil {
-            self.mediaItems.removeAll()
+            mediaItems.removeAll()
         }
-        self.fixReadyToPlay = false
-        self.time = 0
+        fixReadyToPlay = false
+        time = 0
     }
     
     func releaseNativePlayer() {
-        if self.fullScreenViewController != nil {
-            self.fullScreenViewController?.dismiss(animated: true, completion: {
-                
-            })
-            self.playerNative?.pause()
-            self.mediaItems.removeAll()
-            self.playerItems.removeAll()
-            self.playerNative = nil
-            if self.timeObserver != nil{
-                self.playerNative?.removeTimeObserver(self.timeObserver!)
-                self.timeObserver = nil
+        if fullScreenViewController != nil {
+            fullScreenViewController?.dismiss(animated: true, completion: nil)
+            playerNative?.pause()
+            mediaItems.removeAll()
+            playerItems.removeAll()
+            playerNative = nil
+            if timeObserver != nil {
+                playerNative?.removeTimeObserver(timeObserver!)
+                timeObserver = nil
             }
-            self.time = 0
+            time = 0
         }
     }
 
@@ -193,25 +179,20 @@ class MediaManager {
         guard !isLive else { return }
         guard Config.shared.logViews else { return }
         let _time = Date().timeIntervalSinceReferenceDate
-        guard _time - self.time >= Config.shared.delayViewMarkTime || force else { return }
+        guard _time - time >= Config.shared.delayViewMarkTime || force else { return }
         if let item = playerNative?.currentItem, let index = playerItems.index(of: item) {
             if let id = mediaItems[index].id, let video = mediaItems[index].video {
                 logViewsManager.changeMarktime(id: id, time: (playerNative?.currentTime)!, video: video, season: mediaItems[index].season)
-                self.time = Date().timeIntervalSinceReferenceDate
+                time = Date().timeIntervalSinceReferenceDate
             }
         } else if playerCustom != nil, let id = mediaItems[0].id, let video = mediaItems[0].video {
             logViewsManager.changeMarktime(id: id, time: (playerCustom?.currentTime)!, video: video, season: mediaItems[0].season)
-            self.time = Date().timeIntervalSinceReferenceDate
+            time = Date().timeIntervalSinceReferenceDate
         }
-//        if let id = mediaItem?.id, let video = mediaItem?.video {
-//            logViewsManager.changeMarktime(id: id, time: playerCustom?.currentTime ?? (playerNative?.currentTime)!, video: video, season: mediaItem?.season)
-//            self.time = Date().timeIntervalSinceReferenceDate
-//        }
     }
 
     @objc func updateDisplayFromDefaults() {
-
-        self.playerCustom?.canSlideProgress = Defaults[.canSlideProgress]
+        playerCustom?.canSlideProgress = Defaults[.canSlideProgress]
 
         var left: EZPlayerSlideTrigger = .volume
         var right: EZPlayerSlideTrigger = .brightness
@@ -230,38 +211,36 @@ class MediaManager {
         default:  right = .brightness
         }
 
-        self.playerCustom?.slideTrigger = (left:left, right:right)
-
+        playerCustom?.slideTrigger = (left:left, right:right)
     }
 
     @objc  func playerDidPlayToEnd(_ notifiaction: Notification) {
         changeMarkTime(force: true)
         self.releasePlayer()
         if let item = playerNative?.currentItem, let index = playerItems.index(of: item), index >= playerItems.count - 1 {
-            self.releaseNativePlayer()
+            releaseNativePlayer()
         }
         NotificationCenter.default.post(name: .PlayDidFinish, object: self, userInfo:nil)
     }
     
     @objc  func playerDidClosed(_ notifiaction: Notification) {
-//        self.releaseNativePlayer()
         changeMarkTime(force: true)
         NotificationCenter.default.post(name: .PlayDidFinish, object: self, userInfo:nil)
     }
 
     @objc func playerTimeDidChange(_ notifiaction: Notification) {
-            changeMarkTime()
+        changeMarkTime()
     }
 
     @objc func playerStatusDidChange(_ notifiaction: Notification) {
+        guard !fixReadyToPlay else { return }
         if let item = notifiaction.object as? EZPlayer {
-            if item.state == .readyToPlay, let timeToSeek = mediaItems.first?.watchingTime, !fixReadyToPlay {
+            if item.state == .readyToPlay, let timeToSeek = mediaItems.first?.watchingTime {
                 fixReadyToPlay = true
-                Alert(message: "Продолжить с \(timeToSeek.timeIntervalAsString("hh:mm:ss"))?")
-                    .tint(.kpBlack)
+                Alert(message: "Продолжить с \(timeToSeek.timeIntervalAsString("hh:mm:ss"))?").tint(.kpBlack)
                 .addAction("Нет", style: .cancel)
-                .addAction("Да", style: .default, handler: { (_) in
-                    self.playerCustom?.seek(to: timeToSeek)
+                .addAction("Да", style: .default, handler: { [weak self] (_) in
+                    self?.playerCustom?.seek(to: timeToSeek)
                 }).show(animated: true)
             }
         }
