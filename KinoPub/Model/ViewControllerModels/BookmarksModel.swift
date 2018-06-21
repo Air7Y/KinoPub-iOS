@@ -71,7 +71,7 @@ class BookmarksModel {
             if let responseData = response, responseData.status == 200 {
                 Helper.showSuccessStatusBarBanner("Папка \"\(title)\" успешно создана")
                 strongSelf.delegate?.didUpdateBookmarks(model: strongSelf)
-                completed!(responseData.folder)
+                completed?(responseData.folder)
             } else {
                 Helper.showErrorBanner("Невозможно создать папку. \(error?.localizedDescription ?? "")")
             }

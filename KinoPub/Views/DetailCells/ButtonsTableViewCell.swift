@@ -87,6 +87,9 @@ class ButtonsTableViewCell: UITableViewCell {
                     strongSelf.bookmarksModel.toggleItemToFolder(item: itemId.string, folder: folder.id.string)
                 })
             }
+            action.addAction("+ Новая папка", style: .default, handler: { (_) in
+                strongSelf.showNewFolderAlert()
+            })
             action.addAction("Отмена", style: .cancel)
             action.setPresentingSource(strongSelf.bookmarkButton)
             action.show()
