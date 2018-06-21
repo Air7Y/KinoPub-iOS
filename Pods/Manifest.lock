@@ -119,6 +119,7 @@ PODS:
   - SwiftyBeaver (1.6.0)
   - SwiftyUserDefaults (3.0.1)
   - TMDBSwift (0.4.3.1)
+  - UIEmptyState (3.1.2)
 
 DEPENDENCIES:
   - Alamofire
@@ -157,6 +158,7 @@ DEPENDENCIES:
   - SwiftyBeaver
   - SwiftyUserDefaults
   - TMDBSwift (from `https://github.com/gkye/TheMovieDatabaseSwiftWrapper.git`)
+  - UIEmptyState
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -204,6 +206,7 @@ SPEC REPOS:
     - SwifterSwift
     - SwiftyBeaver
     - SwiftyUserDefaults
+    - UIEmptyState
 
 EXTERNAL SOURCES:
   AZSearchView:
@@ -284,7 +287,8 @@ SPEC CHECKSUMS:
   SwiftyBeaver: e45759613e50b522b0e6f53b1f0f14389b45ca34
   SwiftyUserDefaults: 3d273b1739b68ada3145dc754a70ec775bc5c8be
   TMDBSwift: d3dacaa215b99df4e535962b10bf2f3845f25b2e
+  UIEmptyState: e6331312fb788880575701cb9c6230e5d2eaf6b0
 
-PODFILE CHECKSUM: 91305a67789503c9c64da4f6b23933e0f10c9cba
+PODFILE CHECKSUM: a3d52606b03291760ee03dabe29c7104571a9f29
 
 COCOAPODS: 1.5.3

@@ -39,6 +39,7 @@ target 'qinoa' do
   pod 'EasyAbout'
   pod 'CircleProgressView'
   pod 'GradientLoadingBar'
+  pod 'UIEmptyState'
   
   pod 'Reveal-SDK', :configurations => ['Debug']
   pod 'R.swift'
