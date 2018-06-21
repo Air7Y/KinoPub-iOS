@@ -75,6 +75,9 @@ class ButtonsTableViewCell: UITableViewCell {
             guard let itemId = strongSelf.model.item.id else { return }
             
             let action = ActionSheet(message: "Выберите папку").tint(.kpBlack)
+            action.addAction("+ Новая папка", style: .default, handler: { (_) in
+                strongSelf.showNewFolderAlert()
+            })
             for folder in bookmarks {
                 guard var folderTitle = folder.title else { return }
                 guard let itemFolders = strongSelf.model.item.bookmarks else { return }
@@ -87,9 +90,6 @@ class ButtonsTableViewCell: UITableViewCell {
                     strongSelf.bookmarksModel.toggleItemToFolder(item: itemId.string, folder: folder.id.string)
                 })
             }
-            action.addAction("+ Новая папка", style: .default, handler: { (_) in
-                strongSelf.showNewFolderAlert()
-            })
             action.addAction("Отмена", style: .cancel)
             action.setPresentingSource(strongSelf.bookmarkButton)
             action.show()
