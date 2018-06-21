@@ -19,7 +19,7 @@ target 'qinoa' do
   pod 'LKAlertController'
   pod 'InteractiveSideMenu'
   pod 'SwifterSwift'
-  pod 'DGCollectionViewPaginableBehavior'
+  pod 'DGCollectionViewPaginableBehavior', :git => 'https://github.com/hintoz/collection-view-paginable-behavior.git', :branch => 'develop'
   pod 'Atributika'
   pod 'EZPlayer', :git => 'https://github.com/hintoz/EZPlayer.git'
   pod 'Letters'
