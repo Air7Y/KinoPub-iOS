@@ -67,9 +67,9 @@ class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
     }
     
     func loadContent() {
-        viewModel.loadBookmarks {
-            self.tableView.reloadData()
-            self.endLoad()
+        viewModel.loadBookmarks { [weak self] (_) in
+            self?.tableView.reloadData()
+            self?.endLoad()
         }
     }
     

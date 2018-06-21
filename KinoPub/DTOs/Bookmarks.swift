@@ -1,6 +1,26 @@
 import Foundation
 import ObjectMapper
 
+public class BookmarkResponse: Mappable {
+    
+    private struct SerializationKeys {
+        static let status = "status"
+        static let folder = "folder"
+    }
+    
+    public var status: Int!
+    public var folder: Bookmarks?
+    
+    public required init?(map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        status <- map[SerializationKeys.status]
+        folder <- map[SerializationKeys.folder]
+    }
+}
+
 public class Bookmarks: Mappable {
 
   // MARK: Declaration for string constants to be used to decode and also serialize.
@@ -34,6 +54,12 @@ public class Bookmarks: Mappable {
     created <- map[SerializationKeys.created]
     count <- map[SerializationKeys.count]
   }
+}
+
+extension Bookmarks: Equatable {
+    public static func == (lhs: Bookmarks, rhs: Bookmarks) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 
 public class BookmarksToggle: Mappable {

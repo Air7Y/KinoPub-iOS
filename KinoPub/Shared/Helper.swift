@@ -1,4 +1,6 @@
 import UIKit
+import LKAlertController
+import NotificationBannerSwift
 
 class Helper {
     /* Description: This function generate alert dialog for empty message by passing message and
@@ -27,5 +29,20 @@ class Helper {
             feedbackGenerator.prepare()
             feedbackGenerator.impactOccurred()
         }
+    }
+    
+    static func showError(_ message: String) {
+        Alert(title: "Ошибка", message: message).tint(.kpBlack).showOkay()
+    }
+    
+    static func showSuccessStatusBarBanner(_ message: String) {
+        let banner = StatusBarNotificationBanner(title: message, style: .success)
+        banner.duration = 1
+        banner.show(queuePosition: .front)
+    }
+    
+    static func showErrorBanner(_ message: String) {
+        let banner = NotificationBanner(title: "Ошибка", subtitle: message, style: .danger)
+        banner.show(queuePosition: .front)
     }
 }
