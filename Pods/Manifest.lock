@@ -119,6 +119,7 @@ PODS:
   - SwiftyBeaver (1.6.0)
   - SwiftyUserDefaults (3.0.1)
   - TMDBSwift (0.4.3.1)
+  - UIEmptyState (3.1.2)
 
 DEPENDENCIES:
   - Alamofire
@@ -130,7 +131,7 @@ DEPENDENCIES:
   - CircleProgressView
   - Crashlytics
   - CustomLoader
-  - DGCollectionViewPaginableBehavior
+  - DGCollectionViewPaginableBehavior (from `https://github.com/hintoz/collection-view-paginable-behavior.git`, branch `develop`)
   - EasyAbout
   - Eureka
   - EZPlayer (from `https://github.com/hintoz/EZPlayer.git`)
@@ -157,6 +158,7 @@ DEPENDENCIES:
   - SwiftyBeaver
   - SwiftyUserDefaults
   - TMDBSwift (from `https://github.com/gkye/TheMovieDatabaseSwiftWrapper.git`)
+  - UIEmptyState
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
@@ -168,7 +170,6 @@ SPEC REPOS:
     - CircleProgressView
     - Crashlytics
     - CustomLoader
-    - DGCollectionViewPaginableBehavior
     - EasyAbout
     - Eureka
     - Fabric
@@ -204,10 +205,14 @@ SPEC REPOS:
     - SwifterSwift
     - SwiftyBeaver
     - SwiftyUserDefaults
+    - UIEmptyState
 
 EXTERNAL SOURCES:
   AZSearchView:
     :git: https://github.com/hintoz/AZSearchView.git
+  DGCollectionViewPaginableBehavior:
+    :branch: develop
+    :git: https://github.com/hintoz/collection-view-paginable-behavior.git
   EZPlayer:
     :git: https://github.com/hintoz/EZPlayer.git
   NDYoutubePlayer:
@@ -221,6 +226,9 @@ CHECKOUT OPTIONS:
   AZSearchView:
     :commit: c4fe61049d3f234f0ca701834c110020812545f3
     :git: https://github.com/hintoz/AZSearchView.git
+  DGCollectionViewPaginableBehavior:
+    :commit: 1d32e9fd707ab884a5ccecc5915b76f984c01dfc
+    :git: https://github.com/hintoz/collection-view-paginable-behavior.git
   EZPlayer:
     :commit: e5885c7553f81bddf9015b1ce8538688d07fea08
     :git: https://github.com/hintoz/EZPlayer.git
@@ -244,7 +252,7 @@ SPEC CHECKSUMS:
   CircleProgressView: 66e4d663a2bc7a9086e37b518868be923cd0a23a
   Crashlytics: 0360624eea1c978a743feddb2fb1ef8b37fb7a0d
   CustomLoader: 6f1688352f81400eed9aa801067302ef3f7b6a3c
-  DGCollectionViewPaginableBehavior: be97bc2177b22e4afa1028ad39d376dc1b6bc940
+  DGCollectionViewPaginableBehavior: 254e6747b0cd92f87798c4f0f35d233c6e49ec2e
   EasyAbout: cf6b9fa955715646ef3c836bf21b58230011bcb1
   Eureka: b88fb930e42c79f8c03c373d0fcdc28c1d6c50ed
   EZPlayer: 3f15911d44c3f4d8d4e1c52bd5e97c70d9481280
@@ -284,7 +292,8 @@ SPEC CHECKSUMS:
   SwiftyBeaver: e45759613e50b522b0e6f53b1f0f14389b45ca34
   SwiftyUserDefaults: 3d273b1739b68ada3145dc754a70ec775bc5c8be
   TMDBSwift: d3dacaa215b99df4e535962b10bf2f3845f25b2e
+  UIEmptyState: e6331312fb788880575701cb9c6230e5d2eaf6b0
 
-PODFILE CHECKSUM: 91305a67789503c9c64da4f6b23933e0f10c9cba
+PODFILE CHECKSUM: 0d6071cc564f2d76dfb5ef907c85e46cfc735ad1
 
 COCOAPODS: 1.5.3

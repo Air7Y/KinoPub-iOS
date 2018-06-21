@@ -39,10 +39,10 @@ class BookmarksNetworkService {
         }
     }
     
-    func createBookmarkFolder(title: String, completed: @escaping (_ responseObject: ItemResponse?, _ error: Error?) -> Void) {
+    func createBookmarkFolder(title: String, completed: @escaping (_ responseObject: BookmarkResponse?, _ error: Error?) -> Void) {
         requestFactory.createBookmarkFolderRequest(title: title)
             .validate()
-            .responseObject { (response: DataResponse<ItemResponse>) in
+            .responseObject { (response: DataResponse<BookmarkResponse>) in
                 switch response.result {
                 case .success:
                     if response.response?.statusCode == 200 {

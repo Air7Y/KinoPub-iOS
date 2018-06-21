@@ -12,14 +12,7 @@ class ButtonsTableViewCell: UITableViewCell {
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         configView()
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
     }
     
     func configView() {
@@ -37,41 +30,28 @@ class ButtonsTableViewCell: UITableViewCell {
     }
     
     func configBookmarksButton() {
-        if let _itemFolders = model.item.bookmarks, _itemFolders.count > 0 {
-            bookmarkButton.setImage(UIImage(named: "Ok"), for: .normal)
-            bookmarkButton.setTitle(_itemFolders[0].title!, for: .normal)
-            bookmarkButton.borderColor = .kpMarigold
-        } else {
-            bookmarkButton.setImage(nil, for: .normal)
-            bookmarkButton.setTitle("В закладки", for: .normal)
-            bookmarkButton.borderColor = .kpGreyishBrown
+        if let itemFolders = model.item.bookmarks {
+            bookmarkButton.setImage(itemFolders.count > 0 ? UIImage(named: "Ok") : nil, for: .normal)
+            bookmarkButton.setTitle(itemFolders.count > 0 ? itemFolders[0].title! : "В закладки", for: .normal)
+            bookmarkButton.borderColor = itemFolders.count > 0 ? .kpMarigold : .kpGreyishBrown
         }
         bookmarkButton.addTarget(self, action: #selector(showBookmarkFolders), for: .touchUpInside)
     }
     
     func configWatchlistAndDownloadButton() {
-        if model.item.type == ItemType.shows.rawValue ||
-            model.item.type == ItemType.docuserial.rawValue ||
-            model.item.type == ItemType.tvshows.rawValue {
+        switch model.item.type {
+        case ItemType.shows.rawValue, ItemType.docuserial.rawValue, ItemType.tvshows.rawValue:
             watchlistAndDownloadButton.addTarget(self, action: #selector(changeWatchlist), for: .touchUpInside)
-            if model.item.inWatchlist! {
-                watchlistAndDownloadButton.setImage(UIImage(named: "Ok"), for: .normal)
-                watchlistAndDownloadButton.setTitle("Смотрю", for: .normal)
-                watchlistAndDownloadButton.borderColor = .kpMarigold
-            } else {
-                watchlistAndDownloadButton.setImage(nil, for: .normal)
-                watchlistAndDownloadButton.setTitle("Буду смотреть", for: .normal)
-                watchlistAndDownloadButton.borderColor = .kpGreyishBrown
-            }
-        } else {
+            watchlistAndDownloadButton.setImage(model.item.inWatchlist! ? UIImage(named: "Ok") : nil, for: .normal)
+        default:
             watchlistAndDownloadButton.addTarget(self, action: #selector(showWatchAction), for: .touchUpInside)
-            if model.item.videos?.first?.watched == 0 {
-                watchlistAndDownloadButton.setTitle("Смотрю", for: .normal)
-                watchlistAndDownloadButton.borderColor = .kpMarigold
-            } else {
-                watchlistAndDownloadButton.setTitle("Буду смотреть", for: .normal)
-                watchlistAndDownloadButton.borderColor = .kpGreyishBrown
-            }
+        }
+        if model.item.videos?.first?.watched == 0 || model.item.inWatchlist! {
+            watchlistAndDownloadButton.setTitle("Смотрю", for: .normal)
+            watchlistAndDownloadButton.borderColor = .kpMarigold
+        } else {
+            watchlistAndDownloadButton.setTitle("Буду смотреть", for: .normal)
+            watchlistAndDownloadButton.borderColor = .kpGreyishBrown
         }
     }
     
@@ -83,27 +63,55 @@ class ButtonsTableViewCell: UITableViewCell {
         _ = LoadingView.system(withStyle: .white).show(inView: bookmarkButton)
         bookmarksModel.loadBookmarks { [weak self] (bookmarks) in
             guard let strongSelf = self else { return }
-            let action = ActionSheet(message: "Выберите папку").tint(.kpBlack)
+            defer {
+                Helper.hapticGenerate(style: .medium)
+                strongSelf.bookmarkButton.removeLoadingViews(animated: true)
+            }
+            guard let bookmarks = bookmarks else { return }
+            guard !bookmarks.isEmpty else {
+                strongSelf.showNewFolderAlert()
+                return
+            }
+            guard let itemId = strongSelf.model.item.id else { return }
             
-            for folder in bookmarks! {
-                var folderTitle = folder.title!
-                var style: UIAlertActionStyle = .default
-                for itemFolder in strongSelf.model.item.bookmarks! {
-                    if itemFolder.title == folder.title {
-                        folderTitle = "✓ " + folderTitle
-                        style = .destructive
-                    }
+            let action = ActionSheet(message: "Выберите папку").tint(.kpBlack)
+            action.addAction("+ Новая папка", style: .default, handler: { (_) in
+                strongSelf.showNewFolderAlert()
+            })
+            for folder in bookmarks {
+                guard var folderTitle = folder.title else { continue }
+                guard let itemFolders = strongSelf.model.item.bookmarks else { continue }
+                var style = UIAlertActionStyle.default
+                if itemFolders.contains(folder) {
+                    folderTitle = "✓ " + folderTitle
+                    style = .destructive
                 }
                 action.addAction(folderTitle, style: style, handler: { (_) in
-                    strongSelf.bookmarksModel.toggleItemToFolder(item: String((strongSelf.model.item.id)!), folder: String((folder.id)!))
+                    strongSelf.bookmarksModel.toggleItemToFolder(item: itemId.string, folder: folder.id.string)
                 })
             }
             action.addAction("Отмена", style: .cancel)
             action.setPresentingSource(strongSelf.bookmarkButton)
             action.show()
-            Helper.hapticGenerate(style: .medium)
-            strongSelf.bookmarkButton.removeLoadingViews(animated: true)
         }
+    }
+    
+    func showNewFolderAlert() {
+        var textField = UITextField()
+        textField.placeholder = "Название"
+        Alert(title: "Новая папка", message: "Придумайте короткое и ёмкое название для новой папки").tint(.kpBlack)
+            .addTextField(&textField)
+            .addAction("Отмена", style: .cancel)
+            .addAction("Создать", style: .default, preferredAction: true) { [weak self] (action) in
+                guard let strongSelf = self else { return }
+                guard let text = textField.text else { return }
+                strongSelf.bookmarksModel.createBookmarkFolder(title: text, completed: { (bookmark) in
+                    guard let itemId = strongSelf.model.item.id else { return }
+                    guard let bookmarkId = bookmark?.id else { return }
+                    strongSelf.bookmarksModel.toggleItemToFolder(item: itemId.string, folder: bookmarkId.string)
+                })
+            }
+            .show(animated: true)
     }
     
     @objc func showWatchAction() {
@@ -129,9 +137,10 @@ class ButtonsTableViewCell: UITableViewCell {
         
         guard let files = model.files else { return }
         for file in files {
-            actionVC.addAction(file.quality!, style: .default, handler: { [weak self] (_) in
+            guard let url = file.url?.http else { return }
+            actionVC.addAction(file.quality, style: .default, handler: { [weak self] (_) in
                 guard let strongSelf = self else { return }
-                strongSelf.showDownloadAction(with: (file.url?.http)!, quality: file.quality!, inView: strongSelf.watchlistAndDownloadButton)
+                strongSelf.showDownloadAction(with: url, quality: file.quality, inView: strongSelf.watchlistAndDownloadButton)
             })
         }
         actionVC.addAction("Отменить", style: .cancel)

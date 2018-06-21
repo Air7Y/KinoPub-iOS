@@ -71,7 +71,7 @@ class OldDetailViewController: UIViewController, SideMenuItemContent {
         logViewsManager.addDelegate(delegate: self)
         model.delegate = self
         bookmarksModel.delegate = self
-        mediaManager.delegate = self
+//        mediaManager.delegate = self
 
         // Pull to refresh
         control.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
@@ -690,9 +690,9 @@ extension OldDetailViewController: BookmarksModelDelegate, LogViewsManagerDelega
     }
 }
 
-extension OldDetailViewController: MediaManagerDelegate {
-    func playDidFinish(model: MediaManager) {
-        refresh()
-    }
-}
+//extension OldDetailViewController: MediaManagerDelegate {
+//    func playDidFinish(model: MediaManager) {
+//        refresh()
+//    }
+//}
 
