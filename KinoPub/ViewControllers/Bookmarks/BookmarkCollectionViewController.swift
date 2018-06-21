@@ -2,6 +2,7 @@ import UIKit
 import DGCollectionViewPaginableBehavior
 import LKAlertController
 import CustomLoader
+import UIEmptyState
 
 class BookmarkCollectionViewController: ContentCollectionViewController {
     let viewModel = Container.ViewModel.bookmarks()
@@ -13,14 +14,36 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-//        model.delegate = self
-        
-        collectionView?.backgroundColor = UIColor.kpBackground
+        configView()
+        configEmptyCollection()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+//        navigationController?.navigationBar.tintColor = UIColor.white
+    }
+    
+    override func viewWillLayoutSubviews() {
+        for cell in (collectionView?.visibleCells)! {
+            (cell as? ItemCollectionViewCell)?.editBookmarkView.isHidden = !editingFolder
+        }
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
+    func configView() {
         title = viewModel.folder?.title
+        collectionView?.backgroundColor = UIColor.kpBackground
+        collectionView?.tintColor = UIColor.kpOffWhite
         
         collectionView?.delegate = behavior
         collectionView?.dataSource = self
         behavior.delegate = self
+        behavior.options = DGCollectionViewPaginableBehavior.Options(automaticFetch: true, countPerPage: 20, animatedUpdates: true)
+        
         collectionView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
         // Pull to refresh
         control.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
@@ -32,26 +55,16 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-//        navigationController?.navigationBar.tintColor = UIColor.white
+    func configEmptyCollection() {
+        emptyStateDataSource = self
+        emptyStateDelegate = self
+        reloadEmptyStateForCollectionView(collectionView!)
     }
     
-    override func viewWillLayoutSubviews() {
-        if editingFolder {
-            for cell in (collectionView?.visibleCells)! {
-                (cell as? ItemCollectionViewCell)?.editBookmarkView.isHidden = false
-            }
-        } else {
-            for cell in (collectionView?.visibleCells)! {
-                (cell as? ItemCollectionViewCell)?.editBookmarkView.isHidden = true
-            }
-        }
-    }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    func endLoad() {
+        collectionView?.reloadData()
+        reloadEmptyStateForCollectionView(collectionView!)
+        control.endRefreshing()
     }
     
     @objc func refresh() {
@@ -60,9 +73,8 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
         refreshing = false
         behavior.reloadData()
         behavior.fetchNextData(forSection: 0) {
-            self.collectionView?.reloadData()
+            self.endLoad()
         }
-        control.endRefreshing()
     }
     
     @objc func tap(sender: UITapGestureRecognizer) {
@@ -85,10 +97,12 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
     }
     
     func removeFromBookmark(item: Item, indexPath: IndexPath) {
+        guard let itemId = item.id?.string else { return }
+        guard let folderId = viewModel.folder?.id.string else { return }
         viewModel.items.remove(at: indexPath.row)
         collectionView?.deleteItems(at: [indexPath])
-        viewModel.removeItemFromFolder(item: String((item.id)!), folder: String((viewModel.folder?.id)!))
-        collectionView?.reloadData()
+        viewModel.removeItemFromFolder(item: itemId, folder: folderId)
+        endLoad()
     }
     
     func showBookmarkFolders(_ indexPath: IndexPath) {
@@ -96,33 +110,58 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
         _ = LoadingView.system(withStyle: .white).show(inView: cell.moveFromBookmarkButton)
         viewModel.loadBookmarks { [weak self] (bookmarks) in
             guard let strongSelf = self else { return }
-            let action = ActionSheet(message: "Выберите папку").tint(.kpBlack)
+            defer {
+                Helper.hapticGenerate(style: .medium)
+                cell.moveFromBookmarkButton.removeLoadingViews(animated: true)
+            }
+            guard let bookmarks = bookmarks else { return }
+            guard !bookmarks.isEmpty else {
+                strongSelf.showNewFolderAlert(indexPath)
+                return
+            }
+            guard let itemId = strongSelf.viewModel.items[indexPath.row].id else { return }
             
-            for folder in bookmarks! {
-                if folder.title == strongSelf.title { continue }
+            let action = ActionSheet(message: "Выберите папку").tint(.kpBlack)
+            action.addAction("+ Новая папка", style: .default, handler: { (_) in
+                strongSelf.showNewFolderAlert(indexPath)
+            })
+            for folder in bookmarks {
+                guard folder.title != strongSelf.title else { continue }
                 action.addAction(folder.title!, style: .default, handler: { (_) in
-                    strongSelf.viewModel.toggleItemToFolder(item: String((strongSelf.viewModel.items[indexPath.row].id)!), folder: String((folder.id)!))
+                    strongSelf.viewModel.toggleItemToFolder(item: itemId.string, folder: folder.id.string)
                     strongSelf.removeFromBookmark(item: strongSelf.viewModel.items[indexPath.row], indexPath: indexPath)
                 })
             }
             action.addAction("Отмена", style: .cancel)
             action.setPresentingSource(cell.moveFromBookmarkButton)
             action.show()
-            Helper.hapticGenerate(style: .medium)
-            cell.moveFromBookmarkButton.removeLoadingViews(animated: true)
         }
+    }
+    
+    func showNewFolderAlert(_ indexPath: IndexPath) {
+        var textField = UITextField()
+        textField.placeholder = "Название"
+        Alert(title: "Новая папка", message: "Придумайте короткое и ёмкое название для новой папки").tint(.kpBlack)
+            .addTextField(&textField)
+            .addAction("Отмена", style: .cancel)
+            .addAction("Создать", style: .default, preferredAction: true) { [weak self] (action) in
+                guard let strongSelf = self else { return }
+                guard let text = textField.text else { return }
+                strongSelf.viewModel.createBookmarkFolder(title: text, completed: { (bookmark) in
+                    guard let itemId = strongSelf.viewModel.items[indexPath.row].id else { return }
+                    guard let bookmarkId = bookmark?.id else { return }
+                    strongSelf.viewModel.toggleItemToFolder(item: itemId.string, folder: bookmarkId.string)
+                    strongSelf.removeFromBookmark(item: strongSelf.viewModel.items[indexPath.row], indexPath: indexPath)
+                })
+            }
+            .show(animated: true)
     }
 
     @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
-        if !editingFolder {
-            editingFolder = true
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(editButtonTapped(_:)))
-            navigationItem.rightBarButtonItem?.tintColor = .kpMarigold
-        } else {
-            editingFolder = false
-            navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .edit, target: self, action: #selector(editButtonTapped(_:)))
-            navigationItem.rightBarButtonItem?.tintColor = .kpOffWhite
-        }
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: editingFolder ? .edit : .done, target: self, action: #selector(editButtonTapped(_:)))
+        navigationItem.rightBarButtonItem?.tintColor = editingFolder ? .kpOffWhite : .kpMarigold
+        editingFolder.toggle()
+        
         collectionView?.setNeedsLayout()
     }
     
@@ -149,8 +188,7 @@ extension BookmarkCollectionViewController: ItemCollectionViewCellDelegate {
     func didPressDeleteButton(_ item: Item) {
         guard let index = viewModel.items.index(where: { $0 === item }) else { return }
         let indexPath = IndexPath(row: index, section: 0)
-        Alert(message: "Удалить?")
-            .tint(.kpBlack)
+        Alert(message: "Удалить?").tint(.kpBlack)
             .addAction("Отмена", style: .cancel)
             .addAction("Да", style: .default, handler: { [weak self] (_) in
                 guard let strongSelf = self else { return }
@@ -174,7 +212,6 @@ extension BookmarkCollectionViewController {
         return 1
     }
     
-    
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of items
         return (viewModel.items.count) + (self.behavior.sectionStatus(forSection: section).done ? 0 : 1)
@@ -192,8 +229,6 @@ extension BookmarkCollectionViewController {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ItemCollectionViewCell.self), for: indexPath) as! ItemCollectionViewCell
         cell.set(item: viewModel.items[indexPath.row])
         cell.delegate = self
-//        cell.deleteFromBookmarkButton.tag = indexPath.row
-//        cell.moveFromBookmarkButton.tag = indexPath.row
         cell.tag = indexPath.row
         return cell
     }
@@ -231,11 +266,43 @@ extension BookmarkCollectionViewController: DGCollectionViewPaginableBehaviorDel
             completion(nil, count ?? 0)
         }
     }
+
+    func paginableBehavior(_ paginableBehavior: DGCollectionViewPaginableBehavior, didAutoFetchDataFor section: Int) {
+        reloadEmptyStateForCollectionView(collectionView!)
+    }
 }
 
-//extension BookmarkCollectionViewController: BookmarksModelDelegate {
-//    func didUpdateItems(model: BookmarksModel) {
-//        collectionView?.reloadData()
-//    }
-//}
-
+extension BookmarkCollectionViewController: UIEmptyStateDelegate, UIEmptyStateDataSource {
+    // MARK: - Empty State Data Source
+    var emptyStateImage: UIImage? {
+        return UIImage(named: "Folder")?.filled(withColor: UIColor.kpOffWhite)
+    }
+    
+    var emptyStateTitle: NSAttributedString {
+        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite,
+                     NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)]
+        return NSAttributedString(string: "Здесь будет храниться ваш контент, который вы добавите в папку.", attributes: attrs)
+    }
+    
+    var emptyStateButtonTitle: NSAttributedString? {
+        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.black,
+                     NSAttributedStringKey.font: UIFont.init(name: "UniSansSemiBold", size: 12) ?? UIFont.systemFont(ofSize: 12)]
+        return NSAttributedString(string: "ОБНОВИТЬ", attributes: attrs)
+    }
+    
+    var emptyStateButtonSize: CGSize? {
+        return CGSize(width: 200, height: 36)
+    }
+    
+    // MARK: - Empty State Delegate
+    func emptyStateViewWillShow(view: UIView) {
+        guard let emptyView = view as? UIEmptyStateView else { return }
+        emptyView.button.layer.cornerRadius = 4
+        emptyView.button.layer.backgroundColor = UIColor.kpMarigold.cgColor
+    }
+    
+    func emptyStatebuttonWasTapped(button: UIButton) {
+        Helper.hapticGenerate(style: .medium)
+        refresh()
+    }
+}

@@ -79,8 +79,8 @@ class ButtonsTableViewCell: UITableViewCell {
                 strongSelf.showNewFolderAlert()
             })
             for folder in bookmarks {
-                guard var folderTitle = folder.title else { return }
-                guard let itemFolders = strongSelf.model.item.bookmarks else { return }
+                guard var folderTitle = folder.title else { continue }
+                guard let itemFolders = strongSelf.model.item.bookmarks else { continue }
                 var style = UIAlertActionStyle.default
                 if itemFolders.contains(folder) {
                     folderTitle = "✓ " + folderTitle
