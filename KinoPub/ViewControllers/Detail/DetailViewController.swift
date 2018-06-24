@@ -405,7 +405,8 @@ extension DetailViewController {
         let actionVC = ActionSheet(message: "Выберите качество").tint(.kpBlack)
         
         if let season = season {
-            for (index, file) in (model.getSeason(season)?.episodes.first?.files?.enumerated())! {
+            guard let files = model.getSeason(season)?.episodes.first?.files else { return }
+            for (index, file) in files.enumerated() {
                 actionVC.addAction(file.quality!, style: .default, handler: { [weak self] (action) in
                     guard let strongSelf = self else { return }
                     strongSelf.downloadSeason(season: season, index: index, quality: file.quality!)
@@ -468,15 +469,15 @@ extension DetailViewController {
     }
     
     func downloadSeason(season: Int, index: Int, quality: String) {
-        for episode in (model.getSeason(season)?.episodes)! {
-            let name = (self.model.item?.title?.replacingOccurrences(of: " /", with: ";"))! + "; Сезон \(self.model.getSeason(season)?.number ?? 0), Эпизод \(episode.number ?? 0)."  + "\(quality).mp4"
+        guard let episodes = model.getSeason(season)?.episodes else { return }
+        for episode in episodes {
+            guard let title = self.model.item?.title?.replacingOccurrences(of: " /", with: ";") else { continue }
+            let name = title + "; Сезон \(self.model.getSeason(season)?.number ?? 0), Эпизод \(episode.number ?? 0)."  + "\(quality).mp4"
             let poster = self.model.item?.posters?.small
             let url = episode.files?[index].url?.http
             NTDownloadManager.shared.addDownloadTask(urlString: url!, fileName: name, fileImage: poster)
         }
-        let banner = StatusBarNotificationBanner(title: "Сезон добавлен в загрузки", style: .success)
-        banner.duration = 1
-        banner.show(queuePosition: .front)
+        Helper.showSuccessStatusBarBanner("Сезон добавлен в загрузки")
     }
 }
 
