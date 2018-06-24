@@ -1,6 +1,4 @@
 import Foundation
-import LKAlertController
-import NotificationBannerSwift
 
 protocol VideoItemModelDelegate: class {
     func didUpdateSimilar()
@@ -35,14 +33,13 @@ class VideoItemModel {
     func loadItemsInfo() {
         networkingService.receiveItems(withParameters: parameters, from: item.id?.string) { [weak self] (response, error) in
             guard let strongSelf = self else { return }
-            if let itemData = response {
+            if let itemData = response, itemData.item != nil {
                 strongSelf.item = itemData.item
                 strongSelf.setLinks()
                 strongSelf.checkDefaults()
                 NotificationCenter.default.post(name: .VideoItemDidUpdate, object: self, userInfo:nil)
             } else {
-                Alert(title: "Ошибка", message: error?.localizedDescription)
-                    .showOkay()
+                Helper.showError(error?.localizedDescription ?? "itemData.item is nil")
             }
         }
     }
@@ -69,8 +66,7 @@ class VideoItemModel {
                 strongSelf.similarItems = itemData
                 strongSelf.delegate?.didUpdateSimilar()
             } else {
-                Alert(title: "Ошибка", message: error?.localizedDescription)
-                    .showOkay()
+                Helper.showError(error?.localizedDescription ?? "Ошибка загрузки похожих")
             }
         }
     }
@@ -94,8 +90,7 @@ class VideoItemModel {
                 || type == ItemType.documovie.rawValue
                 || type == ItemType.concerts.rawValue,
                 item.subtype != ItemType.ItemSubtype.multi.rawValue {
-                Alert(title: "Ошибка", message: "Не удалось получить ссылку на поток. Возможно, видео находится в обработке. Попробуйте позже.")
-                    .showOkay()
+                Helper.showError("Не удалось получить ссылку на поток. Возможно, видео находится в обработке. Попробуйте позже.")
             }
         }
         

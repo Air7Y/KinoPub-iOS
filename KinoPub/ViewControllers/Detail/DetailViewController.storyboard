@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14087.3" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XEO-3l-mIa">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="XEO-3l-mIa">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14075.4"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -20,7 +20,7 @@
         <!--Old Detail View Controller-->
         <scene sceneID="fUD-bQ-uFd">
             <objects>
-                <viewController storyboardIdentifier="OldDetailViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="whO-We-nX5" customClass="OldDetailViewController" customModule="KinoPub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="OldDetailViewController" extendedLayoutIncludesOpaqueBars="YES" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="whO-We-nX5" customClass="OldDetailViewController" customModule="qinoa" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="x7J-yi-8W8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -104,7 +104,7 @@
                                     </constraints>
                                 </view>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RatingTableViewCell" id="RA2-sl-0gn" customClass="RatingTableViewCell" customModule="KinoPub" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="RatingTableViewCell" id="RA2-sl-0gn" customClass="RatingTableViewCell" customModule="qinoa" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="206" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="RA2-sl-0gn" id="Rke-m6-nGo">
@@ -114,7 +114,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DescTableViewCell" id="MMM-aI-FQb" customClass="DescTableViewCell" customModule="KinoPub" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="DescTableViewCell" id="MMM-aI-FQb" customClass="DescTableViewCell" customModule="qinoa" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="250" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MMM-aI-FQb" id="yFf-eI-dad">
@@ -124,7 +124,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InfoTableViewCell" id="OYK-xd-cbM" customClass="InfoTableViewCell" customModule="KinoPub" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="InfoTableViewCell" id="OYK-xd-cbM" customClass="InfoTableViewCell" customModule="qinoa" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="294" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OYK-xd-cbM" id="J6h-yL-VbH">
@@ -134,7 +134,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CastTableViewCell" id="DEW-Ah-irG" customClass="CastTableViewCell" customModule="KinoPub" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CastTableViewCell" id="DEW-Ah-irG" customClass="CastTableViewCell" customModule="qinoa" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="338" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="DEW-Ah-irG" id="CjT-Cz-fUv">
@@ -144,7 +144,7 @@
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SeasonTableViewCell" id="uQo-ri-GnO" customClass="SeasonTableViewCell" customModule="KinoPub" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="SeasonTableViewCell" id="uQo-ri-GnO" customClass="SeasonTableViewCell" customModule="qinoa" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="382" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uQo-ri-GnO" id="Cu3-vq-ESo">
@@ -160,7 +160,7 @@
                                     <outlet property="delegate" destination="whO-We-nX5" id="kGE-XC-BXO"/>
                                 </connections>
                             </tableView>
-                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aO1-Xp-gPc" customClass="HeaderView" customModule="KinoPub" customModuleProvider="target">
+                            <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aO1-Xp-gPc" customClass="HeaderView" customModule="qinoa" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Item title" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" adjustsFontForContentSizeCategory="YES" translatesAutoresizingMaskIntoConstraints="NO" id="y8e-jn-OKD">
@@ -237,7 +237,7 @@
         <!--Detail View Controller-->
         <scene sceneID="XER-Yi-G7d">
             <objects>
-                <viewController storyboardIdentifier="DetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XEO-3l-mIa" customClass="DetailViewController" customModule="KinoPub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="DetailViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="XEO-3l-mIa" customClass="DetailViewController" customModule="qinoa" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="DVv-kA-W4D">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -245,7 +245,7 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R53-iZ-igE">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Em5-yd-e1f" customClass="FadeImageView" customModule="KinoPub" customModuleProvider="target">
+                                    <imageView userInteractionEnabled="NO" alpha="0.5" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Em5-yd-e1f" customClass="FadeImageView" customModule="qinoa" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="350"/>
                                     </imageView>
                                 </subviews>
@@ -266,7 +266,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0ic-bX-IXI">
-                                            <rect key="frame" x="147" y="114" width="80" height="80"/>
+                                            <rect key="frame" x="147.5" y="114" width="80" height="80"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="80" id="R3V-mf-PZM"/>
                                                 <constraint firstAttribute="height" constant="80" id="fah-NG-vx5"/>
@@ -288,7 +288,7 @@
                                             </attributedString>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zri-Bv-JGp" customClass="GradientView" customModule="KinoPub" customModuleProvider="target">
+                                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Zri-Bv-JGp" customClass="GradientView" customModule="qinoa" customModuleProvider="target">
                                             <rect key="frame" x="0.0" y="250" width="375" height="100"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
@@ -370,7 +370,7 @@
                                                     <rect key="frame" x="141" y="-21" width="45" height="14"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="В ЭФИРЕ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5BG-16-5bG">
-                                                            <rect key="frame" x="2.5" y="3" width="41" height="9"/>
+                                                            <rect key="frame" x="3" y="3" width="41" height="9"/>
                                                             <fontDescription key="fontDescription" name="UniSansSemiBold" family="Uni Sans" pointSize="9"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -539,7 +539,7 @@
         <!--Title-->
         <scene sceneID="aQ1-rL-olm">
             <objects>
-                <tableViewController storyboardIdentifier="SeasonTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0cY-Xx-9Xn" customClass="SeasonTableViewController" customModule="KinoPub" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SeasonTableViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="0cY-Xx-9Xn" customClass="SeasonTableViewController" customModule="qinoa" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="nNd-Nx-FdE">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
