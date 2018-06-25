@@ -214,11 +214,7 @@ class DetailViewController: UIViewController, SideMenuItemContent {
     }
     
     func configPosterWatched() {
-        if let watch = model.item?.videos?.first?.watching?.status, watch == Status.watched {
-            watchedView.isHidden = false
-        } else {
-            watchedView.isHidden = true
-        }
+        watchedView.isHidden = !(model.item?.videos?.first?.watching?.status == Status.watched)
     }
     
     func configInAirView() {
@@ -226,7 +222,7 @@ class DetailViewController: UIViewController, SideMenuItemContent {
         guard model.item.type == ItemType.shows.rawValue ||
             model.item.type == ItemType.docuserial.rawValue ||
             model.item.type == ItemType.tvshows.rawValue else { return }
-        inAirView.isHidden = model.item.finished! ? true : false
+        inAirView.isHidden = model.item.finished!
     }
     
     func configPlayButton() {
@@ -357,55 +353,33 @@ extension DetailViewController {
     func receiveTMDBMore(with tmdbID: Int) {
         TVMDB.tv(tvShowID: tmdbID, language: "ru") { [weak self] (_, series) in
             guard let strongSelf = self else { return }
-            if let series = series {
-                var networks = ""
-                for network in series.networks {
-                    if networks != "" { networks += ", " }
-                    networks += network.name!
-                }
-                if networks != "" {
-                    strongSelf.model.item.networks = networks
-                }
-            }
+            guard let series = series else { return }
+            strongSelf.model.item.networks = series.networks.compactMap{$0.name}.joined(separator: ", ")
         }
     }
     
     func receiveTMDBMoreForMovie(with tmdbID: Int) {
-        print(tmdbID)
         MovieMDB.movie(movieID: tmdbID, language: "ru") { [weak self] (_, movies) in
             guard let strongSelf = self else { return }
-            if let movies = movies {
-                guard let productionCompanies = movies.production_companies else { return }
-                var networks = ""
-                for network in productionCompanies {
-                    if networks != "" { networks += ", " }
-                    networks += network.name!
-                }
-                if networks != "" {
-                    strongSelf.model.item.networks = networks
-                }
-            }
+            guard let movies = movies else { return }
+            strongSelf.model.item.networks = movies.production_companies?.compactMap{$0.name}.joined(separator: ", ")
         }
     }
     
     func playVideo() {
-        if model.mediaItems.first?.url != nil {
-            if Config.shared.streamType != "hls4" {
-                mediaManager.playVideo(mediaItems: [model.mediaItems.first!], userinfo: nil)
-            } else {
-                mediaManager.playVideo(mediaItems: model.mediaItems, userinfo: nil)
-            }
-        } else {
-            Alert(title: "Ошибка", message: "Что-то пошло не так")
-                .showOkay()
+        guard model.mediaItems.first?.url != nil else {
+            Helper.showError("Что-то пошло не так")
+            return
         }
+        mediaManager.playVideo(mediaItems: Config.shared.streamType != "hls4" ? [model.mediaItems.first!] : model.mediaItems, userinfo: nil)
     }
     
     func showQualitySelectAction(inView view: UIView? = nil, forButton button: UIBarButtonItem? = nil, play: Bool = false, season: Int? = nil) {
         let actionVC = ActionSheet(message: "Выберите качество").tint(.kpBlack)
         
         if let season = season {
-            for (index, file) in (model.getSeason(season)?.episodes.first?.files?.enumerated())! {
+            guard let files = model.getSeason(season)?.episodes.first?.files else { return }
+            for (index, file) in files.enumerated() {
                 actionVC.addAction(file.quality!, style: .default, handler: { [weak self] (action) in
                     guard let strongSelf = self else { return }
                     strongSelf.downloadSeason(season: season, index: index, quality: file.quality!)
@@ -468,26 +442,22 @@ extension DetailViewController {
     }
     
     func downloadSeason(season: Int, index: Int, quality: String) {
-        for episode in (model.getSeason(season)?.episodes)! {
-            let name = (self.model.item?.title?.replacingOccurrences(of: " /", with: ";"))! + "; Сезон \(self.model.getSeason(season)?.number ?? 0), Эпизод \(episode.number ?? 0)."  + "\(quality).mp4"
+        guard let episodes = model.getSeason(season)?.episodes else { return }
+        for episode in episodes {
+            guard let title = self.model.item?.title?.replacingOccurrences(of: " /", with: ";") else { continue }
+            let name = title + "; Сезон \(self.model.getSeason(season)?.number ?? 0), Эпизод \(episode.number ?? 0)."  + "\(quality).mp4"
             let poster = self.model.item?.posters?.small
             let url = episode.files?[index].url?.http
             NTDownloadManager.shared.addDownloadTask(urlString: url!, fileName: name, fileImage: poster)
         }
-        let banner = StatusBarNotificationBanner(title: "Сезон добавлен в загрузки", style: .success)
-        banner.duration = 1
-        banner.show(queuePosition: .front)
+        Helper.showSuccessStatusBarBanner("Сезон добавлен в загрузки")
     }
 }
 
 // MARK: - Buttons
 extension DetailViewController {
     @IBAction func playButtonTapped(_ sender: Any) {
-        if Config.shared.streamType == "hls4" {
-            playVideo()
-        } else {
-            showQualitySelectAction(inView: playButton, play: true)
-        }
+        Config.shared.streamType == "hls4" ? playVideo() : showQualitySelectAction(inView: playButton, play: true)
     }
     
     @IBAction func shareButtonTapped(_ sender: Any) {
@@ -502,11 +472,10 @@ extension DetailViewController {
     }
     
     @IBAction func downloadButtonTapped(_ sender: Any) {
-        if model.item?.type == ItemType.shows.rawValue ||
-            model.item?.type == ItemType.docuserial.rawValue ||
-            model.item?.type == ItemType.tvshows.rawValue {
+        switch model.item?.type {
+        case ItemType.shows.rawValue, ItemType.docuserial.rawValue, ItemType.tvshows.rawValue:
             showSelectSeasonAction(forButton: downloadButton)
-        } else {
+        default:
             showQualitySelectAction(forButton: downloadButton)
         }
     }

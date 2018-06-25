@@ -78,16 +78,16 @@ class OAuthHandler: RequestAdapter, RequestRetrier {
         guard !isRefreshing else { return }
 
         isRefreshing = true
-        let request = delegate!.refreshTokenRequest()
-        request.validate()
+        let request = delegate?.refreshTokenRequest()
+        request?.validate()
             .responseObject { (response: DataResponse<TokenResponse>) in
                 switch response.result {
                 case .success:
                     let tokens = response.result.value!
                     completion(true, tokens.accessToken, tokens.refreshToken)
                 case .failure:
-                    completion(false, nil, nil)
                     Answers.logCustomEvent(withName: "refreshTokens", customAttributes: ["Error": response.error ?? "unknown"])
+                    completion(false, nil, nil)
                 }
         }
     }
