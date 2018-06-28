@@ -35,6 +35,16 @@ class Helper {
         Alert(title: "Ошибка", message: message).tint(.kpBlack).showOkay()
     }
     
+    static func showErrorTrailerAlert() {
+        Alert(title: "Ошибка", message: "Трейлер не найден. \n По возможности сообщите в стол заказов в Telegram.").tint(.kpBlack)
+            .addAction("Перейти в Telegram", style: .default, handler: { (_) in
+                guard let telegram = URL(string: "https://t.me/kinopubrequest") else { return }
+                UIApplication.shared.open(url: telegram)
+            })
+            .addAction("Закрыть", style: .cancel)
+            .show()
+    }
+    
     static func showSuccessStatusBarBanner(_ message: String) {
         let banner = StatusBarNotificationBanner(title: message, style: .success)
         banner.duration = 1

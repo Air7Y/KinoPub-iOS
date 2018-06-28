@@ -1,3 +1,11 @@
+//
+//  MediaManager.swift
+//  KinoPub
+//
+//  Created by hintoz on 26.03.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import EZPlayer
 import LKAlertController
@@ -35,6 +43,7 @@ class MediaManager {
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidPlayToEnd(_:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerNative?.currentItem)
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidClosed(_:)), name: NSNotification.Name.DTSPlayerViewControllerDismissed, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(playerTimeDidChange(_:)), name: NSNotification.Name.DTSPlayerPlaybackTimeDidChange, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(userTappedNextButton(_:)), name: NSNotification.Name.DTSPlayerUserTappedNextButton, object: nil)
     }
     
     deinit {
@@ -52,7 +61,7 @@ class MediaManager {
         releasePlayer()
         NDYoutubeClient.shared.getVideoWithIdentifier(videoIdentifier: id) { [weak self] (video, error) in
             guard let video = video else {
-                Alert(title: "Ошибка", message: "Трейлер не найден. \n По возможности сообщите в стол заказов в Telegram.").showOkay()
+                Helper.showErrorTrailerAlert()
                 return
             }
             guard let streamURLs = video.streamURLs else { return }
@@ -97,6 +106,8 @@ class MediaManager {
             guard let strongSelf = self else { return }
             strongSelf.fullScreenViewController?.player!.play()
             guard !strongSelf.isLive else { return }
+//            strongSelf.configTitle()
+            strongSelf.configNextButton()
             if let item = strongSelf.playerNative?.currentItem, let index = strongSelf.playerItems.index(of: item), let timeToSeek = strongSelf.mediaItems[index].watchingTime {
                 Alert(message: "Продолжить с \(timeToSeek.timeIntervalAsString("hh:mm:ss"))?")
                     .tint(.kpBlack)
@@ -174,6 +185,23 @@ class MediaManager {
         volume?.animation = .fadeIn
         playerCustom?.view.addSubview(volume!)
     }
+    
+    func configTitle() {
+        if let item = playerNative?.currentItem, let index = playerItems.index(of: item), let title = mediaItems[index].title {
+            fullScreenViewController?.configTitle(with: "\(title)")
+        }
+    }
+    
+    func configNextButton() {
+        if let item = playerNative?.currentItem, var index = playerItems.index(of: item), playerItems.indices.contains(index + 1) {
+            index += 1
+            let title = "Эпизод \(mediaItems[index].video ?? 0)"
+            let image = R.image.play()
+            fullScreenViewController?.configNextItemView(with: title, image: image)
+        } else {
+            fullScreenViewController?.removeNextButton()
+        }
+    }
 
     func changeMarkTime(force: Bool = false) {
         guard !isLive else { return }
@@ -225,6 +253,7 @@ class MediaManager {
     
     @objc  func playerDidClosed(_ notifiaction: Notification) {
         changeMarkTime(force: true)
+        releaseNativePlayer()
         NotificationCenter.default.post(name: .PlayDidFinish, object: self, userInfo:nil)
     }
 
@@ -244,6 +273,11 @@ class MediaManager {
                 }).show(animated: true)
             }
         }
+    }
+    
+    @objc func userTappedNextButton(_ notifiaction: Notification) {
+//        configTitle()
+        configNextButton()
     }
 }
 

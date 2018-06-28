@@ -191,6 +191,11 @@
 		69DA0685201B72AB00D908E6 /* Set+KPAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69DA0684201B72AB00D908E6 /* Set+KPAdditions.swift */; };
 		69DA0687201BD4B500D908E6 /* CHANGELOG.md in Resources */ = {isa = PBXBuildFile; fileRef = 69DA0686201BD4B500D908E6 /* CHANGELOG.md */; };
 		69E131571FED44410054905D /* Networks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E131561FED44410054905D /* Networks.swift */; };
+		69E155C720E15051003E1251 /* NextItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E155C620E15051003E1251 /* NextItemView.swift */; };
+		69E155C920E15071003E1251 /* NextItemView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69E155C820E15071003E1251 /* NextItemView.xib */; };
+		69E155CB20E19B09003E1251 /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E155CA20E19B09003E1251 /* Collection.swift */; };
+		69E155CD20E1B567003E1251 /* TitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69E155CC20E1B567003E1251 /* TitleView.swift */; };
+		69E155CF20E1B609003E1251 /* TitleView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69E155CE20E1B609003E1251 /* TitleView.xib */; };
 		69F0FB1C1FEA9BD8004505EF /* UniSansSemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69F0FB1A1FEA9BD6004505EF /* UniSansSemiBold.otf */; };
 		69F0FB1D1FEA9BD8004505EF /* UniSansBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 69F0FB1B1FEA9BD7004505EF /* UniSansBold.otf */; };
 		69F0FB241FEB1C5D004505EF /* ButtonsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69F0FB221FEB1C5D004505EF /* ButtonsTableViewCell.swift */; };
@@ -406,6 +411,11 @@
 		69DA0684201B72AB00D908E6 /* Set+KPAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Set+KPAdditions.swift"; sourceTree = "<group>"; };
 		69DA0686201BD4B500D908E6 /* CHANGELOG.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
 		69E131561FED44410054905D /* Networks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Networks.swift; sourceTree = "<group>"; };
+		69E155C620E15051003E1251 /* NextItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NextItemView.swift; sourceTree = "<group>"; };
+		69E155C820E15071003E1251 /* NextItemView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NextItemView.xib; sourceTree = "<group>"; };
+		69E155CA20E19B09003E1251 /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		69E155CC20E1B567003E1251 /* TitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleView.swift; sourceTree = "<group>"; };
+		69E155CE20E1B609003E1251 /* TitleView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TitleView.xib; sourceTree = "<group>"; };
 		69F0FB1A1FEA9BD6004505EF /* UniSansSemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = UniSansSemiBold.otf; sourceTree = "<group>"; };
 		69F0FB1B1FEA9BD7004505EF /* UniSansBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = UniSansBold.otf; sourceTree = "<group>"; };
 		69F0FB221FEB1C5D004505EF /* ButtonsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonsTableViewCell.swift; sourceTree = "<group>"; };
@@ -860,6 +870,7 @@
 				69DA067C201B721700D908E6 /* UINavigationController+KPAdditions.swift */,
 				69DA067E201B723900D908E6 /* UINavigationBar+KPAdditions.swift */,
 				69DA0680201B726100D908E6 /* UISearchBar+KPAdditions.swift */,
+				69E155CA20E19B09003E1251 /* Collection.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -998,6 +1009,17 @@
 			path = Detail;
 			sourceTree = "<group>";
 		};
+		69E155C520E14F2D003E1251 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				69E155C620E15051003E1251 /* NextItemView.swift */,
+				69E155C820E15071003E1251 /* NextItemView.xib */,
+				69E155CC20E1B567003E1251 /* TitleView.swift */,
+				69E155CE20E1B609003E1251 /* TitleView.xib */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		69F0FB181FEA9B96004505EF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1028,6 +1050,7 @@
 		69FCF3341F939C9100638A77 /* DTSPlayer */ = {
 			isa = PBXGroup;
 			children = (
+				69E155C520E14F2D003E1251 /* Views */,
 				69FCF3351F939CED00638A77 /* DTSPlayerFullScreenViewController.swift */,
 				69FCF3371F939DFB00638A77 /* AVPlayerExtension.swift */,
 				69FCF3391F939E3800638A77 /* DTSPlayerNotification.swift */,
@@ -1167,6 +1190,7 @@
 				69C4E18B202FA201003048D5 /* TVCollectionViewCell.xib in Resources */,
 				69C4F3211F7F053900BCD8F9 /* EpisodesCollectionViewCell.xib in Resources */,
 				69C4F31B1F7F053900BCD8F9 /* ActorCollectionViewCell.xib in Resources */,
+				69E155CF20E1B609003E1251 /* TitleView.xib in Resources */,
 				69C4F32B1F7F053900BCD8F9 /* SeasonTableViewCell.xib in Resources */,
 				69C4F3231F7F053900BCD8F9 /* EpisodeTableViewCell.xib in Resources */,
 				69CF9EB820A207340074D202 /* GoogleService-Info.plist in Resources */,
@@ -1178,6 +1202,7 @@
 				69512B201F7D2EE400BF5A89 /* LaunchScreen.storyboard in Resources */,
 				695922761F7DB16300CE3224 /* Collections.storyboard in Resources */,
 				695922331F7D5C9400CE3224 /* AuthViewController.storyboard in Resources */,
+				69E155C920E15071003E1251 /* NextItemView.xib in Resources */,
 				6959227D1F7DB1AB00CE3224 /* Bookmarks.storyboard in Resources */,
 				694C41511F84FB0800D6BD6F /* DownloadingTableViewCell.xib in Resources */,
 				69F1243920041E4800E37A1F /* MenuTableViewCell.xib in Resources */,
@@ -1455,6 +1480,7 @@
 				69C4F3311F7F057900BCD8F9 /* BorderedLabel.swift in Sources */,
 				695922091F7D5BEA00CE3224 /* Config.swift in Sources */,
 				69DA0685201B72AB00D908E6 /* Set+KPAdditions.swift in Sources */,
+				69E155C720E15051003E1251 /* NextItemView.swift in Sources */,
 				6959223E1F7DA16000CE3224 /* ItemCollectionViewCell.swift in Sources */,
 				695922241F7D5C3A00CE3224 /* Genres.swift in Sources */,
 				699C5B201F8837B300D7DFE0 /* FilterModel.swift in Sources */,
@@ -1482,6 +1508,7 @@
 				69DA0683201B728F00D908E6 /* Dictionary+KPAdditions.swift in Sources */,
 				695922321F7D5C9100CE3224 /* AuthViewController.swift in Sources */,
 				696D67E11FE93BB5002EE5B0 /* DetailViewController.swift in Sources */,
+				69E155CD20E1B567003E1251 /* TitleView.swift in Sources */,
 				695922191F7D5C3000CE3224 /* Profile.swift in Sources */,
 				69C4E19420306B2F003048D5 /* Channels.swift in Sources */,
 				69C4F3221F7F053900BCD8F9 /* EpisodeTableViewCell.swift in Sources */,
@@ -1519,6 +1546,7 @@
 				695922151F7D5C2800CE3224 /* Collections.swift in Sources */,
 				698D1AC02009348E00BDE07F /* HomeViewController.swift in Sources */,
 				695922771F7DB16300CE3224 /* CollectionsViewController.swift in Sources */,
+				69E155CB20E19B09003E1251 /* Collection.swift in Sources */,
 				69C4F3341F7F057900BCD8F9 /* KPGestureRecognizer.swift in Sources */,
 				69C4F3261F7F053900BCD8F9 /* RatingTableViewCell.swift in Sources */,
 				695922171F7D5C2800CE3224 /* Enums.swift in Sources */,
