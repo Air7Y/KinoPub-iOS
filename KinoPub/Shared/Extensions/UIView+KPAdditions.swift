@@ -28,4 +28,42 @@ extension UIView {
         self.layer.shouldRasterize = true
         self.layer.rasterizationScale = scale ? UIScreen.main.scale : 1
     }
+    
+    func addBlurEffect(with style: UIBlurEffectStyle, orColor color: UIColor, vibrancyView: UIView? = nil) {
+        guard !UIAccessibilityIsReduceTransparencyEnabled() else {
+            self.backgroundColor = color
+            return
+        }
+        self.backgroundColor = .clear
+        let blurEffect = UIBlurEffect(style: style)
+        let blurEffectView = UIVisualEffectView(effect: blurEffect)
+        blurEffectView.translatesAutoresizingMaskIntoConstraints = false
+        self.insertSubview(blurEffectView, at: 0)
+        
+        NSLayoutConstraint.activate([
+            blurEffectView.heightAnchor.constraint(equalTo: self.heightAnchor),
+            blurEffectView.widthAnchor.constraint(equalTo: self.widthAnchor),
+            blurEffectView.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+            blurEffectView.centerYAnchor.constraint(equalTo: self.centerYAnchor)
+            ])
+        
+        guard vibrancyView != nil else { return }
+        let vibrancyEffect = UIVibrancyEffect(blurEffect: blurEffect)
+        let vibrancyEffectView = UIVisualEffectView(effect: vibrancyEffect)
+        vibrancyEffectView.translatesAutoresizingMaskIntoConstraints = false
+        vibrancyEffectView.contentView.addSubview(vibrancyView!)
+        blurEffectView.contentView.addSubview(vibrancyEffectView)
+        
+        NSLayoutConstraint.activate([
+            vibrancyEffectView.heightAnchor.constraint(equalTo: blurEffectView.contentView.heightAnchor),
+            vibrancyEffectView.widthAnchor.constraint(equalTo: blurEffectView.contentView.widthAnchor),
+            vibrancyEffectView.centerXAnchor.constraint(equalTo: blurEffectView.contentView.centerXAnchor),
+            vibrancyEffectView.centerYAnchor.constraint(equalTo: blurEffectView.contentView.centerYAnchor)
+            ])
+        
+        NSLayoutConstraint.activate([
+            vibrancyView!.centerXAnchor.constraint(equalTo: vibrancyEffectView.contentView.centerXAnchor),
+            vibrancyView!.centerYAnchor.constraint(equalTo: vibrancyEffectView.contentView.centerYAnchor),
+            ])
+    }
 }

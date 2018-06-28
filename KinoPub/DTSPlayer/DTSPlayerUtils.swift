@@ -15,6 +15,7 @@ public class DTSPlayerUtils {
             for tmpWin in windows {
                 if tmpWin.windowLevel == UIWindowLevelNormal {
                     window = tmpWin
+                    break
                 }
             }
         }

@@ -101,7 +101,7 @@ class VideoItemModel {
                     mediaItem.watchingTime = episode.watching?.time ?? 0
                 }
                 if episode.watching?.status == Status.unwatched ||  episode.watching?.status == Status.watching {
-                    guard let url = episode.files?.first?.url?.hls4 else { return }
+                    guard let url = episode.files?.first?.url?.hls4 else { continue }
                     if var title = episode.title, let number = episode.number {
                         if title == "" {
                             title = "Episode \(number)"
@@ -112,7 +112,7 @@ class VideoItemModel {
                     mediaItem.season = 0
                     mediaItem.url = URL(string: url)
                     mediaItems.append(mediaItem)
-                    guard files == nil else { return }
+                    guard files == nil else { continue }
                     files = episode.files
                 }
             }
@@ -129,7 +129,7 @@ class VideoItemModel {
                             mediaItem.watchingTime = episode.watching?.time ?? 0
                         }
                         if episode.watching?.status == Status.unwatched ||  episode.watching?.status == Status.watching {
-                            guard let url = episode.files?.first?.url?.hls4 else { return }
+                            guard let url = episode.files?.first?.url?.hls4 else { continue }
                             if var title = episode.title, let number = episode.number {
                                 if title == "" {
                                     title = "Episode \(number)"
@@ -140,7 +140,7 @@ class VideoItemModel {
                             mediaItem.season = season.number
                             mediaItem.url = URL(string: url)
                             mediaItems.append(mediaItem)
-                            guard files == nil else { return }
+                            guard files == nil else { continue }
                             files = episode.files
                         }
                     }
