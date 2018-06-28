@@ -1,3 +1,11 @@
+//
+//  MediaManager.swift
+//  KinoPub
+//
+//  Created by hintoz on 26.03.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import EZPlayer
 import LKAlertController
@@ -53,7 +61,7 @@ class MediaManager {
         releasePlayer()
         NDYoutubeClient.shared.getVideoWithIdentifier(videoIdentifier: id) { [weak self] (video, error) in
             guard let video = video else {
-                Alert(title: "Ошибка", message: "Трейлер не найден. \n По возможности сообщите в стол заказов в Telegram.").showOkay()
+                Helper.showErrorTrailerAlert()
                 return
             }
             guard let streamURLs = video.streamURLs else { return }

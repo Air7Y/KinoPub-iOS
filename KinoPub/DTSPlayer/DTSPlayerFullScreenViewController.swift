@@ -1,3 +1,11 @@
+//
+//  DTSPlayerFullScreenViewController.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 15.10.2017.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import AVKit
 
@@ -77,6 +85,11 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
         nextItemView?.removeFromSuperview()
     }
     
+    private func playNextItem() {
+        (player as! AVQueuePlayer).advanceToNextItem()
+        NotificationCenter.default.post(name: .DTSPlayerUserTappedNextButton, object: self, userInfo: nil)
+    }
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let objectView = object as? UIView,
             objectView === playBackControlsView,
@@ -99,7 +112,6 @@ extension DTSPlayerFullScreenViewController: AVPlayerViewControllerDelegate {
 
 extension DTSPlayerFullScreenViewController: NextItemDelegate {
     func didPressNextButton() {
-        (player as! AVQueuePlayer).advanceToNextItem()
-        NotificationCenter.default.post(name: .DTSPlayerUserTappedNextButton, object: self, userInfo: nil)
+        playNextItem()
     }
 }
