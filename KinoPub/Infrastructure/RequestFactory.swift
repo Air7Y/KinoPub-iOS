@@ -1,3 +1,11 @@
+//
+//  RequestFactory.swift
+//  KinoPub
+//
+//  Created by hintoz on 03.03.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import Foundation
 import Alamofire
 import Crashlytics
@@ -203,6 +211,13 @@ class RequestFactory {
     func receiveUserPalylistsRequest() -> DataRequest {
         let requestUrl = baseAPIURL + "v1/playlists"
         return sessionManager().request(requestUrl, method: .get)
+    }
+    
+    // MARK: - Comments
+    func receiveCommentsRequest(id: String) -> DataRequest {
+        let parameters = ["id": id] as [String: String]
+        let requestUrl = baseAPIURL + "v1/items/comments"
+        return sessionManager().request(requestUrl, method: .get, parameters: parameters)
     }
     
     // MARK: - Session Manager

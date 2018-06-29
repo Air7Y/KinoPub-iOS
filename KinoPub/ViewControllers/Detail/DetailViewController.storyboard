@@ -370,7 +370,7 @@
                                                     <rect key="frame" x="141" y="-21" width="45" height="14"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="В ЭФИРЕ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5BG-16-5bG">
-                                                            <rect key="frame" x="3" y="3" width="41" height="9"/>
+                                                            <rect key="frame" x="2" y="3" width="41" height="9"/>
                                                             <fontDescription key="fontDescription" name="UniSansSemiBold" family="Uni Sans" pointSize="9"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -535,6 +535,37 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j47-UL-gO2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3177" y="466"/>
+        </scene>
+        <!--Комментарии-->
+        <scene sceneID="Rv4-LZ-m4A">
+            <objects>
+                <viewController storyboardIdentifier="CommentsVC" title="Комментарии" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Ttp-5B-RbC" customClass="CommentsVC" customModule="qinoa" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="nFx-7B-UwY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="TTt-8L-1hT">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="TTt-8L-1hT" firstAttribute="bottom" secondItem="Riu-dw-SQh" secondAttribute="bottom" id="WiJ-Lz-wSJ"/>
+                            <constraint firstItem="TTt-8L-1hT" firstAttribute="leading" secondItem="Riu-dw-SQh" secondAttribute="leading" id="f6h-9D-O2t"/>
+                            <constraint firstItem="TTt-8L-1hT" firstAttribute="trailing" secondItem="Riu-dw-SQh" secondAttribute="trailing" id="hTc-mp-TyN"/>
+                            <constraint firstItem="TTt-8L-1hT" firstAttribute="top" secondItem="nFx-7B-UwY" secondAttribute="top" id="sTK-m1-Z01"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Riu-dw-SQh"/>
+                    </view>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <connections>
+                        <outlet property="tableView" destination="TTt-8L-1hT" id="xeh-J9-yay"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OAw-k6-hMi" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4023" y="466"/>
         </scene>
         <!--Title-->
         <scene sceneID="aQ1-rL-olm">

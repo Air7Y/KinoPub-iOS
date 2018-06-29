@@ -1,3 +1,11 @@
+//
+//  DetailViewController.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 19.12.2017.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import InteractiveSideMenu
 import CustomLoader
@@ -10,6 +18,7 @@ import NotificationBannerSwift
 class DetailViewController: UIViewController, SideMenuItemContent {
     let model = Container.ViewModel.videoItem()
     private let bookmarksModel = Container.ViewModel.bookmarks()
+    private let commentsModel = Container.ViewModel.comments()
     private let logViewsManager = Container.Manager.logViews
     private let mediaManager = Container.Manager.media
     
@@ -64,6 +73,8 @@ class DetailViewController: UIViewController, SideMenuItemContent {
         configAfterRefresh()
         loadData()
         model.loadSimilarsVideo()
+        commentsModel.loadTopComments(for: (model.item.id?.string)!)
+        commentsModel.delegate = self
     }
     
     deinit {
@@ -156,6 +167,8 @@ class DetailViewController: UIViewController, SideMenuItemContent {
         tableView.register(UINib(nibName: String(describing: TrailerTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: TrailerTableViewCell.self))
         tableView.register(UINib(nibName: String(describing: CastTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: CastTableViewCell.self))
         tableView.register(UINib(nibName: String(describing: SimilarTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: SimilarTableViewCell.self))
+        tableView.register(UINib(nibName: String(describing: CommentsTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: CommentsTableViewCell.self))
+        tableView.register(UINib(nibName: String(describing: AllCommentsTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: AllCommentsTableViewCell.self))
     }
     
     func configOffset() {
@@ -555,35 +568,47 @@ extension DetailViewController: UIScrollViewDelegate {
 // MARK: - UITableViewDataSource
 extension DetailViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 8
+        return 10
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 3 {
-            if model.item.trailer == nil {
-                return 0
-            }
-            return 1
-        } else if section == 4 {
+        switch section {
+        case 3:
+            return model.item.trailer == nil ? 0 : 1
+        case 4:
             if let count = model.item?.seasons?.count {
                 return count
             } else if let count = model.item?.videos?.count, count > 1 {
                 return 1
             }
             return 0
-        } else if section == 6 {
-            if model.item?.cast == "", model.item?.director == "" {
-                return 0
-            }
-            return 1
-        } else if section == 7 {
-            if model.similarItems.count > 0 {
-                return 1
-            }
-            return 0
-        } else {
+        case 6:
+            return (model.item?.cast == "" || model.item?.director == "") ? 0 : 1
+        case 7:
+            return model.similarItems.count > 0 ? 1 : 0
+        case 8:
+            return commentsModel.comments.count
+        case 9:
+            return commentsModel.comments.count > 0 ? 1 : 0
+        default:
             return 1
         }
+//        if section == 3 {
+//            return model.item.trailer == nil ? 0 : 1
+//        } else if section == 4 {
+//            if let count = model.item?.seasons?.count {
+//                return count
+//            } else if let count = model.item?.videos?.count, count > 1 {
+//                return 1
+//            }
+//            return 0
+//        } else if section == 6 {
+//            return (model.item?.cast == "" || model.item?.director == "") ? 0 : 1
+//        } else if section == 7 {
+//            return model.similarItems.count > 0 ? 1 : 0
+//        } else {
+//            return 1
+//        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -632,6 +657,17 @@ extension DetailViewController: UITableViewDataSource {
             cell.selectionStyle = .none
             cell.config(withModel: model)
             return cell
+        case 8:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CommentsTableViewCell.self), for: indexPath) as! CommentsTableViewCell
+            cell.selectionStyle = .none
+            cell.disableDepth()
+            cell.config(with: commentsModel.comments[indexPath.row])
+            return cell
+        case 9:
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: AllCommentsTableViewCell.self), for: indexPath) as! AllCommentsTableViewCell
+            cell.selectionStyle = .none
+            cell.set(id: model.item.id)
+            return cell
         default:
             return UITableViewCell()
         }
@@ -649,6 +685,26 @@ extension DetailViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let tableViewCell = cell as? SeasonTableViewCell else { return }
         storedOffsets[indexPath.row] = tableViewCell.collectionViewOffset
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        guard section == 8 else { return UIView(frame: .zero) }
+        let screenSize = UIScreen.main.bounds.width
+        let headerView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize, height: 26))
+        let label = UILabel(text: "КОММЕНТАРИИ ПОЛЬЗОВАТЕЛЕЙ")
+        label.sizeToFit()
+        label.x = 15
+        label.height = 12
+        label.font = UIFont.titleSmall
+        label.textColor = UIColor.kpGreyishBrown
+        headerView.backgroundColor = .clear
+        headerView.addSubview(label)
+        label.center.y = headerView.height / 2
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return section == 8 ? 26 : 0
     }
 }
 
@@ -672,5 +728,12 @@ extension DetailViewController: BookmarksModelDelegate, LogViewsManagerDelegate 
     func didToggledWatchlist(toggled: Bool) {
         model.item?.inWatchlist = toggled
         refresh()
+    }
+}
+
+// MARK: - CommentsModelDelegate
+extension DetailViewController: CommentsModelDelegate {
+    func didUpdateComments() {
+        tableView.reloadSections([8, 9], with: .automatic)
     }
 }
