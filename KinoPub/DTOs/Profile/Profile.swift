@@ -1,24 +1,33 @@
+//
+//  Profile.swift
+//
+//  Created by hintoz on 26.05.17
+//  Copyright (c) . All rights reserved.
+//
+
+
 import Foundation
 import ObjectMapper
 
 public class Profile: Mappable {
-
-  // MARK: Declaration for string constants to be used to decode and also serialize.
-  private struct SerializationKeys {
-    static let avatar = "avatar"
-    static let name = "name"
-  }
-
-  // MARK: Properties
-  public var avatar: String!
-  public var name: String!
-
-  public required init?(map: Map) {
-
-  }
-
-  public func mapping(map: Map) {
-    avatar <- map[SerializationKeys.avatar]
-    name <- map[SerializationKeys.name]
-  }
+    
+    private struct SerializationKeys {
+        static let id = "id"
+        static let avatar = "avatar"
+        static let name = "name"
+    }
+    
+    public var id: Int?
+    public var avatar: String!
+    public var name: String!
+    
+    public required init?(map: Map) {
+        
+    }
+    
+    public func mapping(map: Map) {
+        id <- map[SerializationKeys.id]
+        avatar <- map[SerializationKeys.avatar]
+        name <- map[SerializationKeys.name]
+    }
 }

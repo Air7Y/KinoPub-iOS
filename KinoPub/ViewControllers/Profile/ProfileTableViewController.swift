@@ -1,3 +1,11 @@
+//
+//  ProfileViewController.swift
+//  KinoPub
+//
+//  Created by hintoz on 26.05.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import AlamofireImage
 import LKAlertController
@@ -74,7 +82,7 @@ class ProfileViewController: UITableViewController, ProfileModelDelegate, SideMe
 
     func configureProfile() {
         if let imageUrl = model.user?.profile?.avatar {
-            profileImageView.af_setImage(withURL: URL(string: imageUrl + "?s=200&d=identicon")!)
+            profileImageView.af_setImage(withURL: URL(string: imageUrl + "?s=200&d=https://cdn.service-kp.com/icon/anon_m.png")!)
         }
         if let nameString = model.user?.profile?.name {
             profileNameLabel.text = nameString

@@ -27,5 +27,6 @@ struct Container {
         static let filter = { FilterModel(accountManager: Manager.account) }
         static let profile = { ProfileModel(accountManager: Manager.account) }
         static let tv = { TVModel(accountManager: Manager.account) }
+        static let comments = { CommentsModel(accountManager: Manager.account) }
     }
 }
