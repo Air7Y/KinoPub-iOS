@@ -1,11 +1,26 @@
+//
+//  FilterViewController.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 08.10.2017.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import Eureka
+import GradientLoadingBar
 
 class FilterViewController: FormViewController {
     let model = Container.ViewModel.filter()
+    var year: Int {
+        let date = Date()
+        let calendar = Calendar.current
+        return calendar.component(.year, from: date)
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        beginLoad()
 
         model.delegate = self
         
@@ -25,6 +40,7 @@ class FilterViewController: FormViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        navigationController?.navigationBar.setBackgroundImage(nil, for: .default)
     }
     
     @IBAction func applyButtonTap(_ sender: UIBarButtonItem) {
@@ -34,6 +50,15 @@ class FilterViewController: FormViewController {
     class func storyboardInstance() -> FilterViewController? {
         let storyboard = UIStoryboard(name: String(describing: self), bundle: nil)
         return storyboard.instantiateViewController(withIdentifier: String(describing: self)) as? FilterViewController
+    }
+    
+    func beginLoad() {
+        GradientLoadingBar.shared.show()
+    }
+    
+    func endLoad() {
+        tableView.reloadData()
+        GradientLoadingBar.shared.hide()
     }
     
     func config() {
@@ -46,7 +71,7 @@ class FilterViewController: FormViewController {
         
         tableView.backgroundColor = .kpBackground
         view.backgroundColor = .kpBackground
-         self.navigationItem.rightBarButtonItem?.tintColor = .kpMarigold
+        navigationItem.rightBarButtonItem?.tintColor = .kpMarigold
         
         if #available(iOS 11.0, *) {
             
@@ -155,14 +180,14 @@ class FilterViewController: FormViewController {
                 $0.selectorTitle = "Жанр"
                 $0.value = model.filter.genres
                 $0.noValueDisplayText = "Не важно"
-                $0.optionsProvider = .lazy({ (form, completion) in
-                    completion(self.model.genres)
+                $0.optionsProvider = .lazy({ [weak self] (form, completion) in
+                    completion(self?.model.genres)
                 })
-                }.onChange({ (row) in
+                }.onChange({ [weak self] (row) in
 //                    if let value = row.value, value.contains(Genres(id: 25, title: "Аниме")) {
 //                        row.value = nil
 //                    }
-                    self.model.filter.genres = row.value
+                    self?.model.filter.genres = row.value
                 })
             
             <<< MultipleSelectorRow<Countries>() {
@@ -170,45 +195,40 @@ class FilterViewController: FormViewController {
                 $0.selectorTitle = "Страна"
                 $0.value = model.filter.countries
                 $0.noValueDisplayText = "Не важно"
-                $0.optionsProvider = .lazy({ (form, completion) in
-                    completion(self.model.countries)
+                $0.optionsProvider = .lazy({ [weak self] (form, completion) in
+                    completion(self?.model.countries)
                 })
-                }.onChange({ (row) in
-                    self.model.filter.countries = row.value
+                }.onChange({ [weak self] (row) in
+                    self?.model.filter.countries = row.value
                 })
             
             <<< PickerInlineRowCustom<String>("Year") {
                 $0.title = "Год выхода"
                 $0.options = []
                 $0.noValueDisplayText = "Не важно"
-                let date = Date()
-                let calendar = Calendar.current
-                let year = calendar.component(.year, from: date)
                 for i in 1912...year {
                     $0.options.append(i.string)
                 }
                 $0.options.append("Период")
+                $0.options.append("Начиная с")
                 $0.options.append("Не важно")
                 $0.options.reverse()
                 $0.value = model.filter.year != nil ? model.filter.year : nil
-                }.onChange({ (row) in
+                }.onChange({ [weak self] (row) in
                     if row.value == "Не важно" {
                         row.value = nil
                     }
-                    self.model.filter.year = row.value
+                    self?.model.filter.year = row.value
                 })
         
             <<< PickerInlineRowCustom<String>("YearFrom") {
                 $0.hidden = .function(["Year"], { form -> Bool in
                     let row: RowOf<String>! = form.rowBy(tag: "Year")
-                    return row.value == "Период" ? false : true
+                    return (row.value == "Период" || row.value == "Начиная с") ? false : true
                 })
                 $0.title = "  Начало периода"
                 $0.options = []
                 $0.noValueDisplayText = "Не важно"
-                let date = Date()
-                let calendar = Calendar.current
-                let year = calendar.component(.year, from: date)
                 for i in 1912...year {
                     $0.options.append(i.string)
                 }
@@ -216,30 +236,30 @@ class FilterViewController: FormViewController {
                 $0.options.reverse()
                 $0.value = model.filter.yearsDict != nil ? model.filter.yearsDict!["from"] : nil
                 }
-                .onChange({ (row) in
-//                    guard row.value != "Не важно" else {
-//                        return
-//                    }
+                .onChange({ [weak self] (row) in
                     if row.value == "Не важно" {
                         row.value = nil
                     }
-                    if self.model.filter.yearsDict == nil {
-                        self.model.filter.yearsDict = [String : String]()
+                    if self?.model.filter.yearsDict == nil {
+                        self?.model.filter.yearsDict = [String : String]()
                     }
-                    self.model.filter.yearsDict!["from"] = row.value
+                    self?.model.filter.yearsDict!["from"] = row.value
                 })
             
             <<< PickerInlineRowCustom<String>("YearTo") {
-                $0.hidden = .function(["Year"], { form -> Bool in
+                $0.hidden = .function(["Year"], { [weak self] form -> Bool in
                     let row: RowOf<String>! = form.rowBy(tag: "Year")
+                    if row.value == "Начиная с" {
+                        if self?.model.filter.yearsDict == nil {
+                            self?.model.filter.yearsDict = [String : String]()
+                        }
+                        self?.model.filter.yearsDict!["to"] = self?.year.string
+                    }
                     return row.value == "Период" ? false : true
                     })
                 $0.title = "  Конец периода"
                 $0.options = []
                 $0.noValueDisplayText = "Не важно"
-                let date = Date()
-                let calendar = Calendar.current
-                let year = calendar.component(.year, from: date)
                 for i in 1912...year {
                     $0.options.append(i.string)
                 }
@@ -247,17 +267,14 @@ class FilterViewController: FormViewController {
                 $0.options.reverse()
                 $0.value = model.filter.yearsDict != nil ? model.filter.yearsDict!["to"] : nil
                 }
-                .onChange({ (row) in
-//                    guard row.value != "Не важно" else {
-//                        return
-//                    }
+                .onChange({ [weak self] (row) in
                     if row.value == "Не важно" {
                         row.value = nil
                     }
-                    if self.model.filter.yearsDict == nil {
-                        self.model.filter.yearsDict = [String : String]()
+                    if self?.model.filter.yearsDict == nil {
+                        self?.model.filter.yearsDict = [String : String]()
                     }
-                    self.model.filter.yearsDict!["to"] = row.value
+                    self?.model.filter.yearsDict!["to"] = row.value
                 })
             
             <<< PickerInlineRowCustom<SubtitlesList>("subs"){
@@ -266,14 +283,15 @@ class FilterViewController: FormViewController {
                 $0.options = model.subtitles
                 $0.value = model.filter.subtitles
                 }
-                .onChange({ (row) in
+                .onChange({ [weak self] (row) in
                     if row.value?.title == "Не важно" {
                         row.value = nil
                     }
-                    self.model.filter.subtitles = row.value
+                    self?.model.filter.subtitles = row.value
                 })
-                .cellUpdate({ (cell, row) in
-                    row.options = self.model.subtitles
+                .cellUpdate({ [weak self] (cell, row) in
+                    guard let strongSelf = self else { return }
+                    row.options = strongSelf.model.subtitles
                 })
             
             <<< PickerInlineRowCustom<SortOption>("sort"){
@@ -284,16 +302,16 @@ class FilterViewController: FormViewController {
                 }
                 $0.value = model.filter.sort
                 }
-                .onChange({ (row) in
-                    self.model.filter.sort = row.value!
+                .onChange({ [weak self] (row) in
+                    self?.model.filter.sort = row.value!
                 })
             
             <<< SwitchRow() {
                 $0.title = "Сортировка по возрастанию"
                 $0.value = model.filter.sortAsc
                 }
-                .onChange({ (row) in
-                    self.model.filter.sortAsc = row.value!
+                .onChange({ [weak self] (row) in
+                    self?.model.filter.sortAsc = row.value!
                 })
         
             +++ Section()
@@ -341,6 +359,6 @@ class FilterViewController: FormViewController {
 
 extension FilterViewController: FilterModelDelegate {
     func didUpdateItems(model: FilterModel) {
-        tableView.reloadData()
+        endLoad()
     }
 }

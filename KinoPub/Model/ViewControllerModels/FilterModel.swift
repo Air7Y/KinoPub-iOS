@@ -1,3 +1,11 @@
+//
+//  FilterModel.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 07.10.2017.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import Foundation
 import NotificationBannerSwift
 
@@ -10,7 +18,11 @@ class FilterModel {
     var genres = [Genres]()
     var countries = [Countries]()
     var subtitles = [SubtitlesList]()
-    var filter = Filter.defaultFilter
+    var filter = Filter.defaultFilter {
+        didSet {
+            print(filter)
+        }
+    }
     
     let accountManager: AccountManager
     let networkingService: FilterNetworkingService
@@ -18,18 +30,16 @@ class FilterModel {
     init(accountManager: AccountManager) {
         self.accountManager = accountManager
         networkingService = FilterNetworkingService(requestFactory: accountManager.requestFactory)
-//        accountManager.addDelegate(delegate: self)
     }
     
     func loadItemsGenres() {
         networkingService.receiveItemsGenres(type: type?.rawValue ?? "") { [weak self] (response, error) in
             guard let strongSelf = self else { return }
+            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
             if let responseData = response {
                 strongSelf.genres.append(contentsOf: responseData)
-                strongSelf.delegate?.didUpdateItems(model: strongSelf)
             } else {
-                let banner = NotificationBanner(title: "Ошибка", subtitle: "\(error?.localizedDescription ?? "")", style: .danger)
-                banner.show(queuePosition: .front)
+                Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
             }
         }
     }
@@ -37,12 +47,11 @@ class FilterModel {
     func loadItemsCountry() {
         networkingService.receiveItemsCountry { [weak self] (response, error) in
             guard let strongSelf = self else { return }
+            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
             if let responseData = response {
                 strongSelf.countries = responseData
-                strongSelf.delegate?.didUpdateItems(model: strongSelf)
             } else {
-                let banner = NotificationBanner(title: "Ошибка", subtitle: "\(error?.localizedDescription ?? "")", style: .danger)
-                banner.show(queuePosition: .front)
+                Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
             }
         }
     }
@@ -50,14 +59,12 @@ class FilterModel {
     func loadItemsSubtitles() {
         networkingService.receiveSubtitleItems { [weak self] (response, error) in
             guard let strongSelf = self else { return }
+            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
             if let responseData = response {
-//                strongSelf.subtitles = responseData
                 strongSelf.subtitles.append(SubtitlesList(id: "0", title: "Не важно"))
                 strongSelf.subtitles.append(contentsOf: responseData)
-                strongSelf.delegate?.didUpdateItems(model: strongSelf)
             } else {
-                let banner = NotificationBanner(title: "Ошибка", subtitle: "\(error?.localizedDescription ?? "")", style: .danger)
-                banner.show(queuePosition: .front)
+                Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
             }
         }
     }

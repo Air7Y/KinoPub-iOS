@@ -26,6 +26,7 @@ class BookmarksModel {
     var items = [Item]()
     var folder: Bookmarks?
     var page: Int = 1
+    var totalPages: Int = 1
     
     let accountManager: AccountManager
     let networkingService: BookmarksNetworkService
@@ -33,7 +34,6 @@ class BookmarksModel {
     init(accountManager: AccountManager) {
         self.accountManager = accountManager
         networkingService = BookmarksNetworkService(requestFactory: accountManager.requestFactory)
-        //        accountManager.addDelegate(delegate: self)
     }
     
     func loadBookmarks(completed: @escaping (([Bookmarks]?) -> Void)) {
@@ -52,11 +52,12 @@ class BookmarksModel {
     func loadBookmarkItems(completed: @escaping (_ count: Int?) -> ()) {
         networkingService.receiveBookmarkItems(id: (folder?.id?.string)!, page: page.string) { [weak self] (response, error) in
             guard let strongSelf = self else { return }
+            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
             if let itemsData = response {
                 guard let items = itemsData.items else { return }
                 strongSelf.page += 1
+                strongSelf.totalPages = response?.pagination?.total ?? 1
                 strongSelf.items.append(contentsOf: items)
-                strongSelf.delegate?.didUpdateItems(model: strongSelf)
                 completed(itemsData.items?.count)
             } else {
                 Helper.showErrorBanner(error?.localizedDescription ?? "")

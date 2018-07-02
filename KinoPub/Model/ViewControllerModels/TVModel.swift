@@ -1,3 +1,11 @@
+//
+//  TVModel.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 12.02.2018.
+//  Copyright © 2018 KinoPub. All rights reserved.
+//
+
 import Foundation
 import NotificationBannerSwift
 
@@ -20,12 +28,11 @@ class TVModel {
     func loadSportChannels() {
         networkingService.receiveTVChanels { [weak self] (response, error) in
             guard let strongSelf = self else { return }
+            defer { strongSelf.delegate?.didUpdateChannels(model: strongSelf) }
             if let responseData = response {
                 strongSelf.sportChannels = responseData
-                strongSelf.delegate?.didUpdateChannels(model: strongSelf)
             } else {
-                let banner = NotificationBanner(title: "Ошибка", subtitle: "\(error?.localizedDescription ?? "")", style: .danger)
-                banner.show(queuePosition: .front)
+                Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
             }
         }
     }

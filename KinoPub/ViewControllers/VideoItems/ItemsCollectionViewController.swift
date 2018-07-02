@@ -1,7 +1,17 @@
+//
+//  ItemsCollectionViewController.swift
+//  KinoPub
+//
+//  Created by hintoz on 06.03.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import DGCollectionViewPaginableBehavior
 import AZSearchView
 import InteractiveSideMenu
+import GradientLoadingBar
+import UIEmptyState
 
 class ItemsCollectionViewController: ContentCollectionViewController, SideMenuItemContent {
     let model = Container.ViewModel.videoItems()
@@ -27,54 +37,47 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        beginLoad()
+        configView()
+        configOldSearch()
+        configNewSearch()
+        configMenuIcon()
+        configTabBar()
+        configEmptyCollection()
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        filterButton?.image = model.filter.isSet ? R.image.filtersFill() : R.image.filters()
+    }
+    
+    func beginLoad() {
+        GradientLoadingBar.shared.show()
+    }
+    
+    func endLoad() {
+        collectionView?.reloadData()
+        reloadEmptyStateForCollectionView(collectionView!)
+        GradientLoadingBar.shared.hide()
+        control.endRefreshing()
+    }
+
+    @objc func refresh() {
+        beginLoad()
+        refreshing = true
+        searchControllerNew.isActive ? model.refreshSearch() : model.refresh()
+        refreshing = false
+        behavior.reloadData()
+        behavior.fetchNextData(forSection: 0) { [weak self] in
+            self?.endLoad()
+        }
+        control.endRefreshing()
+    }
+    
+    func configView() {
         accountManager.addDelegate(delegate: self)
         model.delegate = self
-        configSearch()
-        configMenuIcon()
-
         collectionView?.backgroundColor = .kpBackground
-        
-        searchControllerNew = UISearchController(searchResultsController: nil)
-        searchControllerNew.searchBar.tintColor = .kpOffWhite
-        searchControllerNew.searchBar.placeholder = "Поиск"
-        searchControllerNew.searchBar.keyboardAppearance = .dark
-        
-        if #available(iOS 11.0, *) {
-            navigationItem.rightBarButtonItems = [filterButton]
-            searchControllerNew.dimsBackgroundDuringPresentation = true
-            searchControllerNew.obscuresBackgroundDuringPresentation = false
-            searchControllerNew.searchBar.sizeToFit()
-            //
-            //        searchControllerNew.searchBar.becomeFirstResponder()
-            
-            searchControllerNew.searchResultsUpdater = self
-            searchControllerNew.searchBar.delegate = self
-            
-            
-            searchControllerNew.hidesNavigationBarDuringPresentation = true
-            
-            navigationController?.navigationBar.prefersLargeTitles = true
-            navigationController?.navigationItem.largeTitleDisplayMode = .always
-            
-            let attributes = [
-                NSAttributedStringKey.foregroundColor : UIColor.kpOffWhite
-                ]
-            
-            navigationController?.navigationBar.largeTitleTextAttributes = attributes
-            navigationItem.searchController = searchControllerNew
-            
-            
-            definesPresentationContext = true
-        } else {
-            // Fallback on earlier versions
-//            navigationItem.titleView = searchControllerNew.searchBar
-//            searchControllerNew.searchBar.showsCancelButton = false
-//            searchControllerNew.hidesNavigationBarDuringPresentation = false
-            navigationItem.rightBarButtonItems = [filterButton, searchButton]
-        }
-        
-        configTabBar()
-
         collectionView?.delegate = behavior
         collectionView?.dataSource = self
         
@@ -83,6 +86,7 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
         }
         
         behavior.delegate = self
+        behavior.options = DGCollectionViewPaginableBehavior.Options(automaticFetch: true, countPerPage: 20, animatedUpdates: true)
         collectionView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
         // Pull to refresh
         control.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
@@ -92,24 +96,6 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
         } else {
             collectionView?.addSubview(control)
         }
-    }
-    
-    private static let filtersFillImage = R.image.filtersFill()
-    private static let filtersImage = R.image.filters()
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        filterButton?.image = model.filter.isSet ? ItemsCollectionViewController.filtersFillImage : ItemsCollectionViewController.filtersImage
-    }
-
-    @objc func refresh() {
-        refreshing = true
-        searchControllerNew.isActive ? model.refreshSearch() : model.refresh()
-        refreshing = false
-        behavior.reloadData()
-        behavior.fetchNextData(forSection: 0) {
-            self.collectionView?.reloadData()
-        }
-        control.endRefreshing()
     }
 
     func configTabBar() {
@@ -187,19 +173,16 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
         }
     }
 
-    func configSearch() {
+    func configOldSearch() {
         searchController = AZSearchViewController(cellReuseIdentifier: String(describing: SearchResultTableViewCell.self),
                                                   cellNibName: String(describing: SearchResultTableViewCell.self))
-        
         searchController.delegate = self
         searchController.dataSource = self
         searchController.searchBarPlaceHolder = "Поиск"
         searchController.navigationBarClosure = { bar in
             //The navigation bar's background color
             bar.barTintColor = .kpBackground
-            
             bar.isTranslucent = false
-            
             //The tint color of the navigation bar
             bar.tintColor = .kpOffWhite
         }
@@ -218,10 +201,37 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
         searchController.navigationItem.rightBarButtonItem = item
     }
     
+    func configNewSearch() {
+        searchControllerNew = UISearchController(searchResultsController: nil)
+        searchControllerNew.searchBar.tintColor = .kpOffWhite
+        searchControllerNew.searchBar.placeholder = "Поиск"
+        searchControllerNew.searchBar.keyboardAppearance = .dark
+        
+        if #available(iOS 11.0, *) {
+            navigationItem.rightBarButtonItems = [filterButton]
+            searchControllerNew.dimsBackgroundDuringPresentation = true
+            searchControllerNew.obscuresBackgroundDuringPresentation = false
+            searchControllerNew.searchBar.sizeToFit()
+            searchControllerNew.searchResultsUpdater = self
+            searchControllerNew.searchBar.delegate = self
+            searchControllerNew.hidesNavigationBarDuringPresentation = true
+            navigationItem.searchController = searchControllerNew
+            definesPresentationContext = true
+        } else {
+            navigationItem.rightBarButtonItems = [filterButton, searchButton]
+        }
+    }
+    
     func configMenuIcon() {
         if let count = navigationController?.viewControllers.count, count > 1 {
             navigationItem.leftBarButtonItem = nil
         }
+    }
+    
+    func configEmptyCollection() {
+        emptyStateDataSource = self
+        emptyStateDelegate = self
+        reloadEmptyStateForCollectionView(collectionView!)
     }
 
     // MARK: - Buttons
@@ -238,7 +248,6 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
     }
 
     @objc func closeSearchBar(_ sender: AnyObject?) {
-//        self.tabBarController?.tabBar.isHidden = false
         searchController.dismiss(animated: true)
     }
 
@@ -246,9 +255,6 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
         if let navigationViewController = self.navigationController as? SideMenuItemContent {
             navigationViewController.showSideMenu()
         }
-//        if let menuItemViewController = self.tabBarController as? SideMenuItemContent {
-//            menuItemViewController.showSideMenu()
-//        }
     }
     
     @IBAction func filterButtonTapped(_ sender: Any) {
@@ -256,7 +262,6 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
             fvc.model.type = model.type
             fvc.model.filter = model.filter
             navigationController?.pushViewController(fvc, animated: true)
-//            self.tabBarController?.tabBar.isHidden = true
         }
     }
     
@@ -275,7 +280,6 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
     
     func filterBack() {
         refresh()
-        tabBarController?.tabBar.isHidden = false
     }
     
     // MARK: - Navigation
@@ -387,14 +391,64 @@ extension ItemsCollectionViewController: DGCollectionViewPaginableBehaviorDelega
                 completion(nil, 0)
                 return
             }
-            model.loadSearchItems(searchControllerNew.searchBar.text!, iOS11: true, { (resultCount) in
-                completion(nil, resultCount ?? 0)
+            model.loadSearchItems(searchControllerNew.searchBar.text!, iOS11: true, { [weak self] (resultCount) in
+                guard let strongSelf = self else { return }
+                if strongSelf.model.pageOfSearch > strongSelf.model.totalPagesOfSearch {
+                    completion(nil, 0)
+                } else {
+                    completion(nil, resultCount ?? 0)
+                }
             })
         } else {
-            model.loadVideoItems { (resultCount) in
-                completion(nil, resultCount ?? 0)
+            model.loadVideoItems { [weak self] (resultCount) in
+                guard let strongSelf = self else { return }
+                if strongSelf.model.page > strongSelf.model.totalPages {
+                    completion(nil, 0)
+                } else {
+                    completion(nil, resultCount ?? 0)
+                }
             }
         }
+    }
+    
+    func paginableBehavior(_ paginableBehavior: DGCollectionViewPaginableBehavior, didAutoFetchDataFor section: Int) {
+        reloadEmptyStateForCollectionView(collectionView!)
+    }
+}
+
+// MARK: -UIEmptyStateDelegate, UIEmptyStateDataSource
+extension ItemsCollectionViewController: UIEmptyStateDelegate, UIEmptyStateDataSource {
+    // MARK: - Empty State Data Source
+    var emptyStateImage: UIImage? {
+        return UIImage(named: "Movies")?.filled(withColor: UIColor.kpGreyishTwo)
+    }
+    
+    var emptyStateTitle: NSAttributedString {
+        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite,
+                     NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)]
+        return NSAttributedString(string: "Нет результатов.\nВозможно, отсутствует интернет соединение или сервис временно недоступен.", attributes: attrs)
+    }
+    
+    var emptyStateButtonTitle: NSAttributedString? {
+        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.black,
+                     NSAttributedStringKey.font: UIFont.init(name: "UniSansSemiBold", size: 12) ?? UIFont.systemFont(ofSize: 12)]
+        return NSAttributedString(string: "ОБНОВИТЬ", attributes: attrs)
+    }
+    
+    var emptyStateButtonSize: CGSize? {
+        return CGSize(width: 200, height: 36)
+    }
+    
+    // MARK: - Empty State Delegate
+    func emptyStateViewWillShow(view: UIView) {
+        guard let emptyView = view as? UIEmptyStateView else { return }
+        emptyView.button.layer.cornerRadius = 4
+        emptyView.button.layer.backgroundColor = UIColor.kpMarigold.cgColor
+    }
+    
+    func emptyStatebuttonWasTapped(button: UIButton) {
+        Helper.hapticGenerate(style: .medium)
+        refresh()
     }
 }
 
@@ -465,8 +519,8 @@ extension ItemsCollectionViewController: UISearchResultsUpdating, UISearchBarDel
 //            strongSelf.collectionView?.reloadData()
 //        }
         behavior.reloadData()
-        behavior.fetchNextData(forSection: 0) {
-            self.collectionView?.reloadData()
+        behavior.fetchNextData(forSection: 0) { [weak self] in
+            self?.endLoad()
         }
 //        collectionView?.reloadData()
     }
@@ -474,7 +528,7 @@ extension ItemsCollectionViewController: UISearchResultsUpdating, UISearchBarDel
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         model.resultItems.removeAll()
         behavior.reloadData()
-        collectionView?.reloadData()
+        endLoad()
 //        searchController.dismiss(animated: true)
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
@@ -498,6 +552,6 @@ extension ItemsCollectionViewController: AccountManagerDelegate {
 extension ItemsCollectionViewController: VideoItemsModelDelegate {
     func didUpdateItems(model: VideoItemsModel) {
         // Forces deinit cells.
-        collectionView?.reloadData()
+        endLoad()
     }
 }

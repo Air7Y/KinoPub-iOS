@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -14,7 +14,7 @@
         <!--Set View Controller-->
         <scene sceneID="mcB-3U-t0o">
             <objects>
-                <viewController storyboardIdentifier="SettingsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QIF-Bw-nZo" customClass="SetViewController" customModule="KinoPub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SettingsVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="QIF-Bw-nZo" customClass="SetViewController" customModule="qinoa" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="L5Y-KF-cql"/>
                         <viewControllerLayoutGuide type="bottom" id="bhW-O9-wmo"/>
@@ -34,7 +34,7 @@
         <!--Menu Section View Controller-->
         <scene sceneID="0Jl-kc-GOb">
             <objects>
-                <viewController storyboardIdentifier="MenuSectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t2M-7M-6n8" customClass="MenuSectionViewController" customModule="KinoPub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MenuSectionViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="t2M-7M-6n8" customClass="MenuSectionViewController" customModule="qinoa" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2cB-ba-O0a"/>
                         <viewControllerLayoutGuide type="bottom" id="5D4-Oz-sga"/>
@@ -52,7 +52,7 @@
         <!--Thanks View Controller-->
         <scene sceneID="rh0-Ud-eSO">
             <objects>
-                <viewController storyboardIdentifier="ThanksViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yNN-SB-pmr" customClass="ThanksViewController" customModule="KinoPub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ThanksViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="yNN-SB-pmr" customClass="ThanksViewController" customModule="qinoa" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="zcQ-xE-coS"/>
                         <viewControllerLayoutGuide type="bottom" id="Ina-G8-PLJ"/>
@@ -97,7 +97,7 @@
         <!--About View Controller-->
         <scene sceneID="ZEv-mX-odm">
             <objects>
-                <viewController storyboardIdentifier="AboutViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HVi-jT-SS6" customClass="AboutViewController" customModule="KinoPub" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AboutViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="HVi-jT-SS6" customClass="AboutViewController" customModule="qinoa" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="H3Y-ba-Ujt"/>
                         <viewControllerLayoutGuide type="bottom" id="kYY-FK-PKH"/>
@@ -271,10 +271,10 @@
         <!--Navigation Controller-->
         <scene sceneID="uXy-eK-fkt">
             <objects>
-                <navigationController storyboardIdentifier="SettingsNavVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tmx-fH-r9e" customClass="NavigationController" customModule="KinoPub" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="SettingsNavVC" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="tmx-fH-r9e" customClass="NavigationController" customModule="qinoa" customModuleProvider="target" sceneMemberID="viewController">
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="eAI-Vo-hdE">
-                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="black" largeTitles="YES" id="eAI-Vo-hdE">
+                        <rect key="frame" x="0.0" y="20" width="375" height="96"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>

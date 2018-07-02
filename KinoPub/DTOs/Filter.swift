@@ -46,12 +46,11 @@ extension Filter {
             switch year {
             case "Не важно":
                 param["year"] = ""
-            case "Период":
+            case "Период", "Начиная с":
                 if var yearsDict = yearsDict {
-                    if let year1 = yearsDict["from"]?.int, let year2 = yearsDict["to"]?.int, year1 > year2 {
-                        yearsDict.swap("from", "to")
-                    }
-                    param["year"] = yearsDict.toString
+                    guard let year1 = yearsDict["from"], let year2 = yearsDict["to"] else { break }
+                    if year1.int! > year2.int! { yearsDict.swap("from", "to") }
+                    param["year"] = "\(year1)-\(year2)"
                 }
             default:
                 param["year"] = year

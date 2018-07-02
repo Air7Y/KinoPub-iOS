@@ -156,7 +156,7 @@ class OldDetailViewController: UIViewController, SideMenuItemContent {
         tableView.register(UINib(nibName: String(describing:RatingTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing:RatingTableViewCell.self))
         tableView.register(UINib(nibName: String(describing:DescTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing:DescTableViewCell.self))
         tableView.register(UINib(nibName: String(describing:InfoTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: InfoTableViewCell.self))
-        tableView.register(UINib(nibName: String(describing:CastTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: CastTableViewCell.reuseIdentifier)
+        tableView.register(UINib(nibName: String(describing:CastTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing:CastTableViewCell.self))
         tableView.register(UINib(nibName: String(describing:SeasonTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: SeasonTableViewCell.self))
     }
 
@@ -568,7 +568,7 @@ extension OldDetailViewController: UITableViewDataSource {
             infoCell.configure(with: model.item!)
             return infoCell
         case 3:
-            castCell = tableView.dequeueReusableCell(withIdentifier: CastTableViewCell.reuseIdentifier, for: indexPath) as! CastTableViewCell
+            castCell = tableView.dequeueReusableCell(withIdentifier: String(describing: CastTableViewCell.self), for: indexPath) as! CastTableViewCell
             castCell.selectionStyle = .none
             castCell.configure(with: model.item?.cast, directors: model.item?.director)
             return castCell

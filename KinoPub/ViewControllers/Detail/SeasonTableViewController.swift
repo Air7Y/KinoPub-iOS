@@ -1,8 +1,17 @@
+//
+//  SeasonTableViewController.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 08.07.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import SwiftyUserDefaults
 import LKAlertController
 import NTDownload
 import NotificationBannerSwift
+import GradientLoadingBar
 
 class SeasonTableViewController: UITableViewController {
     var model: VideoItemModel!
@@ -40,8 +49,6 @@ class SeasonTableViewController: UITableViewController {
         
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .always
-        } else {
-            // Fallback on earlier versions
         }
     }
     
@@ -68,17 +75,20 @@ class SeasonTableViewController: UITableViewController {
     }
     
     @objc func refresh() {
+        beginLoad()
         refreshing = true
         config()
     }
     
     func beginLoad() {
         refreshing = true
+        GradientLoadingBar.shared.show()
     }
     
     @objc func endLoad() {
         tableView.reloadData()
         refreshing = false
+        GradientLoadingBar.shared.hide()
         control.endRefreshing()
     }
 

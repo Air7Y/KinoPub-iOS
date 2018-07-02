@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GradientLoadingBar
 
 class CommentsVC: UIViewController {
     private let model = Container.ViewModel.comments()
@@ -58,11 +59,13 @@ class CommentsVC: UIViewController {
     }
     
     func beginLoad() {
+        GradientLoadingBar.shared.show()
         control.beginRefreshing()
     }
     
     func endLoad() {
         tableView.reloadData()
+        GradientLoadingBar.shared.hide()
         control.endRefreshing()
     }
     

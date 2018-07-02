@@ -1,8 +1,17 @@
+//
+//  BookmarksTableViewController.swift
+//  KinoPub
+//
+//  Created by hintoz on 11.06.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import CustomLoader
 import LKAlertController
 import InteractiveSideMenu
 import UIEmptyState
+import GradientLoadingBar
 
 class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
     let viewModel = Container.ViewModel.bookmarks()
@@ -30,15 +39,13 @@ class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
         
         tableView.register(UINib(nibName: String(describing: BookmarkTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: BookmarkTableViewCell.self))
         tableView.backgroundColor = .kpBackground
-        tableView.tintColor = UIColor.kpOffWhite
+        tableView.tintColor = UIColor.kpGreyishTwo
         
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationController?.navigationItem.largeTitleDisplayMode = .always
             let attributes = [NSAttributedStringKey.foregroundColor : UIColor.kpOffWhite]
             navigationController?.navigationBar.largeTitleTextAttributes = attributes
-        } else {
-            // Fallback on earlier versions
         }
         
         // Pull to refresh
@@ -84,16 +91,15 @@ class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
     }
     
     func beginLoad() {
-//        _ = LoadingView.system(withStyle: .white).show(inView: view)
+        GradientLoadingBar.shared.show()
     }
     
     func endLoad() {
         tableView.reloadData()
         reloadEmptyStateForTableView(tableView)
         tableView.tableFooterView = viewModel.bookmarks.isEmpty ? UIView(frame: .zero) : tableViewFooter
+        GradientLoadingBar.shared.hide()
         control.endRefreshing()
-//        view.removeLoadingViews(animated: true)
-        
     }
     
     func showNewFolderAlert() {

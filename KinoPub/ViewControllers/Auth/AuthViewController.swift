@@ -1,3 +1,11 @@
+//
+//  AuthViewController.swift
+//  KinoPub
+//
+//  Created by hintoz on 16.02.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import CustomLoader
 
@@ -6,7 +14,6 @@ class AuthViewController: UIViewController {
     
     let pasteboard = UIPasteboard.general
 
-//    @IBOutlet weak var URLLabel: UILabel!
     @IBOutlet weak var codeLabel: UILabel!
     @IBOutlet weak var codeTitleLabel: UILabel!
     @IBOutlet weak var errorLabel: UILabel!
@@ -42,18 +49,9 @@ class AuthViewController: UIViewController {
         activateButton.setTitle("", for: .disabled)
         
         loadCode()
-//        if Config.shared.kinopubDomain == "" {
-            codeLabel.text = "загрузка"
-            activateButton.isEnabled = false
+        codeLabel.text = "загрузка"
+        activateButton.isEnabled = false
         _ = LoadingView.system(withStyle: .gray).show(inView: activateButton)
-//            URLLabel.text = "загрузка..."
-//        } else {
-//            URLLabel.text = "\(Config.shared.kinopubDomain)/device"
-//            let tapURLLabel = UITapGestureRecognizer(target: self, action: #selector(openSafariVC(_:)))
-//            URLLabel.isUserInteractionEnabled = true
-//            URLLabel.addGestureRecognizer(tapURLLabel)
-//            activateButton.isEnabled = true
-//        }
     }
     
     func configButton() {
@@ -66,17 +64,14 @@ class AuthViewController: UIViewController {
             guard let strongSelf = self else { return }
             strongSelf.codeLabel.text = authResponse.userCode
             strongSelf.pasteboard.string = authResponse.userCode ?? ""
+            strongSelf.configButton()
         }
     }
 
     func openSafariVC() {
-        if let code = viewModel.userCode {
-            if #available(iOS 10.0, *) {
-                UIApplication.shared.open(URL(string: "\(Config.shared.kinopubDomain)/device?code=\(code)")!, options: [:], completionHandler: nil)
-            } else {
-                UIApplication.shared.openURL(URL(string: "\(Config.shared.kinopubDomain)/device?code=\(code)")!)
-            }
-        }
+        guard let code = viewModel.userCode else { return }
+        guard let urlKpDevice = URL(string: "\(Config.shared.kinopubDomain)/device?code=\(code)") else { return }
+        UIApplication.shared.open(url: urlKpDevice)
     }
 
     static func storyboardInstance() -> AuthViewController? {

@@ -28,18 +28,18 @@ class CommentsModel: AccountManagerDelegate {
     func loadNoDeletedComments(for id: String) {
         loadAllComments(for: id) { [weak self] (comments) in
             guard let strongSelf = self else { return }
+            defer { strongSelf.delegate?.didUpdateComments() }
             guard let comments = comments else { return }
             strongSelf.comments = comments.filter{!$0.deleted!}
-            strongSelf.delegate?.didUpdateComments()
         }
     }
     
     func loadTopComments(for id: String) {
         loadAllComments(for: id) { [weak self] (comments) in
             guard let strongSelf = self else { return }
+            defer { strongSelf.delegate?.didUpdateComments() }
             guard let comments = comments else { return }
             strongSelf.comments = Array(comments.sorted(by: {$0.rating?.int ?? 0 > $1.rating?.int ?? 0}).prefix(3))
-            strongSelf.delegate?.didUpdateComments()
         }
     }
     
@@ -48,8 +48,7 @@ class CommentsModel: AccountManagerDelegate {
             if let data = response {
                 completed(data.comments)
             } else {
-                debugPrint("[!ERROR]: \(String(describing: error?.localizedDescription))")
-                Helper.showError(error?.localizedDescription ?? "Unknown")
+                Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
                 completed(nil)
             }
         }

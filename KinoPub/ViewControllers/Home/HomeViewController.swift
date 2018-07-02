@@ -1,6 +1,16 @@
+//
+//  HomeViewController.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 12.01.2018.
+//  Copyright © 2018 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import InteractiveSideMenu
 import AZSearchView
+import GradientLoadingBar
+import UIEmptyState
 
 class HomeViewController: UIViewController, SideMenuItemContent {
     
@@ -15,12 +25,14 @@ class HomeViewController: UIViewController, SideMenuItemContent {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        beginLoad()
+        initData()
         delegates()
         configView()
         configTableView()
         configPullToRefresh()
         configSearch()
-        initData()
+        configEmptyTable()
     }
 
     override func didReceiveMemoryWarning() {
@@ -36,18 +48,18 @@ class HomeViewController: UIViewController, SideMenuItemContent {
     func configView() {
         title = "Главная"
         view.backgroundColor = .kpBackground
+        view.tintColor = .kpGreyishTwo
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationController?.navigationItem.largeTitleDisplayMode = .always
             let attributes = [NSAttributedStringKey.foregroundColor : UIColor.kpOffWhite]
             navigationController?.navigationBar.largeTitleTextAttributes = attributes
-        } else {
-            // Fallback on earlier versions
         }
     }
     
     func configTableView() {
         tableView.backgroundColor = .clear
+        tableView.tintColor = .kpOffWhite
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.tableFooterView = UIView(frame: CGRect.zero)
@@ -89,10 +101,15 @@ class HomeViewController: UIViewController, SideMenuItemContent {
         searchController.keyboardAppearnce = .dark
         searchController.separatorColor = .kpOffWhiteSeparator
         searchController.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
-        searchController.tableViewBackgroundColor = .kpBackground //UIColor(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.6)
+        searchController.tableViewBackgroundColor = .kpBackground
         let item = UIBarButtonItem(barButtonSystemItem: .stop, target: self, action: #selector(closeSearchBar(_:)))
         item.tintColor = .kpMarigold
         searchController.navigationItem.rightBarButtonItem = item
+    }
+    
+    func configEmptyTable() {
+        emptyStateDataSource = self
+        emptyStateDelegate = self
     }
     
     func initData() {
@@ -104,10 +121,20 @@ class HomeViewController: UIViewController, SideMenuItemContent {
         model.loadFreshSeries()
     }
     
-    @objc func refresh() {
-        initData()
+    func beginLoad() {
+        GradientLoadingBar.shared.show()
+    }
+    
+    func endLoad() {
         tableView.reloadData()
+        reloadEmptyStateForTableView(tableView)
         control.endRefreshing()
+        GradientLoadingBar.shared.hide()
+    }
+    
+    @objc func refresh() {
+        beginLoad()
+        initData()
     }
 
     // MARK: - Navigation
@@ -175,7 +202,6 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         default:
             return 0
         }
-//        return 1
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -220,6 +246,41 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
         storedOffsets[indexPath.section] = tableViewCell.collectionViewOffset
     }
     
+}
+
+extension HomeViewController: UIEmptyStateDelegate, UIEmptyStateDataSource {
+    // MARK: - Empty State Data Source
+    var emptyStateImage: UIImage? {
+        return UIImage(named: "Movies")
+    }
+    
+    var emptyStateTitle: NSAttributedString {
+        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite,
+                     NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)]
+        return NSAttributedString(string: "Нет результатов.\nВозможно, отсутствует интернет соединение или сервис временно недоступен.", attributes: attrs)
+    }
+    
+    var emptyStateButtonTitle: NSAttributedString? {
+        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.black,
+                     NSAttributedStringKey.font: UIFont.init(name: "UniSansSemiBold", size: 12) ?? UIFont.systemFont(ofSize: 12)]
+        return NSAttributedString(string: "ОБНОВИТЬ", attributes: attrs)
+    }
+    
+    var emptyStateButtonSize: CGSize? {
+        return CGSize(width: 200, height: 36)
+    }
+    
+    // MARK: - Empty State Delegate
+    func emptyStateViewWillShow(view: UIView) {
+        guard let emptyView = view as? UIEmptyStateView else { return }
+        emptyView.button.layer.cornerRadius = 4
+        emptyView.button.layer.backgroundColor = UIColor.kpMarigold.cgColor
+    }
+    
+    func emptyStatebuttonWasTapped(button: UIButton) {
+        Helper.hapticGenerate(style: .medium)
+        refresh()
+    }
 }
 
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -363,7 +424,7 @@ extension HomeViewController: AccountManagerDelegate {
 // MARK: VideoItemsModel Delegate
 extension HomeViewController: VideoItemsModelDelegate {
     func didUpdateItems(model: VideoItemsModel) {
-        tableView.reloadData()
+        endLoad()
     }
 }
 

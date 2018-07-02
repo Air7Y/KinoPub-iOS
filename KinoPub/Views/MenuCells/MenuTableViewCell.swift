@@ -15,11 +15,12 @@ class MenuTableViewCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
 
         // Configure the view for the selected state
-        if selected {
-            iconImageView.tintColor = .kpMarigold
-        } else {
-            iconImageView.tintColor = .kpGreyishTwo
-        }
+        iconImageView.tintColor = selected ? .kpMarigold : .kpGreyishTwo
+//        if selected {
+//            iconImageView.tintColor = .kpMarigold
+//        } else {
+//            iconImageView.tintColor = .kpGreyishTwo
+//        }
     }
     
     func configView() {

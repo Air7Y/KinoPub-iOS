@@ -1,9 +1,14 @@
+//
+//  CastTableViewCell.swift
+//  KinoPub
+//
+//  Created by hintoz on 27.04.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 
 class CastTableViewCell: UITableViewCell {
-
-    static let reuseIdentifier = "CastTableViewCell"
-    
     var actors = [String]()
     var directors = [String]()
 
@@ -23,7 +28,6 @@ class CastTableViewCell: UITableViewCell {
             actorCollectionView.contentInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         }
     }
-    @IBOutlet weak var directorCollectionHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var actorCellectionHeightConstraint: NSLayoutConstraint!
 
     override func awakeFromNib() {
@@ -55,8 +59,6 @@ class CastTableViewCell: UITableViewCell {
 
     func configure(actors: String?) {
         guard actors != "" else {
-//            actorsTitleLabel.isHidden = true
-//            actorCellectionHeightConstraint.constant = 0
             actorsStackView.isHidden = true
             return
         }
@@ -71,8 +73,6 @@ class CastTableViewCell: UITableViewCell {
 
     func configure(directors: String?) {
         guard directors != "" else {
-//            directorsTitleLabel.isHidden = true
-//            directorCollectionHeightConstraint.constant = 0
             directorStackView.isHidden = true
             return
         }
@@ -117,11 +117,7 @@ extension CastTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     }
 
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if collectionView == self.directorCollectionView {
-            return directors.count
-        }
-        return actors.count
-
+        return collectionView == self.directorCollectionView ? directors.count : actors.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -138,31 +134,15 @@ extension CastTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
 }
 
 extension CastTableViewCell: UICollectionViewDelegateFlowLayout {
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-    
-//        let screenwith  = ScreenSize.SCREEN_WIDTH
-//        let colum:Float = 2.0, spacing:Float = 8.0;
-//        let value = floorf((Float(screenwith) - (colum - 1) * spacing) / colum)
-//        let cellHeight = screenwith*0.48
-//        let cellWidth = CGFloat(value + (value / 1.3 ))
-        
-        
-//        return  CGSize(width: 320, height: 50)
-//    }
-
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-
         return UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-
         return 10
     }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-
         return 0
     }
-
 }

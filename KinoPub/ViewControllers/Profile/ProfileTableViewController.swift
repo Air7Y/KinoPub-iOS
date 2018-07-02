@@ -165,9 +165,7 @@ class ProfileViewController: UITableViewController, ProfileModelDelegate, SideMe
             .addAction("Нет", style: .cancel)
             .addAction("Да", style: .default, handler: { (action) in
                 self.accountManager.logoutAccount()
-            }).show(animated: true)
-//        Alert(message: "Скоро")
-//        .showOkay()
+            }).show()
     }
 
     // MARK: - Profile Model Delegate
