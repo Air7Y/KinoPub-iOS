@@ -1,7 +1,18 @@
+//
+//  NavigationController.swift
+//  KinoPub
+//
+//  Created by hintoz on 14.04.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import InteractiveSideMenu
 
 class NavigationController: UINavigationController, SideMenuItemContent {
+    
+    var defaultBackImage: UIImage!
+    var defaultShadowImage: UIImage!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -9,9 +20,10 @@ class NavigationController: UINavigationController, SideMenuItemContent {
         navigationBar.barStyle = .black
         
         if #available(iOS 11.0, *) {
+            navigationBar.prefersLargeTitles = true
+            let attributes = [NSAttributedStringKey.foregroundColor : UIColor.kpOffWhite]
+            navigationBar.largeTitleTextAttributes = attributes
             navigationItem.largeTitleDisplayMode = .always
-        } else {
-            // Fallback on earlier versions
         }
     }
 

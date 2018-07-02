@@ -14,6 +14,7 @@ import TMDBSwift
 import LKAlertController
 import NTDownload
 import NotificationBannerSwift
+import GradientLoadingBar
 
 class DetailViewController: UIViewController, SideMenuItemContent {
     let model = Container.ViewModel.videoItem()
@@ -89,7 +90,7 @@ class DetailViewController: UIViewController, SideMenuItemContent {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.clean(navigationBarHide)
 //        navigationController?.navigationBar.titleTextAttributes = [NSAttributedStringKey.foregroundColor: titleColor]
-        self.title = nil
+        if navigationBarHide { self.title = nil }
     }
     
     override func viewDidLayoutSubviews() {
@@ -263,7 +264,7 @@ class DetailViewController: UIViewController, SideMenuItemContent {
         configInAirView()
         configPlayButton()
         configEpisodeLabel()
-        tableView.reloadData()
+//        tableView.reloadData()
     }
     
     func loadData() {
@@ -273,17 +274,19 @@ class DetailViewController: UIViewController, SideMenuItemContent {
     
     func beginLoad() {
         refreshing = true
+        GradientLoadingBar.shared.show()
     }
     
     func endLoad() {
         refreshing = false
+        tableView.reloadData()
+        GradientLoadingBar.shared.hide()
+        control.endRefreshing()
     }
     
     @objc func refresh() {
         model.mediaItems.removeAll()
         loadData()
-        configAfterRefresh()
-        control.endRefreshing()
     }
     
     @objc func modelDidUpdate() {
@@ -593,22 +596,6 @@ extension DetailViewController: UITableViewDataSource {
         default:
             return 1
         }
-//        if section == 3 {
-//            return model.item.trailer == nil ? 0 : 1
-//        } else if section == 4 {
-//            if let count = model.item?.seasons?.count {
-//                return count
-//            } else if let count = model.item?.videos?.count, count > 1 {
-//                return 1
-//            }
-//            return 0
-//        } else if section == 6 {
-//            return (model.item?.cast == "" || model.item?.director == "") ? 0 : 1
-//        } else if section == 7 {
-//            return model.similarItems.count > 0 ? 1 : 0
-//        } else {
-//            return 1
-//        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -634,7 +621,7 @@ extension DetailViewController: UITableViewDataSource {
             cell.configure(with: model.item!)
             return cell
         case 6:
-            let cell = tableView.dequeueReusableCell(withIdentifier: CastTableViewCell.reuseIdentifier, for: indexPath) as! CastTableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CastTableViewCell.self), for: indexPath) as! CastTableViewCell
             cell.selectionStyle = .none
             cell.configure(with: model.item?.cast, directors: model.item?.director)
             return cell
@@ -689,6 +676,7 @@ extension DetailViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         guard section == 8 else { return UIView(frame: .zero) }
+        guard commentsModel.comments.count > 0 else { return UIView(frame: .zero) }
         let screenSize = UIScreen.main.bounds.width
         let headerView = UIView(frame: CGRect(x: 0, y: 0, width: screenSize, height: 26))
         let label = UILabel(text: "КОММЕНТАРИИ ПОЛЬЗОВАТЕЛЕЙ")
@@ -704,6 +692,7 @@ extension DetailViewController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        guard commentsModel.comments.count > 0 else { return 0 }
         return section == 8 ? 26 : 0
     }
 }

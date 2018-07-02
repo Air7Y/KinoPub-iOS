@@ -79,17 +79,15 @@ class VideoItemsModel: AccountManagerDelegate {
         }
         networkingService.receiveItems(withParameters: param, from: from, completed: { [weak self] (response, error) in
             guard let strongSelf = self else { return }
+            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
             if let itemsData = response {
                 guard let items = itemsData.items else { return }
                 strongSelf.page += 1
                 strongSelf.totalPages = response?.pagination?.total ?? 1
                 strongSelf.videoItems.append(contentsOf: items)
-                strongSelf.delegate?.didUpdateItems(model: strongSelf)
                 completed(itemsData.items?.count)
             } else {
-                debugPrint("[!ERROR]: \(String(describing: error?.localizedDescription))")
-                Alert(title: "Ошибка", message: error?.localizedDescription)
-                    .showOkay()
+                Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
                 completed(nil)
             }
         })
@@ -99,15 +97,13 @@ class VideoItemsModel: AccountManagerDelegate {
      private func loadWatchingSeries(_ subscribed: Int = 1, completed: @escaping (_ count: Int?) -> ()) {
         networkingService.receiveWatchingSeries(subscribed) { [weak self] (response, error) in
             guard let strongSelf = self else { return }
+            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
             if let itemsData = response {
                 guard let items = itemsData.items else { return }
                 strongSelf.videoItems.append(contentsOf: items)
-                strongSelf.delegate?.didUpdateItems(model: strongSelf)
                 completed(itemsData.items?.count)
             } else {
-                debugPrint("[!ERROR]: \(String(describing: error?.localizedDescription))")
-                Alert(title: "Ошибка", message: error?.localizedDescription)
-                    .showOkay()
+                Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
                 completed(nil)
             }
         }
@@ -117,15 +113,13 @@ class VideoItemsModel: AccountManagerDelegate {
     private func loadWatchingMovie(completed: @escaping (_ count: Int?) -> ()) {
         networkingService.receiveWatchingMovie { [weak self] (response, error) in
             guard let strongSelf = self else { return }
+            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
             if let itemsData = response {
                 guard let items = itemsData.items else { return }
                 strongSelf.videoItems.append(contentsOf: items)
-                strongSelf.delegate?.didUpdateItems(model: strongSelf)
                 completed(itemsData.items?.count)
             } else {
-                debugPrint("[!ERROR]: \(String(describing: error?.localizedDescription))")
-                Alert(title: "Ошибка", message: error?.localizedDescription)
-                    .showOkay()
+                Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
                 completed(nil)
             }
         }
@@ -143,8 +137,11 @@ class VideoItemsModel: AccountManagerDelegate {
             if let itemsData = response {
                 guard let items = itemsData.items else { return }
                 strongSelf.pageOfSearch += 1
+                strongSelf.totalPagesOfSearch = response?.pagination?.total ?? 1
                 strongSelf.resultItems.append(contentsOf: items)
                 completed(itemsData.items?.count)
+            } else {
+                completed(nil)
             }
         })
     }
@@ -153,13 +150,12 @@ class VideoItemsModel: AccountManagerDelegate {
     func loadItemsCollection(completed: @escaping (_ count: Int?) -> ()) {
         networkingService.receiveItemsCollection(parameters: parameters) { [weak self] (response, error) in
             guard let strongSelf = self else { return }
+            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
             if let itemsData = response {
                 strongSelf.videoItems.append(contentsOf: itemsData)
-                strongSelf.delegate?.didUpdateItems(model: strongSelf)
                 completed(itemsData.count)
             } else {
-                let banner = NotificationBanner(title: "Ошибка", subtitle: "\(error?.localizedDescription ?? "")", style: .danger)
-                banner.show(queuePosition: .front)
+                Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
                 completed(nil)
             }
         }
@@ -250,13 +246,14 @@ class VideoItemsModel: AccountManagerDelegate {
         guard accountManager.hasAccount else { return }
         networkingService.receiveItems(withParameters: parameters, from: from) { [weak self] (response, error) in
             guard let strongSelf = self else { return }
+            defer {
+                strongSelf.delegate?.didUpdateItems(model: strongSelf)
+            }
             if let itemsData = response {
                 completed(itemsData.items)
-                strongSelf.delegate?.didUpdateItems(model: strongSelf)
             } else {
                 completed(nil)
-                Alert(title: "Ошибка", message: error?.localizedDescription)
-                    .showOkay()
+                Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
             }
         }
     }

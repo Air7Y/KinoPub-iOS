@@ -1,8 +1,17 @@
+//
+//  BookmarkCollectionViewController.swift
+//  KinoPub
+//
+//  Created by hintoz on 11.06.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import DGCollectionViewPaginableBehavior
 import LKAlertController
 import CustomLoader
 import UIEmptyState
+import GradientLoadingBar
 
 class BookmarkCollectionViewController: ContentCollectionViewController {
     let viewModel = Container.ViewModel.bookmarks()
@@ -14,6 +23,7 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        beginLoad()
         configView()
         configEmptyCollection()
     }
@@ -38,7 +48,7 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
         title = viewModel.folder?.title
         collectionView?.backgroundColor = UIColor.kpBackground
         collectionView?.tintColor = UIColor.kpOffWhite
-        
+        viewModel.delegate = self
         collectionView?.delegate = behavior
         collectionView?.dataSource = self
         behavior.delegate = self
@@ -61,19 +71,25 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
         reloadEmptyStateForCollectionView(collectionView!)
     }
     
+    func beginLoad() {
+        GradientLoadingBar.shared.show()
+    }
+    
     func endLoad() {
         collectionView?.reloadData()
         reloadEmptyStateForCollectionView(collectionView!)
+        GradientLoadingBar.shared.hide()
         control.endRefreshing()
     }
     
     @objc func refresh() {
+        beginLoad()
         refreshing = true
         viewModel.refresh()
         refreshing = false
         behavior.reloadData()
-        behavior.fetchNextData(forSection: 0) {
-            self.endLoad()
+        behavior.fetchNextData(forSection: 0) { [weak self] in
+            self?.endLoad()
         }
     }
     
@@ -273,8 +289,13 @@ extension BookmarkCollectionViewController: DGCollectionViewPaginableBehaviorDel
     }
     
     func paginableBehavior(_ paginableBehavior: DGCollectionViewPaginableBehavior, fetchDataFrom indexPath: IndexPath, count: Int, completion: @escaping (Error?, Int) -> Void) {
-        viewModel.loadBookmarkItems { (count) in
-            completion(nil, count ?? 0)
+        viewModel.loadBookmarkItems { [weak self] (count) in
+            guard let strongSelf = self else { return }
+            if strongSelf.viewModel.page > strongSelf.viewModel.totalPages {
+                completion(nil, 0)
+            } else {
+                completion(nil, count ?? 0)
+            }
         }
     }
 
@@ -286,7 +307,7 @@ extension BookmarkCollectionViewController: DGCollectionViewPaginableBehaviorDel
 extension BookmarkCollectionViewController: UIEmptyStateDelegate, UIEmptyStateDataSource {
     // MARK: - Empty State Data Source
     var emptyStateImage: UIImage? {
-        return UIImage(named: "Folder")?.filled(withColor: UIColor.kpOffWhite)
+        return UIImage(named: "Folder")?.filled(withColor: UIColor.kpGreyishTwo)
     }
     
     var emptyStateTitle: NSAttributedString {
@@ -315,5 +336,11 @@ extension BookmarkCollectionViewController: UIEmptyStateDelegate, UIEmptyStateDa
     func emptyStatebuttonWasTapped(button: UIButton) {
         Helper.hapticGenerate(style: .medium)
         refresh()
+    }
+}
+
+extension BookmarkCollectionViewController: BookmarksModelDelegate {
+    func didUpdateItems(model: BookmarksModel) {
+        endLoad()
     }
 }

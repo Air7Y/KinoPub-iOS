@@ -1,6 +1,15 @@
+//
+//  ActorCollectionViewController.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 11.01.2018.
+//  Copyright © 2018 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import DGCollectionViewPaginableBehavior
 import InteractiveSideMenu
+import GradientLoadingBar
 
 class ActorCollectionViewController: ContentCollectionViewController, SideMenuItemContent {
     let viewModel = Container.ViewModel.videoItems()
@@ -11,15 +20,15 @@ class ActorCollectionViewController: ContentCollectionViewController, SideMenuIt
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        beginLoad()
         configNavBar()
         configCollectionView()
+        viewModel.delegate = self
     }
     
     func configNavBar() {
         if #available(iOS 11.0, *) {
             navigationItem.largeTitleDisplayMode = .always
-        } else {
-            // Fallback on earlier versions
         }
     }
 
@@ -40,7 +49,18 @@ class ActorCollectionViewController: ContentCollectionViewController, SideMenuIt
         }
     }
     
+    func beginLoad() {
+        GradientLoadingBar.shared.show()
+    }
+    
+    func endLoad() {
+        collectionView?.reloadData()
+        GradientLoadingBar.shared.hide()
+        control.endRefreshing()
+    }
+    
     @objc func refresh() {
+        beginLoad()
         refreshing = true
         viewModel.refresh()
         refreshing = false
@@ -137,6 +157,6 @@ extension ActorCollectionViewController: DGCollectionViewPaginableBehaviorDelega
 // MARK: VideoItemsModel Delegate
 extension ActorCollectionViewController: VideoItemsModelDelegate {
     func didUpdateItems(model: VideoItemsModel) {
-        collectionView?.reloadData()
+        endLoad()
     }
 }
