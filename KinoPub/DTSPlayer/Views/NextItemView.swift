@@ -29,7 +29,7 @@ class NextItemView: UIView {
     
     func configView() {
         backgroundColor = .clear
-        nextButton.tintColor = UIColor.kpOffWhite
+        nextButton.tintColor = UIColor.white
         addBlurEffect(with: .dark, orColor: UIColor.kpBlack30)
     }
     

@@ -7,16 +7,37 @@ struct Filter: ReflectedStringConvertible {
     var subtitles: SubtitlesList?
     var year: String?
     var yearsDict: [String : String]?
+    var imdbRating: [String : String]?
+    var kinopoiskRating: [String : String]?
     var sort: SortOption!
     var sortAsc: Bool
+    var serialStatus: SerialStatus!
     
     static var defaultFilter: Filter {
-        let filter = Filter(genres: nil, countries: nil, subtitles: nil, year: nil, yearsDict: nil, sort: SortOption.updated, sortAsc: false)
+        let filter = Filter(genres: nil,
+                            countries: nil,
+                            subtitles: nil,
+                            year: nil,
+                            yearsDict: nil,
+                            imdbRating: nil,
+                            kinopoiskRating: nil,
+                            sort: SortOption.updated,
+                            sortAsc: false,
+                            serialStatus: .any)
         return filter
     }
     
     var isSet: Bool {
-        if genres != nil || countries != nil || subtitles != nil || year != nil || sort != SortOption.updated || sortAsc {
+        if genres != nil ||
+            countries != nil ||
+            subtitles != nil ||
+            year != nil ||
+            sort !=
+            SortOption.updated ||
+            sortAsc ||
+            serialStatus != .any ||
+            imdbRating != nil ||
+            kinopoiskRating != nil {
             return true
         }
         return false
@@ -54,6 +75,24 @@ extension Filter {
                 }
             default:
                 param["year"] = year
+            }
+        }
+        if let serialStatus = serialStatus {
+            switch serialStatus {
+            case .inAir, .finished:
+                param["finished"] = serialStatus.rawValue.string
+            case .any:
+                param["finished"] = nil
+            }
+        }
+        if let imdbRating = imdbRating {
+            for (offset: index, element: (key: key, value: value)) in imdbRating.enumerated() {
+                param["conditions[\(index)]"] = "imdb_rating \(key) \(value.replacingOccurrences(of: " и выше", with: ""))"
+            }
+        }
+        if let kinopoiskRating = kinopoiskRating {
+            for (offset: index, element: (key: key, value: value)) in kinopoiskRating.enumerated() {
+                param["conditions[\(index + 2)]"] = "kinopoisk_rating \(key) \(value.replacingOccurrences(of: " и выше", with: ""))"
             }
         }
         param["sort"] = sortAsc ? sort.asc() : sort.desc()

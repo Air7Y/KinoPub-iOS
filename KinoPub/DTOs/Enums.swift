@@ -95,6 +95,25 @@ public enum SubLang: String, CustomStringConvertible, Equatable {
     }
 }
 
+enum SerialStatus: Int, CustomStringConvertible {
+    case inAir
+    case finished
+    case any
+    
+    static let all = [any, inAir, finished]
+    
+    var description: String {
+        switch self {
+        case .any:
+            return "Все"
+        case .inAir:
+            return "В эфире"
+        case .finished:
+            return "Завершенные"
+        }
+    }
+}
+
 enum SortOption: String, CustomStringConvertible, InputTypeInitiable {
     
     init?(string stringValue: String) {

@@ -19,7 +19,7 @@ class TitleView: UIView {
     
     func configView() {
         backgroundColor = .clear
-        titleLabel.textColor = UIColor.kpOffWhite
+        titleLabel.textColor = UIColor.white
         addBlurEffect(with: .dark, orColor: UIColor.kpBlack30)
     }
     

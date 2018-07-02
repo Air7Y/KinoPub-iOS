@@ -155,6 +155,15 @@ class FilterViewController: FormViewController {
         PickerInlineRowCustom<String>.InlineRow.defaultCellUpdate = { cell, row in
             cell.pickerTextColor = .kpOffWhite
         }
+        
+        PickerInlineRowCustom<SerialStatus>.defaultCellUpdate = { cell, row in
+            cell.textLabel?.textColor = .kpOffWhite
+            cell.detailTextLabel?.textColor = .kpGreyishTwo
+            cell.tintColor = .kpMarigold
+        }
+        PickerInlineRowCustom<SerialStatus>.InlineRow.defaultCellUpdate = { cell, row in
+            cell.pickerTextColor = .kpOffWhite
+        }
 
         PickerInlineRowCustom<SortOption>.defaultCellUpdate = { cell, row in
             cell.textLabel?.textColor = .kpOffWhite
@@ -217,6 +226,7 @@ class FilterViewController: FormViewController {
                 }.onChange({ [weak self] (row) in
                     if row.value == "Не важно" {
                         row.value = nil
+                        self?.model.filter.yearsDict = nil
                     }
                     self?.model.filter.year = row.value
                 })
@@ -292,6 +302,61 @@ class FilterViewController: FormViewController {
                 .cellUpdate({ [weak self] (cell, row) in
                     guard let strongSelf = self else { return }
                     row.options = strongSelf.model.subtitles
+                })
+            
+            <<< PickerInlineRowCustom<String>("kinopiskRating"){
+                $0.title = "Рейтинг КиноПоиска"
+                $0.noValueDisplayText = "Не важно"
+                for i in 1...9 {
+                    $0.options.append("\(i) и выше")
+                }
+                $0.options.append("Не важно")
+                $0.options.reverse()
+                $0.value = model.filter.kinopoiskRating?[">="]
+                }
+                .onChange({ [weak self] (row) in
+                    if row.value == "Не важно" {
+                        row.value = nil
+                    }
+                    if self?.model.filter.kinopoiskRating == nil {
+                        self?.model.filter.kinopoiskRating = [String : String]()
+                    }
+                    self?.model.filter.kinopoiskRating![">="] = row.value
+                })
+            
+            <<< PickerInlineRowCustom<String>("imdbRating"){
+                $0.title = "Рейтинг IMDb"
+                $0.noValueDisplayText = "Не важно"
+                for i in 1...9 {
+                    $0.options.append("\(i) и выше")
+                }
+                $0.options.append("Не важно")
+                $0.options.reverse()
+                $0.value = model.filter.imdbRating?[">="]
+                }
+                .onChange({ [weak self] (row) in
+                    if row.value == "Не важно" {
+                        row.value = nil
+                    }
+                    if self?.model.filter.imdbRating == nil {
+                        self?.model.filter.imdbRating = [String : String]()
+                    }
+                    self?.model.filter.imdbRating![">="] = row.value
+                })
+            
+            <<< PickerInlineRowCustom<SerialStatus>("serialStatus"){
+                $0.title = "Сортировка по статусу"
+                $0.hidden = Condition.function([""], { [weak self] (_) -> Bool in
+                    guard let strongSelf = self else { return true }
+                    return !(strongSelf.model.type == .shows
+                        || strongSelf.model.type == .tvshows
+                        || strongSelf.model.type == .docuserial)
+                })
+                $0.options = SerialStatus.all
+                $0.value = model.filter.serialStatus
+                }
+                .onChange({ [weak self] (row) in
+                    self?.model.filter.serialStatus = row.value!
                 })
             
             <<< PickerInlineRowCustom<SortOption>("sort"){
