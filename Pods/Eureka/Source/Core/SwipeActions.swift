@@ -34,12 +34,23 @@ public class SwipeAction: ContextualAction {
         } else {
             action = UITableViewRowAction(style: style.contextualStyle as! UITableViewRowActionStyle,title: title){ [weak self] (action, indexPath) -> Void in
                 guard let strongSelf = self else{ return }
-                strongSelf.handler(strongSelf, forRow, nil)
+				strongSelf.handler(strongSelf, forRow) { _ in
+					DispatchQueue.main.async {
+						guard action.style == .destructive else {
+							forRow.baseCell?.formViewController()?.tableView?.setEditing(false, animated: true)
+							return
+						}
+						forRow.section?.remove(at: indexPath.row)
+					}
+				}
             }
         }
-        action.backgroundColor = self.backgroundColor ?? action.backgroundColor
-        action.image = self.image ?? action.image
-        
+        if let color = self.backgroundColor {
+            action.backgroundColor = color
+        }
+        if let image = self.image {
+            action.image = image
+        }
         return action
     }
 	

@@ -59,7 +59,7 @@ public extension SignedInteger {
 // MARK: - Methods
 public extension SignedInteger {
 
-	// swiftlint:disable identifier_name
+	// swiftlint:disable next identifier_name
 	/// SwifterSwift: Greatest common divisor of integer value and n.
 	///
 	/// - Parameter n: integer value to find gcd with.
@@ -67,9 +67,8 @@ public extension SignedInteger {
 	public func gcd(of n: Self) -> Self {
 		return n == 0 ? self : n.gcd(of: self % n)
 	}
-	// swiftlint:enable identifier_name
 
-	// swiftlint:disable identifier_name
+	// swiftlint:disable next identifier_name
 	/// SwifterSwift: Least common multiple of integer and n.
 	///
 	/// - Parameter n: integer value to find lcm with.
@@ -77,16 +76,15 @@ public extension SignedInteger {
 	public func lcm(of n: Self) -> Self {
 		return (self * n).abs / gcd(of: n)
 	}
-	// swiftlint:enable identifier_name
-    
+
     #if canImport(Foundation)
-    @available(iOS 9.0, macOS 10.11, *)
-    /// SwifterSwift: Ordinal representation of an integer.
+	/// SwifterSwift: Ordinal representation of an integer.
     ///
-    ///        print((12).ordinalString()) // prints "12th"
-    ///
-    /// - Parameter locale: Locale, default is .current.
-    /// - Returns: String ordinal representation of number in specified locale language. E.g. input 92, output in "en": "92nd"
+	///        print((12).ordinalString()) // prints "12th"
+	///
+    /// - Parameter locale: locale, default is .current.
+    /// - Returns: string ordinal representation of number in specified locale language. E.g. input 92, output in "en": "92nd".
+	@available(iOS 9.0, macOS 10.11, *)
     public func ordinalString(locale: Locale = .current) -> String? {
             let formatter = NumberFormatter()
             formatter.locale = locale

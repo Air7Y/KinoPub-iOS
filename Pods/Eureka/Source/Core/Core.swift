@@ -502,7 +502,7 @@ open class FormViewController: UIViewController, FormViewControllerProtocol, For
         NotificationCenter.default.addObserver(self, selector: #selector(FormViewController.keyboardWillShow(_:)), name: Notification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(FormViewController.keyboardWillHide(_:)), name: Notification.Name.UIKeyboardWillHide, object: nil)
 
-        if form.containsMultivaluedSection {
+        if form.containsMultivaluedSection && (isBeingPresented || isMovingToParentViewController) {
             tableView.setEditing(true, animated: false)
         }
     }
@@ -563,7 +563,7 @@ open class FormViewController: UIViewController, FormViewControllerProtocol, For
     public final func endEditing<T>(of cell: Cell<T>) {
         cell.row.isHighlighted = false
         cell.row.wasBlurred = true
-        RowDefaults.onCellHighlightChanged["\(type(of: self))"]?(cell, cell.row)
+        RowDefaults.onCellHighlightChanged["\(type(of: cell.row!))"]?(cell, cell.row)
         cell.row.callbackOnCellHighlightChanged?()
         if cell.row.validationOptions.contains(.validatesOnBlur) || (cell.row.wasChanged && cell.row.validationOptions.contains(.validatesOnChangeAfterBlurred)) {
             cell.row.validate()
@@ -913,7 +913,7 @@ extension FormViewController : UITableViewDelegate {
             return .none
         }
         if section.multivaluedOptions.contains(.Insert) && indexPath.row == section.count - 1 {
-            return .insert
+            return section.showInsertIconInAddButton ? .insert : .none
         }
         if section.multivaluedOptions.contains(.Delete) {
             return .delete
@@ -926,16 +926,16 @@ extension FormViewController : UITableViewDelegate {
     }
 
 	@available(iOS 11,*)
-	public func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+	open func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 		return form[indexPath].leadingSwipe.contextualConfiguration
 	}
 
 	@available(iOS 11,*)
-	public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+	open func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
 		return form[indexPath].trailingSwipe.contextualConfiguration
 	}
 
-	public func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
+	open func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]?{
         guard let actions = form[indexPath].trailingSwipe.contextualActions as? [UITableViewRowAction], !actions.isEmpty else {
             return nil
         }
@@ -1087,10 +1087,10 @@ extension FormViewControllerProtocol {
 
     // MARK: Helpers
 
-    func makeRowVisible(_ row: BaseRow) {
+    func makeRowVisible(_ row: BaseRow, destinationScrollPosition: UITableViewScrollPosition) {
         guard let cell = row.baseCell, let indexPath = row.indexPath, let tableView = tableView else { return }
         if cell.window == nil || (tableView.contentOffset.y + tableView.frame.size.height <= cell.frame.origin.y + cell.frame.size.height) {
-            tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+            tableView.scrollToRow(at: indexPath, at: destinationScrollPosition, animated: true)
         }
     }
 }

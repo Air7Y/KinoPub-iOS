@@ -92,10 +92,13 @@ public extension UITableView {
 	/// SwifterSwift: Dequeue reusable UITableViewCell using class name
 	///
 	/// - Parameter name: UITableViewCell type
-	/// - Returns: UITableViewCell object with associated class name (optional value)
-	public func dequeueReusableCell<T: UITableViewCell>(withClass name: T.Type) -> T? {
-		return dequeueReusableCell(withIdentifier: String(describing: name)) as? T
-	}
+	/// - Returns: UITableViewCell object with associated class name.
+    public func dequeueReusableCell<T: UITableViewCell>(withClass name: T.Type) -> T {
+        guard let cell = dequeueReusableCell(withIdentifier: String(describing: name)) as? T else {
+            fatalError("Couldn't find UITableViewCell for \(String(describing: name))")
+        }
+        return cell
+    }
 
 	/// SwiferSwift: Dequeue reusable UITableViewCell using class name for indexPath
 	///
@@ -103,17 +106,23 @@ public extension UITableView {
 	///   - name: UITableViewCell type.
 	///   - indexPath: location of cell in tableView.
 	/// - Returns: UITableViewCell object with associated class name.
-	public func dequeueReusableCell<T: UITableViewCell>(withClass name: T.Type, for indexPath: IndexPath) -> T? {
-		return dequeueReusableCell(withIdentifier: String(describing: name), for: indexPath) as? T
-	}
+    public func dequeueReusableCell<T: UITableViewCell>(withClass name: T.Type, for indexPath: IndexPath) -> T {
+        guard let cell = dequeueReusableCell(withIdentifier: String(describing: name), for: indexPath) as? T else {
+            fatalError("Couldn't find UITableViewCell for \(String(describing: name))")
+        }
+        return cell
+    }
 
 	/// SwiferSwift: Dequeue reusable UITableViewHeaderFooterView using class name
 	///
 	/// - Parameter name: UITableViewHeaderFooterView type
-	/// - Returns: UITableViewHeaderFooterView object with associated class name (optional value)
-	public func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(withClass name: T.Type) -> T? {
-		return dequeueReusableHeaderFooterView(withIdentifier: String(describing: name)) as? T
-	}
+	/// - Returns: UITableViewHeaderFooterView object with associated class name.
+    public func dequeueReusableHeaderFooterView<T: UITableViewHeaderFooterView>(withClass name: T.Type) -> T {
+        guard let headerFooterView = dequeueReusableHeaderFooterView(withIdentifier: String(describing: name)) as? T else {
+            fatalError("Couldn't find UITableViewHeaderFooterView for \(String(describing: name))")
+        }
+        return headerFooterView
+    }
 
 	/// SwifterSwift: Register UITableViewHeaderFooterView using class name
 	///
@@ -162,6 +171,26 @@ public extension UITableView {
         }
 
         register(UINib(nibName: identifier, bundle: bundle), forCellReuseIdentifier: identifier)
+    }
+
+    /// SwifterSwift: Check whether IndexPath is valid within the tableView
+    ///
+    /// - Parameter indexPath: An IndexPath to check
+    /// - Returns: Boolean value for valid or invalid IndexPath
+    public func isValidIndexPath(_ indexPath: IndexPath) -> Bool {
+        return indexPath.section < self.numberOfSections && indexPath.row < self.numberOfRows(inSection: indexPath.section)
+    }
+
+    /// SwifterSwift: Safely scroll to possibly invalid IndexPath
+    ///
+    /// - Parameters:
+    ///   - indexPath: Target IndexPath to scroll to
+    ///   - scrollPosition: Scroll position
+    ///   - animated: Whether to animate or not
+    public func safeScrollToRow(at indexPath: IndexPath, at scrollPosition: UITableViewScrollPosition, animated: Bool) {
+        guard indexPath.section < numberOfSections else { return }
+        guard indexPath.row < numberOfRows(inSection: indexPath.section) else { return }
+        scrollToRow(at: indexPath, at: scrollPosition, animated: animated)
     }
 
 }

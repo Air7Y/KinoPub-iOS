@@ -17,7 +17,10 @@ import UIKit
 /// - horizontal: Shake left and right.
 /// - vertical: Shake up and down.
 public enum ShakeDirection {
+	/// Shake left and right.
 	case horizontal
+
+	/// Shake up and down.
 	case vertical
 }
 
@@ -26,20 +29,30 @@ public enum ShakeDirection {
 /// - degrees: degrees.
 /// - radians: radians.
 public enum AngleUnit {
+	/// degrees.
 	case degrees
+
+	/// radians.
 	case radians
 }
 
 /// SwifterSwift: Shake animations types.
 ///
 /// - linear: linear animation.
-/// - easeIn: easeIn animation
+/// - easeIn: easeIn animation.
 /// - easeOut: easeOut animation.
 /// - easeInOut: easeInOut animation.
 public enum ShakeAnimationType {
+	/// linear animation.
 	case linear
+
+	/// easeIn animation.
 	case easeIn
+
+	/// easeOut animation.
 	case easeOut
+
+	/// easeInOut animation.
 	case easeInOut
 }
 
@@ -82,18 +95,9 @@ public extension UIView {
 			layer.masksToBounds = true
 			layer.cornerRadius = abs(CGFloat(Int(newValue * 100)) / 100)
 		}
-	}
+    }
 
-	/// SwifterSwift: First responder.
-	public var firstResponder: UIView? {
-		guard !isFirstResponder else { return self }
-		for subView in subviews where subView.isFirstResponder {
-			return subView
-		}
-		return nil
-	}
-
-	// SwifterSwift: Height of view.
+	/// SwifterSwift: Height of view.
 	public var height: CGFloat {
 		get {
 			return frame.size.height
@@ -197,7 +201,7 @@ public extension UIView {
 		}
 	}
 
-	// swiftlint:disable identifier_name
+	// swiftlint:disable next identifier_name
 	/// SwifterSwift: x origin of view.
 	public var x: CGFloat {
 		get {
@@ -207,9 +211,8 @@ public extension UIView {
 			frame.origin.x = newValue
 		}
 	}
-	// swiftlint:enable identifier_name
 
-	// swiftlint:disable identifier_name
+	// swiftlint:disable next identifier_name
 	/// SwifterSwift: y origin of view.
 	public var y: CGFloat {
 		get {
@@ -219,14 +222,28 @@ public extension UIView {
 			frame.origin.y = newValue
 		}
 	}
-	// swiftlint:enable identifier_name
 
 }
 
 // MARK: - Methods
 public extension UIView {
 
-	/// SwifterSwift: Set some or all corners radiuses of view.
+    /// SwifterSwift: Recursively find the first responder.
+    public func firstResponder() -> UIView? {
+        var views = [UIView](arrayLiteral: self)
+        var i = 0
+        repeat {
+            let view = views[i]
+            if view.isFirstResponder {
+                return view
+            }
+            views.append(contentsOf: view.subviews)
+            i += 1
+        } while i < views.count
+        return nil
+    }
+
+    /// SwifterSwift: Set some or all corners radiuses of view.
 	///
 	/// - Parameters:
 	///   - corners: array of corners to change (example: [.bottomLeft, .topRight]).
@@ -321,7 +338,7 @@ public extension UIView {
 	///   - duration: animation duration in seconds (default is 1 second).
 	///   - completion: optional completion handler to run with animation finishes (default is nil).
 	public func rotate(byAngle angle: CGFloat, ofType type: AngleUnit, animated: Bool = false, duration: TimeInterval = 1, completion: ((Bool) -> Void)? = nil) {
-		let angleWithType = (type == .degrees) ? CGFloat.pi * angle / 180.0 : angle
+		let angleWithType = (type == .degrees) ? .pi * angle / 180.0 : angle
 		let aDuration = animated ? duration : 0
 		UIView.animate(withDuration: aDuration, delay: 0, options: .curveLinear, animations: { () -> Void in
 			self.transform = self.transform.rotated(by: angleWithType)
@@ -337,7 +354,7 @@ public extension UIView {
 	///   - duration: animation duration in seconds (default is 1 second).
 	///   - completion: optional completion handler to run with animation finishes (default is nil).
 	public func rotate(toAngle angle: CGFloat, ofType type: AngleUnit, animated: Bool = false, duration: TimeInterval = 1, completion: ((Bool) -> Void)? = nil) {
-		let angleWithType = (type == .degrees) ? CGFloat.pi * angle / 180.0 : angle
+		let angleWithType = (type == .degrees) ? .pi * angle / 180.0 : angle
 		let aDuration = animated ? duration : 0
 		UIView.animate(withDuration: aDuration, animations: {
 			self.transform = self.transform.concatenating(CGAffineTransform(rotationAngle: angleWithType))

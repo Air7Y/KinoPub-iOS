@@ -12,6 +12,8 @@
 
 Made with ❤️ by [XMARTLABS](http://xmartlabs.com). This is the re-creation of [XLForm] in Swift.
 
+[简体中文](Documentation/README_CN.md)
+
 ## Overview
 
 <table>
@@ -398,7 +400,8 @@ Note that if you want to disable a row permanently you can also set `disabled` v
 ### List Sections
 
 To display a list of options, Eureka includes a special section called `SelectableSection`.
-When creating one you need to pass the type of row to use in the options and the `selectionStyle`. The `selectionStyle` is an enum which can be either `multipleSelection` or `singleSelection(enableDeselection: Bool)` where the `enableDeselection` parameter determines if the selected rows can be deselected or not.
+When creating one you need to pass the type of row to use in the options and the `selectionType`.
+The `selectionType` is an enum which can be either `multipleSelection` or `singleSelection(enableDeselection: Bool)` where the `enableDeselection` parameter determines if the selected rows can be deselected or not.
 
 ```swift
 form +++ SelectableSection<ListCheckRow<String>>("Where do you live", selectionType: .singleSelection(enableDeselection: true))
@@ -482,6 +485,10 @@ Previous code snippet shows how to create a multivalued section. In this case we
 Eureka automatically adds a button row when we create a insertable multivalued section. We can customize how the this button row looks like as we explained before. `showInsertIconInAddButton` property indicates if plus button (insert style) should appear in the left of the button, true by default.
 
 There are some considerations we need to have in mind when creating insertable sections. Any row added to the insertable multivalued section should be placed above the row that Eureka automatically adds to insert new rows. This can be easily achieved by adding these additional rows to the section from inside the section's initializer closure (last parameter of section initializer) so then Eureka adds the adds insert button at the end of the section.
+
+#### Editing mode
+
+By default Eureka will set the tableView's `isEditing` to true only if there is a MultivaluedSection in the form. This will be done in `viewWillAppear` the first time a form is presented.
 
 For more information on how to use multivalued sections please take a look at Eureka example project which contains several usage examples.
 
@@ -622,6 +629,9 @@ let row = TextRow() {
         }
 ```
 
+Swipe Actions need `tableView.isEditing` be set to `false`. Eureka will set this to `true` if there is a MultivaluedSection in the form (in the `viewWillAppear`).
+If you have both MultivaluedSections and swipe actions in the same form you should set `isEditing` according to your needs.
+
 ## Custom rows
 
 It is very common that you need a row that is different from those included in Eureka. If this is the case you will have to create your own row but this should not be difficult. You can read [this tutorial on how to create custom rows](https://blog.xmartlabs.com/2016/09/06/Eureka-custom-row-tutorial/) to get started. You might also want to have a look at [EurekaCommunity] which includes some extra rows ready to be added to Eureka.
@@ -708,9 +718,14 @@ To create a custom Presenter row you must create a class that conforms the `Pres
 The PresenterRowType protocol is defined as follows:
 ```swift
 public protocol PresenterRowType: TypedRowType {
-    typealias ProviderType : UIViewController, TypedRowControllerType
-    var presentationMode: PresentationMode<ProviderType>? { get set }
-    var onPresentCallback: ((FormViewController, ProviderType)->())? { get set }
+
+     associatedtype PresentedControllerType : UIViewController, TypedRowControllerType
+
+     /// Defines how the view controller will be presented, pushed, etc.
+     var presentationMode: PresentationMode<PresentedControllerType>? { get set }
+
+     /// Will be called before the presentation occurs.
+     var onPresentCallback: ((FormViewController, PresentedControllerType) -> Void)? { get set }
 }
 ```
 
@@ -718,8 +733,57 @@ The onPresentCallback will be called when the row is about to present another vi
 
 The `presentationMode` is what defines how the controller is presented and which controller is presented. This presentation can be using a Segue identifier, a segue class, presenting a controller modally or pushing to a specific view controller. For example a CustomPushRow can be defined like this:
 
+
+Let's see an example..
+
 ```swift
-public final class CustomPushRow<T: Equatable>: SelectorRow<PushSelectorCell<T>, SelectorViewController<T>>, RowType {
+
+/// Generic row type where a user must select a value among several options.
+open class SelectorRow<Cell: CellType>: OptionsRow<Cell>, PresenterRowType where Cell: BaseCell {
+
+
+    /// Defines how the view controller will be presented, pushed, etc.
+    open var presentationMode: PresentationMode<SelectorViewController<SelectorRow<Cell>>>?
+
+    /// Will be called before the presentation occurs.
+    open var onPresentCallback: ((FormViewController, SelectorViewController<SelectorRow<Cell>>) -> Void)?
+
+    required public init(tag: String?) {
+        super.init(tag: tag)
+    }
+
+    /**
+     Extends `didSelect` method
+     */
+    open override func customDidSelect() {
+        super.customDidSelect()
+        guard let presentationMode = presentationMode, !isDisabled else { return }
+        if let controller = presentationMode.makeController() {
+            controller.row = self
+            controller.title = selectorTitle ?? controller.title
+            onPresentCallback?(cell.formViewController()!, controller)
+            presentationMode.present(controller, row: self, presentingController: self.cell.formViewController()!)
+        } else {
+            presentationMode.present(nil, row: self, presentingController: self.cell.formViewController()!)
+        }
+    }
+
+    /**
+     Prepares the pushed row setting its title and completion callback.
+     */
+    open override func prepare(for segue: UIStoryboardSegue) {
+        super.prepare(for: segue)
+        guard let rowVC = segue.destination as Any as? SelectorViewController<SelectorRow<Cell>> else { return }
+        rowVC.title = selectorTitle ?? rowVC.title
+        rowVC.onDismissCallback = presentationMode?.onDismissCallback ?? rowVC.onDismissCallback
+        onPresentCallback?(cell.formViewController()!, rowVC)
+        rowVC.row = self
+    }
+}
+
+
+// SelectorRow conforms to PresenterRowType
+public final class CustomPushRow<T: Equatable>: SelectorRow<PushSelectorCell<T>>, RowType {
 
     public required init(tag: String?) {
         super.init(tag: tag)
@@ -732,7 +796,6 @@ public final class CustomPushRow<T: Equatable>: SelectorRow<PushSelectorCell<T>,
 }
 ```
 
-You can place your own UIViewController instead of `SelectorViewController<T>` and your own cell instead of `PushSelectorCell<T>`.
 
 ### Subclassing cells using the same row
 
@@ -1007,6 +1070,19 @@ If you use **Eureka** in your app We would love to hear about it! Drop us a line
 
 ## FAQ
 
+#### How to change the text representation of the row value shown in the  cell.
+
+Every row has the following property:
+
+```swift
+/// Block variable used to get the String that should be displayed for the value of this row.
+public var displayValueFor: ((T?) -> String?)? = {
+    return $0.map { String(describing: $0) }
+}
+```
+
+You can set `displayValueFor` according the string value you want to display.
+
 #### How to get a Row using its tag value
 
 We can get a particular row by invoking any of the following functions exposed by the `Form` class:
@@ -1083,7 +1159,7 @@ section.reload()
 
 #### How to customize Selector and MultipleSelector option cells
 
-`selectableRowCellUpdate` and `selectableRowCellSetup` properties are provided to be able to customize SelectorViewController and MultipleSelectorViewController selectable cells.
+`selectableRowSetup`, `selectableRowCellUpdate` and `selectableRowCellSetup` properties are provided to be able to customize SelectorViewController and MultipleSelectorViewController selectable cells.
 
 ```swift
 let row = PushRow<Emoji>() {
@@ -1094,6 +1170,9 @@ let row = PushRow<Emoji>() {
           }.onPresent { from, to in
               to.dismissOnSelection = false
               to.dismissOnChange = false
+              to.selectableRowSetup = { row in
+                  row.cellProvider = CellProvider<ListCheckCell<Emoji>>(nibName: "EmojiCell", bundle: Bundle.main)
+              }
               to.selectableRowCellUpdate = { cell, row in
                   cell.textLabel?.text = "Text " + row.selectableValue!  // customization
                   cell.detailTextLabel?.text = "Detail " +  row.selectableValue!
