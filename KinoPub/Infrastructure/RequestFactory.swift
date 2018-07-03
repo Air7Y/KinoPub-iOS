@@ -12,7 +12,7 @@ import Crashlytics
 
 class RequestFactory {
     var account: KinopubAccount? {
-        return accountManager!.account
+        return accountManager?.account
     }
 
     let baseAPIURL: String

@@ -463,8 +463,8 @@ extension DetailViewController {
             guard let title = self.model.item?.title?.replacingOccurrences(of: " /", with: ";") else { continue }
             let name = title + "; Сезон \(self.model.getSeason(season)?.number ?? 0), Эпизод \(episode.number ?? 0)."  + "\(quality).mp4"
             let poster = self.model.item?.posters?.small
-            let url = episode.files?[index].url?.http
-            NTDownloadManager.shared.addDownloadTask(urlString: url!, fileName: name, fileImage: poster)
+            guard let url = episode.files?[index].url?.http else { continue }
+            NTDownloadManager.shared.addDownloadTask(urlString: url, fileName: name, fileImage: poster)
         }
         Helper.showSuccessStatusBarBanner("Сезон добавлен в загрузки")
     }
