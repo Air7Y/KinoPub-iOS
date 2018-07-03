@@ -230,6 +230,7 @@ class SetViewController: FormViewController, SideMenuItemContent {
                 row.presentationMode = PresentationMode.show(controllerProvider: ControllerProvider.callback(builder: {
                     let thanksVC = ThanksViewController.storyboardInstance()
                     thanksVC?.title = row.title
+                    thanksVC?.isMarkdown = true
                     thanksVC?.url = "https://raw.githubusercontent.com/hintoz/KinoPub-iOS/master/CHANGELOG.md"
                     thanksVC?.titleText = ""
                     return thanksVC!
