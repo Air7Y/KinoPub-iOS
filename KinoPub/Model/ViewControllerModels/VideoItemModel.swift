@@ -1,3 +1,11 @@
+//
+//  VideoItemModel.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 03.10.2017.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import Foundation
 
 protocol VideoItemModelDelegate: class {
@@ -39,7 +47,7 @@ class VideoItemModel {
                 strongSelf.setLinks()
                 strongSelf.checkDefaults()
             } else {
-                Helper.showError(error?.localizedDescription ?? "itemData.item is nil")
+                Helper.showError(error?.localizedDescription ?? "Неизвестная ошибка сервера.")
             }
         }
     }
@@ -65,9 +73,9 @@ class VideoItemModel {
             if let itemData = response {
                 strongSelf.similarItems = itemData
                 strongSelf.delegate?.didUpdateSimilar()
-            } else {
+            } /*else {
                 Helper.showError(error?.localizedDescription ?? "Ошибка загрузки похожих")
-            }
+            }*/
         }
     }
     

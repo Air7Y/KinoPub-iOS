@@ -8,13 +8,20 @@
 
 import UIKit
 import AVKit
+import SwifterSwift
 
 class DTSPlayerFullScreenViewController: AVPlayerViewController {
     
     private var nextItemView: NextItemView?
     private var titleView: TitleView?
     private var playBackControlsView: UIView? {
-        return view.subviews.first?.subviews[safe: 1]?.subviews[safe: 1]
+        let firstSubview = view.subviews.first
+        
+        if #available(iOS 11.0, *) {
+            return SwifterSwift.isPad ? firstSubview?.subviews[safe: 2]?.subviews.first : firstSubview?.subviews[safe: 1]?.subviews[safe: 1]
+        } else {
+            return firstSubview?.subviews[safe: 5]?.subviews.first
+        }
     }
 
     override func viewDidLoad() {
@@ -90,12 +97,15 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
         NotificationCenter.default.post(name: .DTSPlayerUserTappedNextButton, object: self, userInfo: nil)
     }
     
+    
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         if let objectView = object as? UIView,
             objectView === playBackControlsView,
             keyPath == #keyPath(UIView.isHidden) {
             nextItemView?.isHidden = objectView.isHidden
             titleView?.isHidden = objectView.isHidden
+        } else {
+            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
         }
     }
 

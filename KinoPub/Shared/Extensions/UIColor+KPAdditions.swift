@@ -67,6 +67,10 @@ extension UIColor {
         return UIColor(white: 0.0, alpha: 0.3)
     }
     
+    @nonobjc class var kpWhite30: UIColor {
+        return UIColor(white: 1.0, alpha: 0.3)
+    }
+    
     @nonobjc class var kpOffWhiteSeparator: UIColor {
         return UIColor(red: 255.0 / 255.0, green: 244.0 / 255.0, blue: 228.0 / 255.0, alpha: 0.16)
     }

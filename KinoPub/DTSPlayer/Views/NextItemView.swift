@@ -29,8 +29,13 @@ class NextItemView: UIView {
     
     func configView() {
         backgroundColor = .clear
-        nextButton.tintColor = UIColor.white
-        addBlurEffect(with: .dark, orColor: UIColor.kpBlack30)
+        if #available(iOS 11.0, *) {
+            nextButton.tintColor = UIColor.white
+            addBlurEffect(with: .dark, orColor: UIColor.kpBlack30)
+        } else {
+            nextButton.tintColor = UIColor.black
+            addBlurEffect(with: .light, orColor: UIColor.kpWhite30)
+        }
     }
     
     func config(with info: String, image: UIImage? = nil) {
