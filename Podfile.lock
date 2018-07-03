@@ -129,7 +129,7 @@ DEPENDENCIES:
   - AlamofireObjectMapper
   - Atributika
   - AZSearchView (from `https://github.com/hintoz/AZSearchView.git`)
-  - CDMarkdownKit
+  - CDMarkdownKit (from `https://github.com/chrisdhaan/CDMarkdownKit`)
   - CircleProgressView
   - Crashlytics
   - CustomLoader
@@ -169,7 +169,6 @@ SPEC REPOS:
     - AlamofireNetworkActivityLogger
     - AlamofireObjectMapper
     - Atributika
-    - CDMarkdownKit
     - CircleProgressView
     - Crashlytics
     - CustomLoader
@@ -213,6 +212,8 @@ SPEC REPOS:
 EXTERNAL SOURCES:
   AZSearchView:
     :git: https://github.com/hintoz/AZSearchView.git
+  CDMarkdownKit:
+    :git: https://github.com/chrisdhaan/CDMarkdownKit
   DGCollectionViewPaginableBehavior:
     :branch: develop
     :git: https://github.com/hintoz/collection-view-paginable-behavior.git
@@ -229,6 +230,9 @@ CHECKOUT OPTIONS:
   AZSearchView:
     :commit: c4fe61049d3f234f0ca701834c110020812545f3
     :git: https://github.com/hintoz/AZSearchView.git
+  CDMarkdownKit:
+    :commit: 47e1e8b2e1494c8423766b38a99059ea22994483
+    :git: https://github.com/chrisdhaan/CDMarkdownKit
   DGCollectionViewPaginableBehavior:
     :commit: 1d32e9fd707ab884a5ccecc5915b76f984c01dfc
     :git: https://github.com/hintoz/collection-view-paginable-behavior.git
@@ -298,6 +302,6 @@ SPEC CHECKSUMS:
   TMDBSwift: d3dacaa215b99df4e535962b10bf2f3845f25b2e
   UIEmptyState: e6331312fb788880575701cb9c6230e5d2eaf6b0
 
-PODFILE CHECKSUM: 6cf1430057f793578a5c8f00df2fbbbccf6707af
+PODFILE CHECKSUM: 0aa2424a7f6f977fe5255c66fea1f9bb10f23c92
 
 COCOAPODS: 1.5.3

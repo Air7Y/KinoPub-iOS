@@ -3,7 +3,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 pod 'Alamofire'
-pod 'CDMarkdownKit'
+pod 'CDMarkdownKit', :git => 'https://github.com/chrisdhaan/CDMarkdownKit'
 
 pod 'SwiftyBeaver'
 
