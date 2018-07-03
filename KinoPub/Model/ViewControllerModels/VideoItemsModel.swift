@@ -1,3 +1,11 @@
+//
+//  VideoItemsModel.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 28.09.2017.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import Foundation
 import LKAlertController
 import NotificationBannerSwift
@@ -186,8 +194,11 @@ class VideoItemsModel: AccountManagerDelegate {
 //        let from = "fresh"
         loadItems(with: param, from: from) { [weak self] (items) in
             guard let strongSelf = self else { return }
-            if let _items = items {
-                strongSelf.newSeries = _items
+            if var items = items {
+                if Config.shared.animeIsHidden {
+                    items = items.filter{!($0.genres?.contains(Genres(id: 25, title: "Аниме")))!}
+                }
+                strongSelf.newSeries = items
             }
         }
     }
