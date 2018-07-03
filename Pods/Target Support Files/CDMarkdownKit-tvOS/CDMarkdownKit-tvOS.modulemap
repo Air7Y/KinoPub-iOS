@@ -1,0 +1,6 @@
+framework module CDMarkdownKit {
+  umbrella header "CDMarkdownKit-tvOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

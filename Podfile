@@ -3,6 +3,7 @@ use_frameworks!
 inhibit_all_warnings!
 
 pod 'Alamofire'
+pod 'CDMarkdownKit'
 
 pod 'SwiftyBeaver'
 

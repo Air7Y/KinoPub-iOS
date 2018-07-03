@@ -144,10 +144,12 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CDMarkdownKit-tvOS/CDMarkdownKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-tvOS/SwiftyBeaver.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CDMarkdownKit-tvOS/CDMarkdownKit.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-tvOS/SwiftyBeaver.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
