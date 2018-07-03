@@ -13,6 +13,7 @@
 		691420552035AA86005A5370 /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691420542035AA86005A5370 /* MenuItems.swift */; };
 		6922F6A62013EADE003E3713 /* UIImage+KPAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6922F6A52013EADE003E3713 /* UIImage+KPAdditions.swift */; };
 		6922F6A8201443E2003E3713 /* SearchablePushRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6922F6A7201443E2003E3713 /* SearchablePushRow.swift */; };
+		692A80C420EBB5ED003B7050 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A80C320EBB5ED003B7050 /* UIButton.swift */; };
 		692CF6C31F901969007E539D /* LogViewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692CF6C21F901969007E539D /* LogViewsManager.swift */; };
 		692CF6C41F90207A007E539D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 695921F61F7D4FB200CE3224 /* Settings.bundle */; };
 		692EF3531F8D029000A4D824 /* Filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692EF3521F8D029000A4D824 /* Filter.swift */; };
@@ -236,6 +237,7 @@
 		691420542035AA86005A5370 /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
 		6922F6A52013EADE003E3713 /* UIImage+KPAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+KPAdditions.swift"; sourceTree = "<group>"; };
 		6922F6A7201443E2003E3713 /* SearchablePushRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchablePushRow.swift; sourceTree = "<group>"; };
+		692A80C320EBB5ED003B7050 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		692CF6C21F901969007E539D /* LogViewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewsManager.swift; sourceTree = "<group>"; };
 		692EF3521F8D029000A4D824 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
 		692EF3561F8D33D800A4D824 /* LogViewsNetworkingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewsNetworkingService.swift; sourceTree = "<group>"; };
@@ -871,24 +873,25 @@
 		696D67E21FE94345002EE5B0 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				69512B3C1F7D49B800BF5A89 /* Extensions.swift */,
-				FED38EAD2022626D0081FA1F /* UIApplication+URL.swift */,
-				696D67E71FE946D6002EE5B0 /* UIFont+KPAdditions.swift */,
-				696D67E51FE94671002EE5B0 /* UIColor+KPAdditions.swift */,
-				69B6D2C01FFFAD4800CB62EE /* UIView+KPAdditions.swift */,
-				69F124312002A67300E37A1F /* Notification+KPAdditions.swift */,
-				6922F6A52013EADE003E3713 /* UIImage+KPAdditions.swift */,
-				693EC761201776CA0056FBA8 /* UIDevice+KPAdditions.swift */,
-				69DA0674201B70EA00D908E6 /* Double+KPAdditions.swift */,
-				69DA0676201B714300D908E6 /* Int+KPAdditions.swift */,
-				69DA0682201B728F00D908E6 /* Dictionary+KPAdditions.swift */,
-				69DA0684201B72AB00D908E6 /* Set+KPAdditions.swift */,
-				69DA0678201B718C00D908E6 /* UILabel+KPAdditions.swift */,
-				69DA067A201B71E400D908E6 /* UITableViewCell+KPAdditions.swift */,
-				69DA067C201B721700D908E6 /* UINavigationController+KPAdditions.swift */,
-				69DA067E201B723900D908E6 /* UINavigationBar+KPAdditions.swift */,
-				69DA0680201B726100D908E6 /* UISearchBar+KPAdditions.swift */,
 				69E155CA20E19B09003E1251 /* Collection.swift */,
+				69DA0682201B728F00D908E6 /* Dictionary+KPAdditions.swift */,
+				69DA0674201B70EA00D908E6 /* Double+KPAdditions.swift */,
+				69512B3C1F7D49B800BF5A89 /* Extensions.swift */,
+				69DA0676201B714300D908E6 /* Int+KPAdditions.swift */,
+				69F124312002A67300E37A1F /* Notification+KPAdditions.swift */,
+				69DA0684201B72AB00D908E6 /* Set+KPAdditions.swift */,
+				FED38EAD2022626D0081FA1F /* UIApplication+URL.swift */,
+				692A80C320EBB5ED003B7050 /* UIButton.swift */,
+				696D67E51FE94671002EE5B0 /* UIColor+KPAdditions.swift */,
+				693EC761201776CA0056FBA8 /* UIDevice+KPAdditions.swift */,
+				696D67E71FE946D6002EE5B0 /* UIFont+KPAdditions.swift */,
+				6922F6A52013EADE003E3713 /* UIImage+KPAdditions.swift */,
+				69DA0678201B718C00D908E6 /* UILabel+KPAdditions.swift */,
+				69DA067E201B723900D908E6 /* UINavigationBar+KPAdditions.swift */,
+				69DA067C201B721700D908E6 /* UINavigationController+KPAdditions.swift */,
+				69DA0680201B726100D908E6 /* UISearchBar+KPAdditions.swift */,
+				69DA067A201B71E400D908E6 /* UITableViewCell+KPAdditions.swift */,
+				69B6D2C01FFFAD4800CB62EE /* UIView+KPAdditions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1615,6 +1618,7 @@
 				69BA28F120E577A600F7A9EC /* CommentsResponse.swift in Sources */,
 				69F12427200178CA00E37A1F /* SimilarTableViewCell.swift in Sources */,
 				FEDEC9C120226ECF00250B61 /* PrivateKeys.swift in Sources */,
+				692A80C420EBB5ED003B7050 /* UIButton.swift in Sources */,
 				695922231F7D5C3A00CE3224 /* Files.swift in Sources */,
 				695922431F7DA18400CE3224 /* ItemsCollectionViewController.swift in Sources */,
 				695922001F7D5BAF00CE3224 /* KinopubAccount.swift in Sources */,

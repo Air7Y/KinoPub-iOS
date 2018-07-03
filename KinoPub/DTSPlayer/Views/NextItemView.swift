@@ -36,6 +36,7 @@ class NextItemView: UIView {
     func config(with info: String, image: UIImage? = nil) {
         nextButton.setTitle(info, for: .normal)
         nextButton.setImage(image, for: .normal)
+        nextButton.centerTextAndImage(spacing: image != nil ? 8 : 0)
     }
 
 }
