@@ -129,7 +129,6 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
         case TabBarItemTag.cartoons.rawValue:
             model.setParameter("genre", value: "23")
             navigationItem.title = "Мультфильмы"
-//            navigationItem.rightBarButtonItems?[0].customView = UIView()
         case TabBarItemTag.movies4k.rawValue:
             model.type = ItemType.movies4k
             navigationItem.title = ItemType.movies4k.description
@@ -138,16 +137,12 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
             navigationItem.title = ItemType.movies3d.description
         case TabBarItemTag.newMovies.rawValue:
             navigationItem.title = TabBarItemTag.newMovies.description
-//            navigationItem.rightBarButtonItems?[1].customView = UIView()
             model.type = ItemType.movies
-            model.setParameter("sort", value: "-created")
-//            model.from = "fresh"
+            model.filter.sort = SortOption.created
         case TabBarItemTag.newSeries.rawValue:
             navigationItem.title = TabBarItemTag.newSeries.description
-//            navigationItem.rightBarButtonItems?[1].customView = UIView()
             model.type = ItemType.shows
-            model.setParameter("sort", value: "-created")
-//            model.from = "fresh"
+            model.filter.sort = SortOption.created
         case TabBarItemTag.hotMovies.rawValue:
             navigationItem.title = TabBarItemTag.hotMovies.description
             navigationItem.rightBarButtonItems?[0].customView = UIView()
@@ -426,7 +421,7 @@ extension ItemsCollectionViewController: UIEmptyStateDelegate, UIEmptyStateDataS
     var emptyStateTitle: NSAttributedString {
         let attrs = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite,
                      NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)]
-        return NSAttributedString(string: "Нет результатов.\nВозможно, отсутствует интернет соединение или сервис временно недоступен.", attributes: attrs)
+        return NSAttributedString(string: "Нет результатов.", attributes: attrs)
     }
     
     var emptyStateButtonTitle: NSAttributedString? {
