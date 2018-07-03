@@ -81,9 +81,12 @@ class VideoItemsModel: AccountManagerDelegate {
             guard let strongSelf = self else { return }
             defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
             if let itemsData = response {
-                guard let items = itemsData.items else { return }
+                guard var items = itemsData.items else { return }
                 strongSelf.page += 1
                 strongSelf.totalPages = response?.pagination?.total ?? 1
+                if Config.shared.animeIsHidden {
+                    items = items.filter{!($0.genres?.contains(Genres(id: 25, title: "Аниме")))!}
+                }
                 strongSelf.videoItems.append(contentsOf: items)
                 completed(itemsData.items?.count)
             } else {

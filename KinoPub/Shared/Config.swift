@@ -68,6 +68,10 @@ class Config {
         return Defaults[.canSortEpisodes]
     }
     
+    var animeIsHidden: Bool {
+        return Defaults[.animeIsHidden]
+    }
+    
     var menuVisibleContentWidth: CGFloat {
         return UIDevice.current.userInterfaceIdiom == .pad ? 1.6 : 5
     }

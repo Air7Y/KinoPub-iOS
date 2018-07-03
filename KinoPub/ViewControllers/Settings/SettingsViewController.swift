@@ -90,6 +90,13 @@ class SetViewController: FormViewController, SideMenuItemContent {
                 })
             
             <<< SwitchRow() {
+                $0.title = "Скрыть Анимэ"
+                $0.value = Defaults[.animeIsHidden]
+                }.onChange({ (row) in
+                    Defaults[.animeIsHidden] = row.value!
+                })
+            
+            <<< SwitchRow() {
                 $0.title = "Обратная сортировка сезонов"
                 $0.value = Defaults[.canSortSeasons]
                 }.onChange({ (row) in

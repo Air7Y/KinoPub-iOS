@@ -36,7 +36,10 @@ class FilterModel {
         networkingService.receiveItemsGenres(type: type?.rawValue ?? "") { [weak self] (response, error) in
             guard let strongSelf = self else { return }
             defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
-            if let responseData = response {
+            if var responseData = response {
+                if Config.shared.animeIsHidden {
+                    responseData = responseData.filter{$0.id != 25}
+                }
                 strongSelf.genres.append(contentsOf: responseData)
             } else {
                 Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")

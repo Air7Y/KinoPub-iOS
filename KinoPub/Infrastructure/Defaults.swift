@@ -14,6 +14,7 @@ extension DefaultsKeys {
 
     static let canSortSeasons = DefaultsKey<Bool>("canSortSeasons")
     static let canSortEpisodes = DefaultsKey<Bool>("canSortEpisodes")
+    static let animeIsHidden = DefaultsKey<Bool>("animeIsHidden")
 
     static let showRatringInPoster = DefaultsKey<Bool>("showRatringInPoster")
     static let clientTitle = DefaultsKey<String>("clientTitle")
