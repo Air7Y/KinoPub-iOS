@@ -17,8 +17,10 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
     private var playBackControlsView: UIView? {
         let firstSubview = view.subviews.first
         
-        if #available(iOS 11.0, *) {
-            return SwifterSwift.isPad ? firstSubview?.subviews[safe: 2]?.subviews.first : firstSubview?.subviews[safe: 1]?.subviews[safe: 1]
+        if #available(iOS 12.0, *) {
+            return firstSubview?.subviews[safe: 1]?.subviews[safe: 1]
+        } else if #available(iOS 11.0, *) {
+            return firstSubview?.subviews[safe: 2]?.subviews.first
         } else {
             return firstSubview?.subviews[safe: 5]?.subviews.first
         }
@@ -37,6 +39,7 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
     }
     
     deinit {
+        playBackControlsView?.removeObserver(self, forKeyPath: #keyPath(UIView.isHidden))
         NotificationCenter.default.removeObserver(self)
     }
     

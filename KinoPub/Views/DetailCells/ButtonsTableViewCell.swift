@@ -16,6 +16,7 @@ class ButtonsTableViewCell: UITableViewCell {
     }
     
     func configView() {
+        backgroundColor = UIColor.clear
         bookmarkButton.setTitleColor(.kpGreyishTwo, for: .normal)
         watchlistAndDownloadButton.setTitleColor(.kpGreyishTwo, for: .normal)
         bookmarkButton.borderColor = .kpGreyishBrown

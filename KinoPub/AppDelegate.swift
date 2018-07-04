@@ -69,6 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite]
         UIApplication.shared.statusBarStyle = .lightContent
         UITextField.appearance().keyboardAppearance = .dark
+        UITableViewCell.appearance().backgroundColor = .clear
     }
     
     // MARK: - Core Data stack

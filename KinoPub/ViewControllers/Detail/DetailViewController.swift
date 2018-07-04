@@ -71,6 +71,9 @@ class DetailViewController: UIViewController, SideMenuItemContent {
         delegates()
         configHeaderImageView()
         configPullToRefresh()
+        configYearAndCountries()
+        configInAirView()
+        receiveTMDBBackgroundImage()
         configAfterRefresh()
         loadData()
         model.loadSimilarsVideo()
@@ -258,10 +261,7 @@ class DetailViewController: UIViewController, SideMenuItemContent {
     }
     
     func configAfterRefresh() {
-        configYearAndCountries()
-        receiveTMDBBackgroundImage()
         configPosterWatched()
-        configInAirView()
         configPlayButton()
         configEpisodeLabel()
 //        tableView.reloadData()

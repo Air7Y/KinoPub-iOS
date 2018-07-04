@@ -43,6 +43,7 @@ class EpisodeTableViewCell: UITableViewCell {
     }
     
     func configView() {
+        backgroundColor = UIColor.clear
         episodeNumberLabel.textColor = .kpGreyishBrown
         ruTitleLabel.textColor = .kpOffWhite
         enTitleLabel.textColor = .kpGreyishBrown

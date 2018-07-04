@@ -12,7 +12,6 @@
 		691420532035A686005A5370 /* HiddenMenusService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691420522035A686005A5370 /* HiddenMenusService.swift */; };
 		691420552035AA86005A5370 /* MenuItems.swift in Sources */ = {isa = PBXBuildFile; fileRef = 691420542035AA86005A5370 /* MenuItems.swift */; };
 		6922F6A62013EADE003E3713 /* UIImage+KPAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6922F6A52013EADE003E3713 /* UIImage+KPAdditions.swift */; };
-		6922F6A8201443E2003E3713 /* SearchablePushRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6922F6A7201443E2003E3713 /* SearchablePushRow.swift */; };
 		692A80C420EBB5ED003B7050 /* UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692A80C320EBB5ED003B7050 /* UIButton.swift */; };
 		692CF6C31F901969007E539D /* LogViewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692CF6C21F901969007E539D /* LogViewsManager.swift */; };
 		692CF6C41F90207A007E539D /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 695921F61F7D4FB200CE3224 /* Settings.bundle */; };
@@ -238,7 +237,6 @@
 		691420522035A686005A5370 /* HiddenMenusService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HiddenMenusService.swift; sourceTree = "<group>"; };
 		691420542035AA86005A5370 /* MenuItems.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItems.swift; sourceTree = "<group>"; };
 		6922F6A52013EADE003E3713 /* UIImage+KPAdditions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+KPAdditions.swift"; sourceTree = "<group>"; };
-		6922F6A7201443E2003E3713 /* SearchablePushRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchablePushRow.swift; sourceTree = "<group>"; };
 		692A80C320EBB5ED003B7050 /* UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButton.swift; sourceTree = "<group>"; };
 		692CF6C21F901969007E539D /* LogViewsManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogViewsManager.swift; sourceTree = "<group>"; };
 		692EF3521F8D029000A4D824 /* Filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Filter.swift; sourceTree = "<group>"; };
@@ -808,7 +806,6 @@
 			children = (
 				6959224D1F7DA8E900CE3224 /* FilterViewController.storyboard */,
 				69D82E6D1F8A75E200517F21 /* FilterViewController.swift */,
-				6922F6A7201443E2003E3713 /* SearchablePushRow.swift */,
 			);
 			path = Filter;
 			sourceTree = "<group>";
@@ -1485,7 +1482,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6922F6A8201443E2003E3713 /* SearchablePushRow.swift in Sources */,
 				69FCF3361F939CED00638A77 /* DTSPlayerFullScreenViewController.swift in Sources */,
 				697E242C1FE98FF10047082E /* GradientView.swift in Sources */,
 				695922201F7D5C3A00CE3224 /* Countries.swift in Sources */,

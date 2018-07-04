@@ -28,7 +28,6 @@ class SeasonTableViewController: UITableViewController {
         super.viewDidLoad()
         
         NotificationCenter.default.addObserver(self, selector: #selector(endLoad), name: NSNotification.Name.VideoItemDidUpdate, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(refresh), name: NSNotification.Name.PlayDidFinish, object: nil)
         if let title = model.getSeason(indexPathSeason)?.title, title != "" {
             self.title = title
         } else {
