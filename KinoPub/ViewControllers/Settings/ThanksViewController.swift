@@ -46,9 +46,10 @@ class ThanksViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        DispatchQueue.global().async {
+        DispatchQueue.global().async { [weak self] in
+            guard let strongSelf = self else { return }
             do {
-                self.names = try String(contentsOf: URL(string: self.url!)!)
+                strongSelf.names = try String(contentsOf: URL(string: strongSelf.url!)!)
             }
             catch {
                 print(error.localizedDescription)

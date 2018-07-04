@@ -163,8 +163,8 @@ class ProfileViewController: UITableViewController, ProfileModelDelegate, SideMe
         Alert(message: "Отвязать устройство?")
             .tint(.kpBlack)
             .addAction("Нет", style: .cancel)
-            .addAction("Да", style: .default, handler: { (action) in
-                self.accountManager.logoutAccount()
+            .addAction("Да", style: .default, handler: { [weak self] (action) in
+                self?.accountManager.logoutAccount()
             }).show()
     }
 

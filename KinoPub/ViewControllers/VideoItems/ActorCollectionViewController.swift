@@ -65,8 +65,8 @@ class ActorCollectionViewController: ContentCollectionViewController, SideMenuIt
         viewModel.refresh()
         refreshing = false
         behavior.reloadData()
-        behavior.fetchNextData(forSection: 0) {
-            self.collectionView?.reloadData()
+        behavior.fetchNextData(forSection: 0) { [weak self] in
+            self?.collectionView?.reloadData()
         }
         control.endRefreshing()
     }

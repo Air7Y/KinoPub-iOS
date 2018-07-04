@@ -1,3 +1,11 @@
+//
+//  SeasonTableViewCell.swift
+//  KinoPub
+//
+//  Created by hintoz on 15.04.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import SwiftyUserDefaults
 
@@ -30,7 +38,7 @@ class SeasonTableViewCell: UITableViewCell {
         
         let layout = episodesCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.headerReferenceSize = CGSize(width: 76, height: 100)
-        
+        layout.footerReferenceSize = CGSize(width: 8, height: 100)
     }
 
     override func setSelected(_ selected: Bool, animated: Bool) {
@@ -70,12 +78,16 @@ extension SeasonTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         self.episodesCollectionView.register(UINib(nibName: String(describing: SeasonHeaderView.self), bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: String(describing: SeasonHeaderView.self))
+        self.episodesCollectionView.register(UINib(nibName: String(describing: SeasonFooterView.self), bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: String(describing: SeasonFooterView.self))
         switch kind {
         case UICollectionElementKindSectionHeader:
             let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: SeasonHeaderView.self), for: indexPath) as! SeasonHeaderView
             
             sectionHeaderView.label.text = "\(model.getSeason(indexPathSeason)?.number ?? 0)"
             return sectionHeaderView
+        case UICollectionElementKindSectionFooter:
+            let sectionFooterView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: SeasonFooterView.self), for: indexPath) as! SeasonFooterView
+            return sectionFooterView
         default:
             return UICollectionReusableView()
         }

@@ -1,3 +1,11 @@
+//
+//  Share.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 04.10.2017.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import LKAlertController
 import NotificationBannerSwift
@@ -40,9 +48,7 @@ class Share {
             .tint(.kpBlack)
             .addAction("Скачать", style: .default, handler: { (_) in
                 NTDownloadManager.shared.addDownloadTask(urlString: url, fileName: title, fileImage: poster)
-                let banner = StatusBarNotificationBanner(title: "Добавлено в загрузки", style: .success)
-                banner.duration = 1
-                banner.show(queuePosition: .front)
+                Helper.showSuccessStatusBarBanner("Добавлено в загрузки")
             })
             .addAction("Открыть в", style: .default, handler: { (_) in
                 self.openInAppScheme(url: url, title: title, quality: quality, inView: view, forButton: button)

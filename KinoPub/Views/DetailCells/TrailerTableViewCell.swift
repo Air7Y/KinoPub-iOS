@@ -1,3 +1,11 @@
+//
+//  TrailerTableViewCell.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 05.01.2018.
+//  Copyright © 2018 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import CustomLoader
 
@@ -59,8 +67,8 @@ class TrailerTableViewCell: UITableViewCell {
     
     @objc func play() {
         playButtonView.alpha = 0.7
-        UIView.animate(withDuration: 0.8, animations: {
-            self.playButtonView.alpha = 1
+        UIView.animate(withDuration: 0.8, animations: { [weak self] in
+            self?.playButtonView.alpha = 1
         })
         guard let id = youtubeID else { return }
         MediaManager.shared.playYouTubeVideo(withID: id)

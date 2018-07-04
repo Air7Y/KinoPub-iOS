@@ -1,3 +1,11 @@
+//
+//  CollectionsViewController.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 09.07.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import DGCollectionViewPaginableBehavior
 import InteractiveSideMenu
@@ -49,8 +57,8 @@ class CollectionsViewController: ContentCollectionViewController, SideMenuItemCo
         model.refresh()
         refreshing = false
         behavior.reloadData()
-        behavior.fetchNextData(forSection: 0) {
-            self.collectionView?.reloadData()
+        behavior.fetchNextData(forSection: 0) { [weak self] in
+            self?.collectionView?.reloadData()
         }
         control.endRefreshing()
     }

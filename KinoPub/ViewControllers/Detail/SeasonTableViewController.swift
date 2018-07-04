@@ -99,11 +99,11 @@ class SeasonTableViewController: UITableViewController {
     func showMoreAction() {
         ActionSheet()
         .tint(.kpBlack)
-        .addAction("Отметить весь сезон", style: .default) { (_) in
-            self.watchAllSeason()
+        .addAction("Отметить весь сезон", style: .default) { [weak self] (_) in
+            self?.watchAllSeason()
         }
-        .addAction("Скачать весь сезон", style: .default) { (_) in
-            self.showDownloadAlert(season: true)
+        .addAction("Скачать весь сезон", style: .default) { [weak self] (_) in
+            self?.showDownloadAlert(season: true)
         }
         .addAction("Отмена", style: .cancel)
         .setBarButtonItem(moreButton)
@@ -129,9 +129,7 @@ class SeasonTableViewController: UITableViewController {
             let url = episode.files?[index].url?.http
             NTDownloadManager.shared.addDownloadTask(urlString: url!, fileName: name, fileImage: poster)
         }
-        let banner = StatusBarNotificationBanner(title: "Сезон добавлен в загрузки", style: .success)
-        banner.duration = 1
-        banner.show(queuePosition: .front)
+        Helper.showSuccessStatusBarBanner("Сезон добавлен в загрузки")
     }
     
     func showDownloadAlert(at indexPath: IndexPath? = nil, episode: Episodes? = nil, season: Bool = false) {
@@ -139,15 +137,15 @@ class SeasonTableViewController: UITableViewController {
         
         if episode != nil {
             for file in (episode?.files)! {
-                actionVC.addAction(file.quality!, style: .default, handler: { (_) in
-                    self.showDownloadAction(with: (file.url?.http)!, episode: episode!, quality: file.quality!, at: indexPath!)
+                actionVC.addAction(file.quality!, style: .default, handler: { [weak self] (_) in
+                    self?.showDownloadAction(with: (file.url?.http)!, episode: episode!, quality: file.quality!, at: indexPath!)
                 })
             }
             actionVC.setPresentingSource(self.tableView.cellForRow(at: indexPath!)!)
         } else if season {
             for (index, file) in (self.model.getSeason(indexPathSeason)?.episodes.first?.files?.enumerated())! {
-                actionVC.addAction(file.quality!, style: .default, handler: { (action) in
-                    self.downloadSeason(index: index, quality: file.quality!)
+                actionVC.addAction(file.quality!, style: .default, handler: { [weak self] (action) in
+                    self?.downloadSeason(index: index, quality: file.quality!)
                 })
             }
             actionVC.setBarButtonItem(moreButton)

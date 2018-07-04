@@ -402,8 +402,8 @@ extension HomeViewController: AZSearchViewDelegate {
     func searchView(_ searchView: UITableView, didSelectResultAt indexPath: IndexPath, object: AnyObject) {
         if let cell = searchView.cellForRow(at: indexPath) as? SearchResultTableViewCell {
             if let image = cell.posterImageView.image {
-                self.searchController.dismiss(animated: true, completion: {
-                    self.showDetailVC(with: object as! Item, andImage: image)
+                self.searchController.dismiss(animated: true, completion: { [weak self] in
+                    self?.showDetailVC(with: object as! Item, andImage: image)
                 })
             }
         }

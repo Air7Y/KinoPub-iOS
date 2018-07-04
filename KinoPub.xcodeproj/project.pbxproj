@@ -117,6 +117,8 @@
 		696D67E81FE946D6002EE5B0 /* UIFont+KPAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D67E71FE946D6002EE5B0 /* UIFont+KPAdditions.swift */; };
 		696D8D241F99712C001F5CCE /* MergeDownloads.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696D8D231F99712C001F5CCE /* MergeDownloads.swift */; };
 		69731BD12013CF40001B9D81 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69731BD02013CF40001B9D81 /* AboutViewController.swift */; };
+		69754EDA20EC6026002FD041 /* SeasonFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69754ED820EC6026002FD041 /* SeasonFooterView.swift */; };
+		69754EDB20EC6026002FD041 /* SeasonFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 69754ED920EC6026002FD041 /* SeasonFooterView.xib */; };
 		697E242C1FE98FF10047082E /* GradientView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E242B1FE98FF10047082E /* GradientView.swift */; };
 		697E242E1FE9A15A0047082E /* MainView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E242D1FE9A15A0047082E /* MainView.swift */; };
 		697E24361FE9B37A0047082E /* DetailTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 697E24351FE9B37A0047082E /* DetailTableView.swift */; };
@@ -342,6 +344,8 @@
 		696D67E71FE946D6002EE5B0 /* UIFont+KPAdditions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIFont+KPAdditions.swift"; sourceTree = "<group>"; };
 		696D8D231F99712C001F5CCE /* MergeDownloads.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeDownloads.swift; sourceTree = "<group>"; };
 		69731BD02013CF40001B9D81 /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		69754ED820EC6026002FD041 /* SeasonFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SeasonFooterView.swift; sourceTree = "<group>"; };
+		69754ED920EC6026002FD041 /* SeasonFooterView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SeasonFooterView.xib; sourceTree = "<group>"; };
 		697E242B1FE98FF10047082E /* GradientView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GradientView.swift; sourceTree = "<group>"; };
 		697E242D1FE9A15A0047082E /* MainView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainView.swift; sourceTree = "<group>"; };
 		697E24351FE9B37A0047082E /* DetailTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailTableView.swift; sourceTree = "<group>"; };
@@ -1009,6 +1013,8 @@
 				69C4F3181F7F053300BCD8F9 /* RatingTableViewCell.xib */,
 				69C4F3091F7F053000BCD8F9 /* SeasonHeaderView.swift */,
 				69C4F3131F7F053200BCD8F9 /* SeasonHeaderView.xib */,
+				69754ED820EC6026002FD041 /* SeasonFooterView.swift */,
+				69754ED920EC6026002FD041 /* SeasonFooterView.xib */,
 				69C4F3171F7F053300BCD8F9 /* SeasonTableViewCell.swift */,
 				69C4F30E1F7F053100BCD8F9 /* SeasonTableViewCell.xib */,
 				69F0FB221FEB1C5D004505EF /* ButtonsTableViewCell.swift */,
@@ -1232,6 +1238,7 @@
 				69C4F31F1F7F053900BCD8F9 /* DescTableViewCell.xib in Resources */,
 				69F1242E200193D500E37A1F /* TableFooterView.xib in Resources */,
 				695922711F7DB10300CE3224 /* Download.storyboard in Resources */,
+				69754EDB20EC6026002FD041 /* SeasonFooterView.xib in Resources */,
 				69512B201F7D2EE400BF5A89 /* LaunchScreen.storyboard in Resources */,
 				695922761F7DB16300CE3224 /* Collections.storyboard in Resources */,
 				695922331F7D5C9400CE3224 /* AuthViewController.storyboard in Resources */,
@@ -1620,6 +1627,7 @@
 				FEDEC9C120226ECF00250B61 /* PrivateKeys.swift in Sources */,
 				692A80C420EBB5ED003B7050 /* UIButton.swift in Sources */,
 				695922231F7D5C3A00CE3224 /* Files.swift in Sources */,
+				69754EDA20EC6026002FD041 /* SeasonFooterView.swift in Sources */,
 				695922431F7DA18400CE3224 /* ItemsCollectionViewController.swift in Sources */,
 				695922001F7D5BAF00CE3224 /* KinopubAccount.swift in Sources */,
 				69C4F3241F7F053900BCD8F9 /* InfoTableViewCell.swift in Sources */,

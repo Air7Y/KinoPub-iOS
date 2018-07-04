@@ -1,3 +1,11 @@
+//
+//  MenuSectionViewController.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 13.02.18.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import Eureka
 
@@ -39,13 +47,14 @@ class MenuSectionViewController: FormViewController {
         for item in MenuItems.configurableMenuItems {
             form.last! <<< SwitchCustomRow() {
                 $0.value = !hiddenMenuItems.contains(item)
-                }.onChange({ (row) in
+                }.onChange({ [weak self] (row) in
+                    guard let strongSelf = self else { return }
                     if row.value! {
-                        self.hiddenMenuItems.remove(at: self.hiddenMenuItems.index(of: item)!)
+                        strongSelf.hiddenMenuItems.remove(at: strongSelf.hiddenMenuItems.index(of: item)!)
                     } else {
-                        self.hiddenMenuItems.append(item)
+                        strongSelf.hiddenMenuItems.append(item)
                     }
-                    Config.shared.hiddenMenusService.saveConfigMenu(self.hiddenMenuItems)
+                    Config.shared.hiddenMenusService.saveConfigMenu(strongSelf.hiddenMenuItems)
                 }).cellSetup({ (cell, row) in
                     cell.iconImageView.image = UIImage(named: item.icon)
                     cell.titleLabel.text = item.name

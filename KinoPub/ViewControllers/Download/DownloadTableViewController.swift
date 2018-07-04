@@ -1,3 +1,11 @@
+//
+//  DownloadTableViewController.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 06.08.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import NTDownload
 import LKAlertController
@@ -38,21 +46,11 @@ class DownloadTableViewController: UITableViewController, SideMenuItemContent {
     
     func config() {
         title = "Загрузки"
-        
-        if #available(iOS 11.0, *) {
-            navigationController?.navigationBar.prefersLargeTitles = true
-            navigationController?.navigationItem.largeTitleDisplayMode = .always
-            let attributes = [NSAttributedStringKey.foregroundColor : UIColor.kpOffWhite]
-            navigationController?.navigationBar.largeTitleTextAttributes = attributes
-        } else {
-            // Fallback on earlier versions
-        }
-        
         tableView.backgroundColor = UIColor.kpBackground
         
         NTDownloadManager.shared.delegate = self
-        tableView.register(UINib(nibName: String(describing: DownloadingTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: DownloadingTableViewCell.reuseIdentifier)
-        tableView.register(UINib(nibName: String(describing: DowloadedTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: DowloadedTableViewCell.reuseIdentifier)
+        tableView.register(UINib(nibName: String(describing: DownloadingTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: DownloadingTableViewCell.self))
+        tableView.register(UINib(nibName: String(describing: DowloadedTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: DowloadedTableViewCell.self))
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.estimatedRowHeight = 100
         tableView.rowHeight = UITableViewAutomaticDimension
@@ -85,8 +83,8 @@ class DownloadTableViewController: UITableViewController, SideMenuItemContent {
             .addAction("Запустить все", style: .default) { (_) in
                 NTDownloadManager.shared.resumeAllTask()
             }
-            .addAction("Удалить все", style: .destructive) { (_) in
-                self.removeAllTask()
+            .addAction("Удалить все", style: .destructive) { [weak self] (_) in
+                self?.removeAllTask()
             }
             .addAction("Отменить", style: .cancel)
             .setBarButtonItem(sender as! UIBarButtonItem)
@@ -97,9 +95,9 @@ class DownloadTableViewController: UITableViewController, SideMenuItemContent {
     func removeAllTask() {
         Alert(message: "Удалить все загрузки?")
             .tint(.kpBlack)
-        .addAction("Да", style: .destructive) { (_) in
+        .addAction("Да", style: .destructive) { [weak self] (_) in
             NTDownloadManager.shared.removeAllTask()
-            self.initdata()
+            self?.initdata()
         }
         .addAction("Нет", style: .cancel)
         .show()
@@ -196,19 +194,21 @@ extension DownloadTableViewController {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         if indexPath.section == 1 {
-            let delete = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Удалить") { (_, indexPath) in
-                NTDownloadManager.shared.removeTask(downloadTask: self.downed[indexPath.row])
-                self.downed.remove(at: indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
+            let delete = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Удалить") { [weak self] (_, indexPath) in
+                guard let strongSelf = self else { return }
+                NTDownloadManager.shared.removeTask(downloadTask: strongSelf.downed[indexPath.row])
+                strongSelf.downed.remove(at: indexPath.row)
+                strongSelf.tableView.deleteRows(at: [indexPath], with: .fade)
             }
             
-            let share = UITableViewRowAction(style: .default, title: "Поделиться", handler: { (action, indexPath) in
-                let fileUrl = URL(fileURLWithPath: "\(NTDocumentPath)/\(self.downed[indexPath.row].fileName)")
+            let share = UITableViewRowAction(style: .default, title: "Поделиться", handler: { [weak self] (action, indexPath) in
+                guard let strongSelf = self else { return }
+                let fileUrl = URL(fileURLWithPath: "\(NTDocumentPath)/\(strongSelf.downed[indexPath.row].fileName)")
 //                let str = self.downed[indexPath.row].fileName
                 
                 let activityViewController = UIActivityViewController(activityItems: [fileUrl], applicationActivities: nil)
-                activityViewController.popoverPresentationController?.sourceView = self.tableView.cellForRow(at: indexPath)
-                self.present(activityViewController, animated: true, completion: nil)
+                activityViewController.popoverPresentationController?.sourceView = strongSelf.tableView.cellForRow(at: indexPath)
+                strongSelf.present(activityViewController, animated: true, completion: nil)
             })
             
             delete.backgroundColor = .kpGreyishTwo
@@ -216,10 +216,11 @@ extension DownloadTableViewController {
             
             return [delete, share]
         } else if indexPath.section == 0 {
-            let delete = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Удалить") { (_, indexPath) in
-                NTDownloadManager.shared.removeTask(downloadTask: self.downing[indexPath.row])
-                self.downing.remove(at: indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
+            let delete = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Удалить") { [weak self] (_, indexPath) in
+                guard let strongSelf = self else { return }
+                NTDownloadManager.shared.removeTask(downloadTask: strongSelf.downing[indexPath.row])
+                strongSelf.downing.remove(at: indexPath.row)
+                strongSelf.tableView.deleteRows(at: [indexPath], with: .fade)
             }
             
             delete.backgroundColor = .kpGreyishTwo
@@ -232,27 +233,29 @@ extension DownloadTableViewController {
 }
 
 extension DownloadTableViewController {
-    func showActionController(at indexPath: IndexPath) {
-        let action = ActionSheet().tint(.kpBlack)
-        
-        if downing[selectedIndexPath.row].status == .NTDownloading {
-            action.addAction("Пауза", style: .default, handler: { (_) in
-                NTDownloadManager.shared.pauseTask(downloadTask: self.downing[self.selectedIndexPath.row])
-            })
-        }
-        if downing[selectedIndexPath.row].status == .NTPauseDownload {
-            action.addAction("Продолжить", style: .default, handler: { (_) in
-                NTDownloadManager.shared.resumeTask(downloadTask: self.downing[self.selectedIndexPath.row])
-            })
-        }
-        action.addAction("Удалить", style: .destructive) { (_) in
-            self.showConfirmAlert()
-        }
-        action.addAction("Отмена", style: .cancel)
-        action.setPresentingSource(tableView.cellForRow(at: indexPath)!)
-        action.show()
-        Helper.hapticGenerate(style: .medium)
-    }
+//    func showActionController(at indexPath: IndexPath) {
+//        let action = ActionSheet().tint(.kpBlack)
+//        
+//        if downing[selectedIndexPath.row].status == .NTDownloading {
+//            action.addAction("Пауза", style: .default, handler: { [weak self] (_) in
+//                guard let strongSelf = self else { return }
+//                NTDownloadManager.shared.pauseTask(downloadTask: strongSelf.downing[strongSelf.selectedIndexPath.row])
+//            })
+//        }
+//        if downing[selectedIndexPath.row].status == .NTPauseDownload {
+//            action.addAction("Продолжить", style: .default, handler: { [weak self] (_) in
+//                guard let strongSelf = self else { return }
+//                NTDownloadManager.shared.resumeTask(downloadTask: strongSelf.downing[strongSelf.selectedIndexPath.row])
+//            })
+//        }
+//        action.addAction("Удалить", style: .destructive) { [weak self] (_) in
+//            self?.showConfirmAlert()
+//        }
+//        action.addAction("Отмена", style: .cancel)
+//        action.setPresentingSource(tableView.cellForRow(at: indexPath)!)
+//        action.show()
+//        Helper.hapticGenerate(style: .medium)
+//    }
     
     func playPauseTask(at indexPath: IndexPath) {
         if downing[indexPath.row].status == .NTDownloading {
@@ -265,10 +268,11 @@ extension DownloadTableViewController {
     func showConfirmAlert() {
         Alert(message: "Удалить?")
             .tint(.kpBlack)
-        .addAction("Да", style: .destructive) { (_) in
-            NTDownloadManager.shared.removeTask(downloadTask: self.downing[self.selectedIndexPath.row])
-            self.downing.remove(at: self.selectedIndexPath.row)
-            self.tableView.deleteRows(at: [self.selectedIndexPath], with: .fade)
+        .addAction("Да", style: .destructive) { [weak self] (_) in
+            guard let strongSelf = self else { return }
+            NTDownloadManager.shared.removeTask(downloadTask: strongSelf.downing[strongSelf.selectedIndexPath.row])
+            strongSelf.downing.remove(at: strongSelf.selectedIndexPath.row)
+            strongSelf.tableView.deleteRows(at: [strongSelf.selectedIndexPath], with: .fade)
         }
         .addAction("Нет", style: .cancel)
         .show()
@@ -312,8 +316,7 @@ extension DownloadTableViewController: NTDownloadManagerDelegate {
     
     func downloadRequestDidFailedWithError(error: Error, downloadTask: NTDownloadTask) {
         let title = downloadTask.fileName.replacingOccurrences(of: ".mp4", with: "").replacingOccurrences(of: ";", with: "").replacingOccurrences(of: ".", with: " ")
-        Alert(title: "Ошибка", message: "При загрузке \(title) произошла ошибка: \(error.localizedDescription)")
-        .showOkay()
+        Helper.showError("При загрузке \(title) произошла ошибка: \(error.localizedDescription)")
         initdata()
     }
     
