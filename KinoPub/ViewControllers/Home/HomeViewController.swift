@@ -18,6 +18,7 @@ class HomeViewController: UIViewController, SideMenuItemContent {
     fileprivate let accountManager = Container.Manager.account
     
     var searchController: AZSearchViewController!
+    var searchTimer: Timer?
     let control = UIRefreshControl()
     var storedOffsets = [Int: CGFloat]()
     
@@ -389,14 +390,23 @@ extension HomeViewController: AZSearchViewDelegate {
     
     func searchView(_ searchView: AZSearchViewController, didTextChangeTo text: String, textLength: Int) {
         model.resultItems.removeAll()
-        if textLength > 2 {
-            searchController.emptyResultCellText = "загрузка..."
-            model.loadSearchItems(text, { [weak self] _ in
-                self?.searchController.emptyResultCellText = "Нет результатов поиска"
-                searchView.reloadData()
-            })
+        searchController.emptyResultCellText = "загрузка..."
+        if let timer = searchTimer {
+            timer.invalidate()
+            searchTimer = nil
         }
+        searchTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerFired(_:)), userInfo: nil, repeats: false)
         searchView.reloadData()
+    }
+    
+    @objc func timerFired(_ timer: Timer?) {
+        searchTimer?.invalidate()
+        searchTimer = nil
+        guard let text = searchController.searchBar.text, text.count > 2 else { return }
+        model.loadSearchItems(text, { [weak self] _ in
+            self?.searchController.emptyResultCellText = "Нет результатов поиска"
+            self?.searchController.reloadData()
+        })
     }
     
     func searchView(_ searchView: UITableView, didSelectResultAt indexPath: IndexPath, object: AnyObject) {

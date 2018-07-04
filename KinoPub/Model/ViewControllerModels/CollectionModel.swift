@@ -1,3 +1,11 @@
+//
+//  CollectionModel.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 06.10.2017.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import Foundation
 import LKAlertController
 import NotificationBannerSwift
@@ -23,16 +31,15 @@ class CollectionModel {
     func loadCollections(completed: @escaping (_ count: Int?) -> ()) {
         networkingService.receiveCollections(page: page.string) { [weak self] (response, error) in
         guard let strongSelf = self else { return }
+            var count: Int?
+            defer { completed(count) }
             if let itemsData = response {
                 guard let items = itemsData.items else { return }
                 strongSelf.page += 1
                 strongSelf.collections.append(contentsOf: items)
-                completed(itemsData.items?.count)
+                count = items.count
             } else {
-                debugPrint("[!ERROR]: \(String(describing: error?.localizedDescription))")
-                Alert(title: "Ошибка", message: error?.localizedDescription)
-                    .showOkay()
-                completed(nil)
+                Helper.showError(error?.localizedDescription ?? "Unknown")
             }
         }
     }

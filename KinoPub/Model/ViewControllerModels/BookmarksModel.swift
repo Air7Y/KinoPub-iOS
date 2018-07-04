@@ -1,3 +1,11 @@
+//
+//  BookmarksModel.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 04.10.2017.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import Foundation
 import LKAlertController
 import NotificationBannerSwift
@@ -52,16 +60,19 @@ class BookmarksModel {
     func loadBookmarkItems(completed: @escaping (_ count: Int?) -> ()) {
         networkingService.receiveBookmarkItems(id: (folder?.id?.string)!, page: page.string) { [weak self] (response, error) in
             guard let strongSelf = self else { return }
-            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
+            var count: Int?
+            defer {
+                strongSelf.delegate?.didUpdateItems(model: strongSelf)
+                completed(count)
+            }
             if let itemsData = response {
                 guard let items = itemsData.items else { return }
                 strongSelf.page += 1
                 strongSelf.totalPages = response?.pagination?.total ?? 1
                 strongSelf.items.append(contentsOf: items)
-                completed(itemsData.items?.count)
+                count = items.count
             } else {
                 Helper.showErrorBanner(error?.localizedDescription ?? "")
-                completed(nil)
             }
         }
     }
@@ -75,6 +86,7 @@ class BookmarksModel {
                 completed?(responseData.folder)
             } else {
                 Helper.showErrorBanner("Невозможно создать папку. \(error?.localizedDescription ?? "")")
+                completed?(nil)
             }
         }
     }
@@ -129,6 +141,7 @@ class BookmarksModel {
                 completed(responseData)
             } else {
                 Helper.showErrorBanner(error?.localizedDescription ?? "")
+                completed(nil)
             }
         }
     }

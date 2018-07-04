@@ -87,7 +87,11 @@ class VideoItemsModel: AccountManagerDelegate {
         }
         networkingService.receiveItems(withParameters: param, from: from, completed: { [weak self] (response, error) in
             guard let strongSelf = self else { return }
-            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
+            var count: Int?
+            defer {
+                strongSelf.delegate?.didUpdateItems(model: strongSelf)
+                completed(count)
+            }
             if let itemsData = response {
                 guard var items = itemsData.items else { return }
                 strongSelf.page += 1
@@ -96,10 +100,9 @@ class VideoItemsModel: AccountManagerDelegate {
                     items = items.filter{!($0.genres?.contains(Genres(id: 25, title: "Аниме")))!}
                 }
                 strongSelf.videoItems.append(contentsOf: items)
-                completed(itemsData.items?.count)
+                count = items.count
             } else {
                 Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
-                completed(nil)
             }
         })
     }
@@ -108,14 +111,17 @@ class VideoItemsModel: AccountManagerDelegate {
      private func loadWatchingSeries(_ subscribed: Int = 1, completed: @escaping (_ count: Int?) -> ()) {
         networkingService.receiveWatchingSeries(subscribed) { [weak self] (response, error) in
             guard let strongSelf = self else { return }
-            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
+            var count: Int?
+            defer {
+                strongSelf.delegate?.didUpdateItems(model: strongSelf)
+                completed(count)
+            }
             if let itemsData = response {
                 guard let items = itemsData.items else { return }
                 strongSelf.videoItems.append(contentsOf: items)
-                completed(itemsData.items?.count)
+                count = items.count
             } else {
                 Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
-                completed(nil)
             }
         }
     }
@@ -124,14 +130,17 @@ class VideoItemsModel: AccountManagerDelegate {
     private func loadWatchingMovie(completed: @escaping (_ count: Int?) -> ()) {
         networkingService.receiveWatchingMovie { [weak self] (response, error) in
             guard let strongSelf = self else { return }
-            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
+            var count: Int?
+            defer {
+                strongSelf.delegate?.didUpdateItems(model: strongSelf)
+                completed(count)
+            }
             if let itemsData = response {
                 guard let items = itemsData.items else { return }
                 strongSelf.videoItems.append(contentsOf: items)
-                completed(itemsData.items?.count)
+                count = items.count
             } else {
                 Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
-                completed(nil)
             }
         }
     }
@@ -140,19 +149,17 @@ class VideoItemsModel: AccountManagerDelegate {
     func loadSearchItems(_ title: String, iOS11: Bool = false, _ completed: @escaping (_ count: Int?)->()) {
         var parameters = [String : String]()
         parameters["title"] = title
-//        parameters["type"] = "50"
         iOS11 ? (parameters["page"] = "\(pageOfSearch)") : (parameters["perpage"] = "50")
-//        parameters["page"] = "\(pageOfSearch)"
-        networkingService.receiveItems(withParameters: parameters, from: nil, cancelPrevious: true, completed: { [weak self] (response, error) in
+        networkingService.receiveItems(withParameters: parameters, from: nil, cancelPrevious: false, completed: { [weak self] (response, error) in
             guard let strongSelf = self else { return }
+            var count: Int?
+            defer { completed(count) }
             if let itemsData = response {
                 guard let items = itemsData.items else { return }
                 strongSelf.pageOfSearch += 1
                 strongSelf.totalPagesOfSearch = response?.pagination?.total ?? 1
                 strongSelf.resultItems.append(contentsOf: items)
-                completed(itemsData.items?.count)
-            } else {
-                completed(nil)
+                count = items.count
             }
         })
     }
@@ -161,13 +168,16 @@ class VideoItemsModel: AccountManagerDelegate {
     func loadItemsCollection(completed: @escaping (_ count: Int?) -> ()) {
         networkingService.receiveItemsCollection(parameters: parameters) { [weak self] (response, error) in
             guard let strongSelf = self else { return }
-            defer { strongSelf.delegate?.didUpdateItems(model: strongSelf) }
+            var count: Int?
+            defer {
+                strongSelf.delegate?.didUpdateItems(model: strongSelf)
+                completed(count)
+            }
             if let itemsData = response {
                 strongSelf.videoItems.append(contentsOf: itemsData)
-                completed(itemsData.count)
+                count = itemsData.count
             } else {
                 Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
-                completed(nil)
             }
         }
     }
@@ -260,13 +270,14 @@ class VideoItemsModel: AccountManagerDelegate {
         guard accountManager.hasAccount else { return }
         networkingService.receiveItems(withParameters: parameters, from: from) { [weak self] (response, error) in
             guard let strongSelf = self else { return }
+            var items: [Item]?
             defer {
                 strongSelf.delegate?.didUpdateItems(model: strongSelf)
+                completed(items)
             }
             if let itemsData = response {
-                completed(itemsData.items)
+                items = itemsData.items
             } else {
-                completed(nil)
                 Helper.showErrorBanner(error?.localizedDescription ?? "Unknown")
             }
         }

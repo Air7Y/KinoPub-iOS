@@ -32,6 +32,7 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
     
     var searchController: AZSearchViewController!
     var searchControllerNew: UISearchController!
+    var searchTimer: Timer?
     
     var refreshing: Bool = false
 
@@ -56,6 +57,7 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
     }
     
     func endLoad() {
+        behavior.options.animatedUpdates = false
         collectionView?.reloadData()
         reloadEmptyStateForCollectionView(collectionView!)
         GradientLoadingBar.shared.hide()
@@ -476,14 +478,23 @@ extension ItemsCollectionViewController: AZSearchViewDelegate {
 
     func searchView(_ searchView: AZSearchViewController, didTextChangeTo text: String, textLength: Int) {
         model.resultItems.removeAll()
-        if textLength > 2 {
-            searchController.emptyResultCellText = "загрузка..."
-            model.loadSearchItems(text, { [weak self] _ in
-                self?.searchController.emptyResultCellText = "Нет результатов поиска"
-                searchView.reloadData()
-            })
+        searchController.emptyResultCellText = "загрузка..."
+        if let timer = searchTimer {
+            timer.invalidate()
+            searchTimer = nil
         }
+        searchTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerFiredOldSearch(_:)), userInfo: nil, repeats: false)
         searchView.reloadData()
+    }
+    
+    @objc func timerFiredOldSearch(_ timer: Timer?) {
+        searchTimer?.invalidate()
+        searchTimer = nil
+        guard let text = searchController.searchBar.text, text.count > 2 else { return }
+        model.loadSearchItems(text, { [weak self] _ in
+            self?.searchController.emptyResultCellText = "Нет результатов поиска"
+            self?.searchController.reloadData()
+        })
     }
 
     func searchView(_ searchView: UITableView, didSelectResultAt indexPath: IndexPath, object: AnyObject) {
@@ -504,32 +515,30 @@ extension ItemsCollectionViewController: AZSearchViewDelegate {
 // MARK: UISearchResultsUpdating
 extension ItemsCollectionViewController: UISearchResultsUpdating, UISearchBarDelegate {
     func updateSearchResults(for searchController: UISearchController) {
-        collectionView?.reloadData()
-        guard searchController.searchBar.text!.count > 2 else { return }
         model.refreshSearch()
-//        model.resultItems.removeAll()
-//        model.loadSearchItems(searchController.searchBar.text! ) { [weak self] _ in
-//            guard let strongSelf = self else { return }
-//            strongSelf.collectionView?.reloadData()
-//        }
+        if let timer = searchTimer {
+            timer.invalidate()
+            searchTimer = nil
+        }
+        searchTimer = Timer.scheduledTimer(timeInterval: 0.5, target: self, selector: #selector(timerFired(_:)), userInfo: nil, repeats: false)
+        endLoad()
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        model.refreshSearch()
+        behavior.reloadData()
+        endLoad()
+    }
+    
+    @objc func timerFired(_ timer: Timer?) {
+        searchTimer?.invalidate()
+        searchTimer = nil
+        guard let text = searchControllerNew.searchBar.text, text.count > 2 else { return }
         behavior.reloadData()
         behavior.fetchNextData(forSection: 0) { [weak self] in
             self?.endLoad()
         }
-//        collectionView?.reloadData()
     }
-    
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        model.resultItems.removeAll()
-        behavior.reloadData()
-        endLoad()
-//        searchController.dismiss(animated: true)
-    }
-    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-//        searchController.show(in: self)
-    }
-    
-    
 }
 
 // MARK: AccountManager Delegate

@@ -76,6 +76,7 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
     }
     
     func endLoad() {
+        behavior.options.animatedUpdates = false
         collectionView?.reloadData()
         reloadEmptyStateForCollectionView(collectionView!)
         GradientLoadingBar.shared.hide()
