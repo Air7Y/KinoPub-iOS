@@ -161,7 +161,7 @@ DEPENDENCIES:
   - SwifterSwift
   - SwiftyBeaver
   - SwiftyUserDefaults
-  - TMDBSwift (from `https://github.com/gkye/TheMovieDatabaseSwiftWrapper.git`)
+  - TMDBSwift (from `../TheMovieDatabaseSwiftWrapper/`)
   - UIEmptyState
 
 SPEC REPOS:
@@ -226,7 +226,7 @@ EXTERNAL SOURCES:
   NTDownload:
     :git: https://github.com/hintoz/NTDownload.git
   TMDBSwift:
-    :git: https://github.com/gkye/TheMovieDatabaseSwiftWrapper.git
+    :path: "../TheMovieDatabaseSwiftWrapper/"
 
 CHECKOUT OPTIONS:
   AZSearchView:
@@ -247,9 +247,6 @@ CHECKOUT OPTIONS:
   NTDownload:
     :commit: 7beef1c454b27f4b7d586cc7d8a072f00b7e8b51
     :git: https://github.com/hintoz/NTDownload.git
-  TMDBSwift:
-    :commit: cbba221928de70734f419273d53864592dba8010
-    :git: https://github.com/gkye/TheMovieDatabaseSwiftWrapper.git
 
 SPEC CHECKSUMS:
   Alamofire: e4fa87002c137ba2d8d634d2c51fabcda0d5c223
@@ -301,9 +298,9 @@ SPEC CHECKSUMS:
   SwifterSwift: 1ce0e31801ddd3a2bd3256626275425adb01067a
   SwiftyBeaver: e45759613e50b522b0e6f53b1f0f14389b45ca34
   SwiftyUserDefaults: 3d273b1739b68ada3145dc754a70ec775bc5c8be
-  TMDBSwift: d3dacaa215b99df4e535962b10bf2f3845f25b2e
+  TMDBSwift: 4d3b8e5a6af395d43b934fd67c35f8d498705394
   UIEmptyState: e6331312fb788880575701cb9c6230e5d2eaf6b0
 
-PODFILE CHECKSUM: 0aa2424a7f6f977fe5255c66fea1f9bb10f23c92
+PODFILE CHECKSUM: e07c18620fbe4f36f45655ed58db87e542003482
 
 COCOAPODS: 1.5.3

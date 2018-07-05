@@ -25,7 +25,7 @@ target 'qinoa' do
   pod 'EZPlayer', :git => 'https://github.com/hintoz/EZPlayer.git'
   pod 'Letters'
   pod 'RevealingSplashView'
-  pod 'TMDBSwift', :git => 'https://github.com/gkye/TheMovieDatabaseSwiftWrapper.git'
+  pod 'TMDBSwift', :path => '../TheMovieDatabaseSwiftWrapper/'
   pod 'SubtleVolume'
   pod 'CustomLoader'
   pod 'NotificationBannerSwift'
