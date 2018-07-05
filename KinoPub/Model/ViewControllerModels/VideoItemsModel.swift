@@ -311,10 +311,4 @@ class VideoItemsModel: AccountManagerDelegate {
             return 20
         }
     }
-    
-    func accountManagerDidAuth(accountManager: AccountManager, toAccount account: KinopubAccount) {
-        loadVideoItems { (_) in
-            
-        }
-    }
 }

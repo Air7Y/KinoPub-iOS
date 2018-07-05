@@ -109,6 +109,7 @@ class AccountManagerImp: AccountManager {
         }
         keychain.clear()
         account = nil
+        requestFactory.authorizedSessionManager = nil
         delegatesStorage.enumerateDelegatesWithBlock { [unowned self] (delegate) in
             (delegate as! AccountManagerDelegate).accountManagerDidLogout(accountManager: self)
         }
