@@ -78,7 +78,6 @@ PODS:
   - GTMSessionFetcher/Core (1.1.15)
   - InteractiveSideMenu (2.3)
   - KeychainSwift (11.0.0)
-  - Kingfisher (4.8.0)
   - Letters (2.1.1)
   - LKAlertController (1.12.1)
   - MarqueeLabel/Swift (3.1.6)
@@ -147,7 +146,6 @@ DEPENDENCIES:
   - GradientLoadingBar
   - InteractiveSideMenu
   - KeychainSwift
-  - Kingfisher
   - Letters
   - LKAlertController
   - Mixpanel
@@ -191,7 +189,6 @@ SPEC REPOS:
     - GTMSessionFetcher
     - InteractiveSideMenu
     - KeychainSwift
-    - Kingfisher
     - Letters
     - LKAlertController
     - MarqueeLabel
@@ -278,7 +275,6 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: 5fa5b80fd20e439ef5f545fb2cb3ca6c6714caa2
   InteractiveSideMenu: d503a508c6d62a4d5d4372d9fb9e1795637a8e45
   KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
-  Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   Letters: 34476b0d413813bcf9273b2760be7ff4cd75f5c7
   LKAlertController: e229465c0b4543ea122bfe62567747e6213ee43f
   MarqueeLabel: 0c41f08ef5773e29c0f71064a8fa788a2fd8b365
@@ -301,6 +297,6 @@ SPEC CHECKSUMS:
   TMDBSwift: 4d3b8e5a6af395d43b934fd67c35f8d498705394
   UIEmptyState: e6331312fb788880575701cb9c6230e5d2eaf6b0
 
-PODFILE CHECKSUM: e07c18620fbe4f36f45655ed58db87e542003482
+PODFILE CHECKSUM: 0934d236d1439a23c534d34ec85d06df0b0d3da9
 
 COCOAPODS: 1.5.3

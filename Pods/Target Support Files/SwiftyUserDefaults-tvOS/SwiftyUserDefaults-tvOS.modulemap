@@ -1,0 +1,6 @@
+framework module SwiftyUserDefaults {
+  umbrella header "SwiftyUserDefaults-tvOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

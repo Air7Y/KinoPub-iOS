@@ -3,38 +3,44 @@ use_frameworks!
 inhibit_all_warnings!
 
 pod 'Alamofire'
+pod 'AlamofireObjectMapper'
+pod 'AlamofireNetworkActivityLogger'
+pod 'AlamofireImage'
+pod 'Fabric'
+pod 'Crashlytics'
+pod 'SwiftyUserDefaults'
+pod 'KeychainSwift'
+pod 'SwifterSwift'
+pod 'DGCollectionViewPaginableBehavior', :git => 'https://github.com/hintoz/collection-view-paginable-behavior.git', :branch => 'develop'
+pod 'Atributika'
 pod 'CDMarkdownKit', :git => 'https://github.com/chrisdhaan/CDMarkdownKit'
 
+pod 'Reveal-SDK', :configurations => ['Debug']
 pod 'SwiftyBeaver'
+pod 'R.swift'
 
 target 'qinoa' do
     platform :ios, '9.0'
-
-  pod 'AlamofireObjectMapper'
-  pod 'AlamofireNetworkActivityLogger'
-  pod 'AlamofireImage'
-  pod 'Fabric'
-  pod 'Crashlytics'
-  pod 'SwiftyUserDefaults'
-  pod 'KeychainSwift'
+  
   pod 'LKAlertController'
   pod 'InteractiveSideMenu'
-  pod 'SwifterSwift'
-  pod 'DGCollectionViewPaginableBehavior', :git => 'https://github.com/hintoz/collection-view-paginable-behavior.git', :branch => 'develop'
-  pod 'Atributika'
+  
   pod 'EZPlayer', :git => 'https://github.com/hintoz/EZPlayer.git'
+  pod 'SubtleVolume'
+  
   pod 'Letters'
   pod 'RevealingSplashView'
   pod 'TMDBSwift', :path => '../TheMovieDatabaseSwiftWrapper/'
-  pod 'SubtleVolume'
   pod 'CustomLoader'
   pod 'NotificationBannerSwift'
   pod 'Eureka'
   pod 'NTDownload', :git => 'https://github.com/hintoz/NTDownload.git'
+  
   pod 'Firebase/Core'
   pod 'Firebase/Messaging'
   pod 'Firebase/RemoteConfig'
   pod 'Firebase/Performance'
+  
   pod 'AZSearchView', :git => 'https://github.com/hintoz/AZSearchView.git'
   pod 'NDYoutubePlayer', :git => 'https://github.com/hintoz/NDYoutubePlayer.git'
   pod 'EasyAbout'
@@ -42,11 +48,7 @@ target 'qinoa' do
   pod 'GradientLoadingBar'
   pod 'UIEmptyState'
   
-  pod 'Reveal-SDK', :configurations => ['Debug']
-  pod 'R.swift'
   pod 'Mixpanel'
-  
-  pod 'Kingfisher'
 
 end
 

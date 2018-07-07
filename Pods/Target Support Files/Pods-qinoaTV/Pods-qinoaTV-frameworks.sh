@@ -144,13 +144,33 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/AlamofireImage-tvOS/AlamofireImage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger-tvOS/AlamofireNetworkActivityLogger.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper-tvOS/AlamofireObjectMapper.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Atributika-tvOS/Atributika.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CDMarkdownKit-tvOS/CDMarkdownKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DGCollectionViewPaginableBehavior-tvOS/DGCollectionViewPaginableBehavior.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KeychainSwift-tvOS/KeychainSwift.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ObjectMapper-tvOS/ObjectMapper.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/R.swift.Library-tvOS/Rswift.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwifterSwift-tvOS/SwifterSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-tvOS/SwiftyBeaver.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults-tvOS/SwiftyUserDefaults.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/AlamofireImage-tvOS/AlamofireImage.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/AlamofireNetworkActivityLogger-tvOS/AlamofireNetworkActivityLogger.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper-tvOS/AlamofireObjectMapper.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/Atributika-tvOS/Atributika.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CDMarkdownKit-tvOS/CDMarkdownKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/DGCollectionViewPaginableBehavior-tvOS/DGCollectionViewPaginableBehavior.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/KeychainSwift-tvOS/KeychainSwift.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/ObjectMapper-tvOS/ObjectMapper.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/R.swift.Library-tvOS/Rswift.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwifterSwift-tvOS/SwifterSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-tvOS/SwiftyBeaver.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults-tvOS/SwiftyUserDefaults.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
