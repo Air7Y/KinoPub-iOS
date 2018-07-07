@@ -13,6 +13,7 @@ pod 'KeychainSwift'
 pod 'SwifterSwift'
 pod 'DGCollectionViewPaginableBehavior', :git => 'https://github.com/hintoz/collection-view-paginable-behavior.git', :branch => 'develop'
 pod 'Atributika'
+pod 'Kingfisher'
 pod 'CDMarkdownKit', :git => 'https://github.com/chrisdhaan/CDMarkdownKit'
 
 pod 'Reveal-SDK', :configurations => ['Debug']
