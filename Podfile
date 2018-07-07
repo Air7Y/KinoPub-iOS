@@ -18,6 +18,7 @@ pod 'CDMarkdownKit', :git => 'https://github.com/chrisdhaan/CDMarkdownKit'
 
 pod 'Reveal-SDK', :configurations => ['Debug']
 pod 'SwiftyBeaver'
+pod 'Mixpanel'
 pod 'R.swift'
 
 target 'qinoa' do
@@ -48,8 +49,6 @@ target 'qinoa' do
   pod 'CircleProgressView'
   pod 'GradientLoadingBar'
   pod 'UIEmptyState'
-  
-  pod 'Mixpanel'
 
 end
 

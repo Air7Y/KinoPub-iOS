@@ -7,15 +7,27 @@
 //
 
 import UIKit
+import SwifterSwift
+import AlamofireNetworkActivityLogger
+import SwiftyUserDefaults
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    fileprivate let analyticsManager = Container.Manager.analytics
 
     var window: UIWindow?
 
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        NetworkActivityLogger.shared.level = .error
+        NetworkActivityLogger.shared.startLogging()
+        
+        analyticsManager.setup()
+        analyticsManager.debug = true
+        
+        registerSettingsBundle()
+        setDefaults()
+        
         return true
     }
 
@@ -41,6 +53,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
 
+    func registerSettingsBundle() {
+        let appDefaults = [String: AnyObject]()
+        UserDefaults.standard.register(defaults: appDefaults)
+    }
+    
+    func setDefaults() {
+        if UserDefaults.standard.object(forKey: "showRatringInPoster") == nil {
+            Defaults[.showRatringInPoster] = true
+        }
+        
+        if UserDefaults.standard.object(forKey: "logViews") == nil {
+            Defaults[.logViews] = true
+        }
+        
+        if UserDefaults.standard.object(forKey: "streamType") == nil {
+            Defaults[.streamType] = "hls4"
+        }
+        
+        if UserDefaults.standard.object(forKey: "clientTitle") == nil {
+            Defaults[.clientTitle] = UIDevice().name
+        }
+    }
 
 }
 

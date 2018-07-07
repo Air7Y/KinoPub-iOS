@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder.AppleTV.Storyboard" version="3.0" toolsVersion="14113" targetRuntime="AppleTV" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="UTz-Rr-jCV">
+    <device id="appleTV" orientation="landscape">
+        <adaptation id="light"/>
+    </device>
+    <dependencies>
+        <deployment identifier="tvOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Auth View Controller-->
+        <scene sceneID="eSI-Uf-98O">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="puA-aE-9VL" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController storyboardIdentifier="AuthViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="UTz-Rr-jCV" customClass="AuthViewController" customModule="qinoaTV" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DKJ-2P-3gy"/>
+                        <viewControllerLayoutGuide type="bottom" id="nxy-od-eQp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HXg-wA-Xho">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="100" translatesAutoresizingMaskIntoConstraints="NO" id="Hhq-h7-9I6">
+                                <rect key="frame" x="110" y="328" width="1700" height="424"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="SC0-Jp-6eJ">
+                                        <rect key="frame" x="43" y="0.0" width="1615" height="203"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Активация устройства" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="42f-4w-1bt">
+                                                <rect key="frame" x="429" y="0.0" width="757" height="91"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zq6-2z-CSN">
+                                                <rect key="frame" x="0.0" y="111" width="1615" height="92"/>
+                                                <string key="text">Для начала нужно активировать это устройство. Перейдите на сайт и в своём профиле в графе «Активация устройства» введите код и нажмите «Добавить». </string>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7r0-l0-hti">
+                                        <rect key="frame" x="721" y="303" width="258" height="121"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123456" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="16G-Li-C5u">
+                                                <rect key="frame" x="0.0" y="0.0" width="258" height="91"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Код устройства" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qx-sJ-TK8">
+                                                <rect key="frame" x="38" y="91" width="182" height="30"/>
+                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ERROR" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TGv-gr-x9v">
+                                <rect key="frame" x="899" y="974" width="123" height="46"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="zbg-IY-FQI" firstAttribute="trailing" secondItem="Hhq-h7-9I6" secondAttribute="trailing" constant="20" id="EDa-Mj-Rwk"/>
+                            <constraint firstItem="Hhq-h7-9I6" firstAttribute="centerX" secondItem="zbg-IY-FQI" secondAttribute="centerX" id="MhI-3Z-cZ9"/>
+                            <constraint firstItem="Hhq-h7-9I6" firstAttribute="leading" secondItem="zbg-IY-FQI" secondAttribute="leading" constant="20" id="VRh-Qe-MqY"/>
+                            <constraint firstItem="TGv-gr-x9v" firstAttribute="centerX" secondItem="zbg-IY-FQI" secondAttribute="centerX" id="Y6f-Og-kXU"/>
+                            <constraint firstItem="nxy-od-eQp" firstAttribute="top" secondItem="TGv-gr-x9v" secondAttribute="bottom" id="qxK-fc-lFi"/>
+                            <constraint firstItem="Hhq-h7-9I6" firstAttribute="centerY" secondItem="zbg-IY-FQI" secondAttribute="centerY" id="xHD-or-UGG"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="zbg-IY-FQI"/>
+                    </view>
+                    <connections>
+                        <outlet property="codeLabel" destination="16G-Li-C5u" id="3CQ-lN-yrV"/>
+                        <outlet property="codeTitleLabel" destination="1qx-sJ-TK8" id="I0x-zN-wyZ"/>
+                        <outlet property="descLabel" destination="zq6-2z-CSN" id="m15-qg-4HY"/>
+                        <outlet property="errorLabel" destination="TGv-gr-x9v" id="T5e-Qm-4fJ"/>
+                        <outlet property="titleLabel" destination="42f-4w-1bt" id="51f-fb-UoJ"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="0.0" y="1531"/>
+        </scene>
+    </scenes>
+</document>

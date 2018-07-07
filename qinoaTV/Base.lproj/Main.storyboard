@@ -110,6 +110,14 @@
             </objects>
             <point key="canvasLocation" x="0.0" y="0.0"/>
         </scene>
+        <!--AuthViewController-->
+        <scene sceneID="5oC-dd-95F">
+            <objects>
+                <viewControllerPlaceholder storyboardIdentifier="AuthViewController" storyboardName="AuthViewController" referencedIdentifier="AuthViewController" id="nm3-Yr-Bad" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dnC-Fy-ZwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-620" y="905"/>
+        </scene>
     </scenes>
     <resources>
         <image name="first" width="30" height="30"/>

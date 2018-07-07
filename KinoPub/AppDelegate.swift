@@ -1,8 +1,8 @@
 import UIKit
 import CoreData
 import AlamofireNetworkActivityLogger
-import Fabric
-import Crashlytics
+//import Fabric
+//import Crashlytics
 import Firebase
 import AVFoundation
 import SwifterSwift
