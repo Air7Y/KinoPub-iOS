@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "F835F72323D9475A8FB20D3125F91AD6"
+               BlueprintIdentifier = "0E91C5FDC23BE495B7CA8B4E4C1685E0"
                BlueprintName = "SubtleVolume"
                ReferencedContainer = "container:Pods.xcodeproj"
                BuildableName = "SubtleVolume.framework">

@@ -1,6 +1,6 @@
 import UIKit
-#if os(iOS)
 import LKAlertController
+#if os(iOS)
 import NotificationBannerSwift
 #endif
 
@@ -38,29 +38,24 @@ class Helper {
     }
     
     static func showError(_ message: String?) {
-        let title = "Ошибка"
-        let message = message ?? "Unknown"
+        let alert = Alert(title: "Ошибка", message: message ?? "Unknown")
         #if os(iOS)
-        Alert(title: title, message: message).tint(.kpBlack).showOkay()
-        #elseif os(tvOS)
-        let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        let ok = UIAlertAction(title: "Ok", style: .default, handler: nil)
-        alertController.addAction(ok)
-        UIViewController.topVC?.present(alertController, animated: true, completion: nil)
+        alert.tint(.kpBlack)
         #endif
-        
+        alert.addAction("Ok").show()
     }
     
     static func showErrorTrailerAlert() {
+        let alert = Alert(title: "Ошибка", message: "Трейлер не найден. \n По возможности сообщите в стол заказов в Telegram.")
         #if os(iOS)
-        Alert(title: "Ошибка", message: "Трейлер не найден. \n По возможности сообщите в стол заказов в Telegram.").tint(.kpBlack)
-            .addAction("Перейти в Telegram", style: .default, handler: { (_) in
-                guard let telegram = URL(string: "https://t.me/kinopubrequest") else { return }
-                UIApplication.shared.open(url: telegram)
-            })
-            .addAction("Закрыть", style: .cancel)
-            .show()
+        alert.tint(.kpBlack)
+        alert.addAction("Перейти в Telegram", style: .default, handler: { (_) in
+            guard let telegram = URL(string: "https://t.me/kinopubrequest") else { return }
+            UIApplication.shared.open(url: telegram)
+        })
         #endif
+        alert.addAction("Закрыть", style: .cancel)
+        alert.show()
     }
     
     static func showSuccessStatusBarBanner(_ message: String) {

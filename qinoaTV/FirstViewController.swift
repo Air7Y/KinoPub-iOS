@@ -10,10 +10,15 @@ import UIKit
 
 class FirstViewController: UIViewController {
     fileprivate let accountManager = Container.Manager.account
+    var playButtonGesture: UITapGestureRecognizer!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         accountManager.addDelegate(delegate: self)
+        playButtonGesture = UITapGestureRecognizer(target: self, action: #selector(playButtonTapped(_:)))
+        playButtonGesture.allowedPressTypes = [NSNumber(value: UIPressType.playPause.rawValue)]
+        playButtonGesture.delegate = self
+        view.addGestureRecognizer(playButtonGesture)
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -34,6 +39,14 @@ class FirstViewController: UIViewController {
             Helper.showError("Что-то пошло не так.")
         }
     }
+    
+    @objc func playButtonTapped(_ sender: Any) {
+        Helper.showError("Была нажата кнопка Play/Pause")
+    }
+    
+    @IBAction func buttonTapped(_ sender: Any) {
+        Helper.showErrorTrailerAlert()
+    }
 
 }
 
@@ -41,4 +54,8 @@ extension FirstViewController: AccountManagerDelegate {
     func accountManagerDidLogout(accountManager: AccountManager) {
         showAuthViewController()
     }
+}
+
+extension FirstViewController: UIGestureRecognizerDelegate {
+    
 }

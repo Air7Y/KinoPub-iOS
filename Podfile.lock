@@ -94,6 +94,12 @@ PODS:
     - SnapKit (~> 4.0)
   - NTDownload (1.0.0)
   - ObjectMapper (3.3.0)
+  - PMKVObserver (3.0.1):
+    - PMKVObserver/ObjC (= 3.0.1)
+    - PMKVObserver/Swift (= 3.0.1)
+  - PMKVObserver/ObjC (3.0.1)
+  - PMKVObserver/Swift (3.0.1):
+    - PMKVObserver/ObjC
   - Protobuf (3.6.0)
   - R.swift (4.0.0):
     - R.swift.Library (~> 4.0.0)
@@ -149,11 +155,12 @@ DEPENDENCIES:
   - KeychainSwift
   - Kingfisher
   - Letters
-  - LKAlertController
+  - LKAlertController (from `../LKAlertController/`)
   - Mixpanel
   - NDYoutubePlayer (from `https://github.com/hintoz/NDYoutubePlayer.git`)
   - NotificationBannerSwift
   - NTDownload (from `https://github.com/hintoz/NTDownload.git`)
+  - PMKVObserver
   - R.swift
   - Reveal-SDK
   - RevealingSplashView
@@ -193,12 +200,12 @@ SPEC REPOS:
     - KeychainSwift
     - Kingfisher
     - Letters
-    - LKAlertController
     - MarqueeLabel
     - Mixpanel
     - nanopb
     - NotificationBannerSwift
     - ObjectMapper
+    - PMKVObserver
     - Protobuf
     - R.swift
     - R.swift.Library
@@ -221,6 +228,8 @@ EXTERNAL SOURCES:
     :git: https://github.com/hintoz/collection-view-paginable-behavior.git
   EZPlayer:
     :git: https://github.com/hintoz/EZPlayer.git
+  LKAlertController:
+    :path: "../LKAlertController/"
   NDYoutubePlayer:
     :git: https://github.com/hintoz/NDYoutubePlayer.git
   NTDownload:
@@ -280,7 +289,7 @@ SPEC CHECKSUMS:
   KeychainSwift: bea6bd9f98af7b8d7ca4aa79fe105c00fab532db
   Kingfisher: 976d828df2b24834c6a3f2fc4d82cdbd26552be1
   Letters: 34476b0d413813bcf9273b2760be7ff4cd75f5c7
-  LKAlertController: e229465c0b4543ea122bfe62567747e6213ee43f
+  LKAlertController: d7afef6c736ed7c5ed9a1cf0cd01af65432fdeaf
   MarqueeLabel: 0c41f08ef5773e29c0f71064a8fa788a2fd8b365
   Mixpanel: 3c3925c27f7a321d5978319a72f53f8f0885afc5
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
@@ -288,6 +297,7 @@ SPEC CHECKSUMS:
   NotificationBannerSwift: b231e4c3244848ef300e1c53ce027b9756b9b06f
   NTDownload: d272237475a73b33655a366fcd841fc2c051a5b1
   ObjectMapper: b612bf8c8e99c4dc0bb6013a51f7c27966ed5da9
+  PMKVObserver: 9ae66551d64b845b57e9061e730276cb9ad6d11a
   Protobuf: 0fc0ad8bec688b2a3017a139953e01374fedbd5f
   R.swift: d6a5ec2f55a8441dc0ed9f1f8b37d7d11ae85c66
   R.swift.Library: c3af34921024333546e23b70e70d0b4e0cffca75
@@ -301,6 +311,6 @@ SPEC CHECKSUMS:
   TMDBSwift: 4d3b8e5a6af395d43b934fd67c35f8d498705394
   UIEmptyState: e6331312fb788880575701cb9c6230e5d2eaf6b0
 
-PODFILE CHECKSUM: 53a7d46f2817ef073dad232942b27d4ca54d5dd9
+PODFILE CHECKSUM: 335cd85597d9c9bf57f547afd2b16ccdff92d778
 
 COCOAPODS: 1.5.3

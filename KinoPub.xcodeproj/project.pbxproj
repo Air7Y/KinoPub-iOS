@@ -1036,6 +1036,7 @@
 		6968D76B20F1316C00945078 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				6968D77820F163A400945078 /* Main */,
 				6968D77020F13D1A00945078 /* Auth */,
 			);
 			path = ViewControllers;
@@ -1063,6 +1064,14 @@
 				695922311F7D5C8A00CE3224 /* AuthViewController.swift */,
 			);
 			path = Auth;
+			sourceTree = "<group>";
+		};
+		6968D77820F163A400945078 /* Main */ = {
+			isa = PBXGroup;
+			children = (
+				69976B6B20AF33F400A035C4 /* Main.storyboard */,
+			);
+			path = Main;
 			sourceTree = "<group>";
 		};
 		696D67E21FE94345002EE5B0 /* Extensions */ = {
@@ -1111,7 +1120,6 @@
 				69976B6520AF33F400A035C4 /* AppDelegate.swift */,
 				69976B6720AF33F400A035C4 /* FirstViewController.swift */,
 				69976B6920AF33F400A035C4 /* SecondViewController.swift */,
-				69976B6B20AF33F400A035C4 /* Main.storyboard */,
 				69976B6E20AF33F800A035C4 /* Assets.xcassets */,
 				69976B7020AF33F800A035C4 /* Info.plist */,
 			);
@@ -1488,7 +1496,7 @@
 				"${BUILT_PRODUCTS_DIR}/InteractiveSideMenu/InteractiveSideMenu.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift-iOS/KeychainSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher-iOS/Kingfisher.framework",
-				"${BUILT_PRODUCTS_DIR}/LKAlertController/LKAlertController.framework",
+				"${BUILT_PRODUCTS_DIR}/LKAlertController-iOS/LKAlertController.framework",
 				"${BUILT_PRODUCTS_DIR}/Letters/Letters.framework",
 				"${BUILT_PRODUCTS_DIR}/MarqueeLabel/MarqueeLabel.framework",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel-iOS/Mixpanel.framework",
@@ -1496,6 +1504,7 @@
 				"${BUILT_PRODUCTS_DIR}/NTDownload/NTDownload.framework",
 				"${BUILT_PRODUCTS_DIR}/NotificationBannerSwift/NotificationBannerSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper-iOS/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/PMKVObserver-iOS/PMKVObserver.framework",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library-iOS/Rswift.framework",
 				"${PODS_ROOT}/Reveal-SDK/RevealServer-16/iOS/RevealServer.framework",
@@ -1537,6 +1546,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NTDownload.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NotificationBannerSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMKVObserver.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealServer.framework",
@@ -1571,8 +1581,10 @@
 				"${BUILT_PRODUCTS_DIR}/DGCollectionViewPaginableBehavior-tvOS/DGCollectionViewPaginableBehavior.framework",
 				"${BUILT_PRODUCTS_DIR}/KeychainSwift-tvOS/KeychainSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher-tvOS/Kingfisher.framework",
+				"${BUILT_PRODUCTS_DIR}/LKAlertController-tvOS/LKAlertController.framework",
 				"${BUILT_PRODUCTS_DIR}/Mixpanel-tvOS/Mixpanel.framework",
 				"${BUILT_PRODUCTS_DIR}/ObjectMapper-tvOS/ObjectMapper.framework",
+				"${BUILT_PRODUCTS_DIR}/PMKVObserver-tvOS/PMKVObserver.framework",
 				"${BUILT_PRODUCTS_DIR}/R.swift.Library-tvOS/Rswift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwifterSwift-tvOS/SwifterSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyBeaver-tvOS/SwiftyBeaver.framework",
@@ -1589,8 +1601,10 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DGCollectionViewPaginableBehavior.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KeychainSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/LKAlertController.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mixpanel.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ObjectMapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/PMKVObserver.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Rswift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwifterSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyBeaver.framework",

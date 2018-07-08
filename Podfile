@@ -15,16 +15,16 @@ pod 'DGCollectionViewPaginableBehavior', :git => 'https://github.com/hintoz/coll
 pod 'Atributika'
 pod 'Kingfisher'
 pod 'CDMarkdownKit', :git => 'https://github.com/chrisdhaan/CDMarkdownKit'
-
+pod 'LKAlertController', :path => '../LKAlertController/'
 pod 'Reveal-SDK', :configurations => ['Debug']
 pod 'SwiftyBeaver'
 pod 'Mixpanel'
 pod 'R.swift'
+pod 'PMKVObserver'
 
 target 'qinoa' do
     platform :ios, '9.0'
-  
-  pod 'LKAlertController'
+    
   pod 'InteractiveSideMenu'
   
   pod 'EZPlayer', :git => 'https://github.com/hintoz/EZPlayer.git'
