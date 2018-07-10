@@ -2,6 +2,7 @@ import UIKit
 import AlamofireImage
 import SwiftyUserDefaults
 import Kingfisher
+import PMKVObserver
 
 protocol ItemCollectionViewCellDelegate {
     func didPressDeleteButton(_ item: Item)
@@ -15,6 +16,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var posterImageView: UIImageView!
+    #if os(iOS)
     @IBOutlet weak var posterView: UIView!
 //    @IBOutlet weak var enTitleLabel: UILabel!
     @IBOutlet weak var newEpisodeView: UIView!
@@ -38,6 +40,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
     @IBAction func moveFromBookmarkButtonPressed(_ sender: UIButton) {
         delegate?.didPressMoveButton(self.item)
     }
+    #endif
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -48,21 +51,29 @@ class ItemCollectionViewCell: UICollectionViewCell {
     
     func configViews() {
         titleLabel.textColor = .kpOffWhite
-        
+        #if os(iOS)
         posterView.dropShadow(color: UIColor.black, opacity: 0.3, offSet: CGSize(width: 0, height: 2), radius: 6, scale: true)
-        posterView.addObserver(self, forKeyPath: #keyPath(UIView.bounds), options: .new, context: nil)
-        
+        _ = KVObserver(observer: self, object: posterView, keyPath: #keyPath(UIView.bounds), options: [.new], block: { (observer, object, _, _) in
+            observer.posterView.layer.shadowPath = UIBezierPath(rect: object.bounds).cgPath
+        })
+        #endif
         // Improves performance because shadows and other effects are used.
         layer.shouldRasterize = true
         layer.rasterizationScale = UIScreen.main.scale
+        #if os(tvOS)
+        posterImageView.adjustsImageWhenAncestorFocused = true
+        #endif
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
+        #if os(iOS)
         posterView.layer.shadowPath = UIBezierPath(rect: posterView.bounds).cgPath
+        #endif
     }
     
     func configBlur() {
+        #if os(iOS)
         if !UIAccessibilityIsReduceTransparencyEnabled() {
             ratingView.backgroundColor = .clear
 
@@ -75,14 +86,17 @@ class ItemCollectionViewCell: UICollectionViewCell {
         } else {
             ratingView.backgroundColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 0.80)
         }
+        #endif
     }
 
     private static let posterPlaceholderImage = R.image.posterPlaceholder()
     func set(item: Item) {
         self.item = item
+        #if os(iOS)
         editBookmarkView.isHidden = true
         newEpisodeView.isHidden = true
         ratingView.isHidden = true
+        #endif
         if let title = item.title?.components(separatedBy: " / ") {
             titleLabel.text = title[0]
 //            enTitleLabel.text = title.count > 1 ? title[1] : ""
@@ -93,7 +107,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
                                         placeholder: ItemCollectionViewCell.posterPlaceholderImage,
                                         options: [.backgroundDecode])
         }
-        
+        #if os(iOS)
         if let newEpisode = item.new {
             newEpisodeView.isHidden = false
             newEpisodeLabel.text = String(newEpisode)
@@ -106,6 +120,7 @@ class ItemCollectionViewCell: UICollectionViewCell {
             kinopoiskRatingLabel.text = string(rating: item.kinopoiskRating)
             imdbRatingLabel.text = string(rating: item.imdbRating)
         }
+        #endif
     }
     
     private func string(rating: Int?) -> String {
@@ -119,9 +134,11 @@ class ItemCollectionViewCell: UICollectionViewCell {
     }
     
     func configure(with collection: Collections) {
+        #if os(iOS)
         editBookmarkView.isHidden = true
         newEpisodeView.isHidden = true
         ratingView.isHidden = true
+        #endif
         if let title = collection.title {
             titleLabel.text = title
         }
@@ -132,17 +149,4 @@ class ItemCollectionViewCell: UICollectionViewCell {
                                         options: [.backgroundDecode])
         }
     }
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if let objectView = object as? UIView,
-            objectView === posterView,
-            keyPath == #keyPath(UIView.bounds) {
-            posterView.layer.shadowPath = UIBezierPath(rect: objectView.bounds).cgPath
-        }
-    }
-    
-    deinit {
-        posterView.removeObserver(self, forKeyPath: #keyPath(UIView.bounds))
-    }
-
 }

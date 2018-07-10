@@ -25,4 +25,7 @@ extension DefaultsKeys {
     static let kinopubClientSecret = DefaultsKey<String>("kinopubClientSecret")
     static let kinopubDomain = DefaultsKey<String>("kinopubDomain")
     static let delayViewMarkTime = DefaultsKey<TimeInterval>("delayViewMarkTime")
+    
+    static let accountsArray = DefaultsKey<[String]>("accountsArray")
+    static let currentAccount = DefaultsKey<String?>("currentAccount")
 }

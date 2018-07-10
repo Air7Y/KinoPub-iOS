@@ -240,12 +240,14 @@ class RequestFactory {
 
 extension RequestFactory: OAuthHandlerDelegate {
     func handlerDidUpdate(accessToken token: String, refreshToken: String) {
+        LogManager.shared.log("Token Refresh", getVaList(["handlerDidUpdate"]))
         accountManager!.silentlyUpdateAccountWith(accessToken: token, refreshToken: refreshToken)
         Answers.logLogin(withMethod: "token refresh", success: 1, customAttributes: nil)
         Answers.logCustomEvent(withName: "Token Refresh", customAttributes: ["Method": "handlerDidUpdate"])
     }
 
     func handlerDidFailedToUpdateToken() {
+        LogManager.shared.log("Token Refresh", getVaList(["handlerDidFailedToUpdateToken"]))
         accountManager!.logoutAccount()
         Answers.logLogin(withMethod: "token refresh", success: 0, customAttributes: nil)
         Answers.logCustomEvent(withName: "Token Refresh", customAttributes: ["Method": "handlerDidFailedToUpdateToken"])

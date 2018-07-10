@@ -52,6 +52,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationWillTerminate(_ application: UIApplication) {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
+    
+    func configAppearance() {
+        UINavigationBar.appearance().tintColor = .kpOffWhite
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite]
+        UITextField.appearance().keyboardAppearance = .dark
+        UITableViewCell.appearance().backgroundColor = .clear
+    }
 
     func registerSettingsBundle() {
         let appDefaults = [String: AnyObject]()

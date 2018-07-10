@@ -9,6 +9,7 @@
 import UIKit
 import AVKit
 import SwifterSwift
+import PMKVObserver
 
 class DTSPlayerFullScreenViewController: AVPlayerViewController {
     
@@ -39,13 +40,19 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
     }
     
     deinit {
-        playBackControlsView?.removeObserver(self, forKeyPath: #keyPath(UIView.isHidden))
         NotificationCenter.default.removeObserver(self)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        playBackControlsView?.addObserver(self, forKeyPath: #keyPath(UIView.isHidden), options: .new, context: nil)
+        guard let view = playBackControlsView else { return }
+        _ = KVObserver(observer: self, object: view, keyPath: #keyPath(UIView.isHidden), options: [.new], block: { (observer, object, change, _) in
+            guard let newValue = change.new as? Bool else {
+                observer.nextItemView?.isHidden = object.isHidden
+                return
+            }
+            observer.nextItemView?.isHidden = newValue
+        })
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -98,18 +105,6 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
     private func playNextItem() {
         (player as! AVQueuePlayer).advanceToNextItem()
         NotificationCenter.default.post(name: .DTSPlayerUserTappedNextButton, object: self, userInfo: nil)
-    }
-    
-    
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if let objectView = object as? UIView,
-            objectView === playBackControlsView,
-            keyPath == #keyPath(UIView.isHidden) {
-            nextItemView?.isHidden = objectView.isHidden
-            titleView?.isHidden = objectView.isHidden
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
     }
 
 }

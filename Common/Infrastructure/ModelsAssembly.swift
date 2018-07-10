@@ -22,13 +22,13 @@ struct Container {
     
     struct ViewModel {
         static let auth = { AuthModel(accountManager: Manager.account) }
+        static let videoItems = { VideoItemsModel(accountManager: Manager.account) }
+        static let profile = { ProfileModel(accountManager: Manager.account) }
         #if os(iOS)
         static let videoItem = { VideoItemModel(accountManager: Manager.account) }
-        static let videoItems = { VideoItemsModel(accountManager: Manager.account) }
         static let bookmarks = { BookmarksModel(accountManager: Manager.account) }
         static let collection = { CollectionModel(accountManager: Manager.account) }
         static let filter = { FilterModel(accountManager: Manager.account) }
-        static let profile = { ProfileModel(accountManager: Manager.account) }
         static let tv = { TVModel(accountManager: Manager.account) }
         static let comments = { CommentsModel(accountManager: Manager.account) }
         #endif

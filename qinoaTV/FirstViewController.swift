@@ -23,21 +23,16 @@ class FirstViewController: UIViewController {
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        chechAccount()
-    }
-
-    func chechAccount() {
-        if !accountManager.hasAccount {
-            showAuthViewController()
-        }
     }
     
-    func showAuthViewController() {
-        if let authViewController = AuthViewController.storyboardInstance() {
-            present(authViewController, animated: true, completion: nil)
-        } else {
-            Helper.showError("Что-то пошло не так.")
-        }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.items?[1].title = "First"
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.items?[1].title = ""
     }
     
     @objc func playButtonTapped(_ sender: Any) {
@@ -51,9 +46,7 @@ class FirstViewController: UIViewController {
 }
 
 extension FirstViewController: AccountManagerDelegate {
-    func accountManagerDidLogout(accountManager: AccountManager) {
-        showAuthViewController()
-    }
+    
 }
 
 extension FirstViewController: UIGestureRecognizerDelegate {

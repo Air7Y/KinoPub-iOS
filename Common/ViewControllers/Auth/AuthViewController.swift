@@ -46,7 +46,13 @@ class AuthViewController: UIViewController {
     }
     
     func config() {
+        #if os(iOS)
         errorLabel.isHidden = true
+        #elseif os(tvOS)
+        errorLabel.textColor = .kpOffWhite
+        errorLabel.text = "Профайл: \(viewModel.accountManager.accountName)"
+        #endif
+        
         viewModel.delegate = self
         view.backgroundColor = .kpBackground
         titleLabel.textColor = .kpOffWhite
