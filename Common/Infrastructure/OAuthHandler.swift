@@ -1,7 +1,6 @@
 import Foundation
 import Alamofire
 import AlamofireObjectMapper
-import Crashlytics
 
 protocol OAuthHandlerDelegate: class {
     func handlerDidUpdate(accessToken token: String, refreshToken: String)
@@ -45,8 +44,7 @@ class OAuthHandler: RequestAdapter, RequestRetrier {
     func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
         lock.lock() ; defer { lock.unlock() }
 
-        Answers.logCustomEvent(withName: "RequestRetrier", customAttributes: ["ERROR:": error, "Status Code": (request.task?.response as? HTTPURLResponse)?.statusCode ?? "unknown"])
-        LogManager.shared.log("RequestRetrier", getVaList([error as CVarArg, (request.task?.response as? HTTPURLResponse)?.statusCode ?? "unknown"]))
+        LogManager.shared.logCrashAndEvent(withName: "RequestRetrier", customAttributes: ["ERROR:": error, "Status Code": (request.task?.response as? HTTPURLResponse)?.statusCode ?? "unknown"])
 
         if let response = request.task?.response as? HTTPURLResponse, response.statusCode == 401 {
             requestsToRetry.append(completion)
@@ -87,8 +85,7 @@ class OAuthHandler: RequestAdapter, RequestRetrier {
                     let tokens = response.result.value!
                     completion(true, tokens.accessToken, tokens.refreshToken)
                 case .failure:
-                    LogManager.shared.log("refreshTokens", getVaList([(response.error as CVarArg?) ?? "unknown"]))
-                    Answers.logCustomEvent(withName: "refreshTokens", customAttributes: ["Error": response.error ?? "unknown"])
+                    LogManager.shared.logCrashAndEvent(withName: "refreshTokens", customAttributes: ["Error": response.error ?? "unknown error", "Result" : response.result])
                     completion(false, nil, nil)
                 }
         }

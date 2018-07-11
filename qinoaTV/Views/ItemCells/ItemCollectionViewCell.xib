@@ -14,17 +14,17 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="ItemCollectionViewCell" customModule="qinoaTV" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="266" height="445"/>
+            <rect key="frame" x="0.0" y="0.0" width="266" height="469"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="poster-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="kYI-cs-fLT">
-                    <rect key="frame" x="8" y="8" width="250" height="375"/>
+                    <rect key="frame" x="0.0" y="0.0" width="266" height="399"/>
                     <constraints>
                         <constraint firstAttribute="width" secondItem="kYI-cs-fLT" secondAttribute="height" multiplier="1:1.5" id="4SW-Ne-SVG"/>
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Neb-cY-yDj">
-                    <rect key="frame" x="8" y="391" width="250" height="46"/>
+                    <rect key="frame" x="0.0" y="407" width="266" height="30"/>
                     <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
@@ -37,13 +37,13 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
-                <constraint firstAttribute="trailing" secondItem="kYI-cs-fLT" secondAttribute="trailing" constant="8" id="3Tn-mt-aay"/>
-                <constraint firstItem="kYI-cs-fLT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="ONg-0H-PAm"/>
-                <constraint firstAttribute="bottom" secondItem="Neb-cY-yDj" secondAttribute="bottom" constant="8" id="P6K-sN-RXK"/>
-                <constraint firstItem="Neb-cY-yDj" firstAttribute="top" secondItem="kYI-cs-fLT" secondAttribute="bottom" constant="8" id="hmy-YF-Obs"/>
-                <constraint firstItem="kYI-cs-fLT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="nQ2-4i-WEf"/>
-                <constraint firstItem="Neb-cY-yDj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="ojP-zW-J4A"/>
-                <constraint firstAttribute="trailing" secondItem="Neb-cY-yDj" secondAttribute="trailing" constant="8" id="wrF-ki-STE"/>
+                <constraint firstItem="kYI-cs-fLT" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="4ao-fV-xRR"/>
+                <constraint firstItem="kYI-cs-fLT" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="8ul-VD-9gb"/>
+                <constraint firstItem="kYI-cs-fLT" firstAttribute="width" secondItem="iN0-l3-epB" secondAttribute="width" id="BZI-6A-y4X"/>
+                <constraint firstItem="Neb-cY-yDj" firstAttribute="top" secondItem="kYI-cs-fLT" secondAttribute="bottom" constant="8" id="Hnw-Xp-mwQ"/>
+                <constraint firstAttribute="trailing" secondItem="kYI-cs-fLT" secondAttribute="trailing" id="IR1-J3-oFe"/>
+                <constraint firstItem="Neb-cY-yDj" firstAttribute="centerX" secondItem="kYI-cs-fLT" secondAttribute="centerX" id="Itl-Jf-Sj0"/>
+                <constraint firstItem="Neb-cY-yDj" firstAttribute="width" secondItem="kYI-cs-fLT" secondAttribute="width" id="kcH-Yb-ogK"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="Pmt-tb-8Ig"/>
@@ -51,7 +51,7 @@
                 <outlet property="posterImageView" destination="kYI-cs-fLT" id="WMr-lC-XCA"/>
                 <outlet property="titleLabel" destination="Neb-cY-yDj" id="n61-Yo-Myj"/>
             </connections>
-            <point key="canvasLocation" x="-560" y="29.5"/>
+            <point key="canvasLocation" x="-560" y="41.5"/>
         </view>
     </objects>
     <resources>

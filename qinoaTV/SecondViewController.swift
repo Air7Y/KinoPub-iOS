@@ -74,6 +74,8 @@ class SecondViewController: UIViewController {
     func addAccount() {
         var textField = UITextField()
         textField.placeholder = "Псевдоним"
+        textField.autocapitalizationType = .sentences
+        textField.textColor = .white
         Alert(title: "Новый аккаунт", message: "Введите псевдоним для вашего аккаунта.")
         .addTextField(&textField, required: true)
         .addAction("Отмена", style: .cancel)

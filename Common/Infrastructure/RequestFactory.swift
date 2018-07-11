@@ -240,20 +240,19 @@ class RequestFactory {
 
 extension RequestFactory: OAuthHandlerDelegate {
     func handlerDidUpdate(accessToken token: String, refreshToken: String) {
-        LogManager.shared.log("Token Refresh", getVaList(["handlerDidUpdate"]))
+        LogManager.shared.logCrashAndEvent(withName: "Token Refresh", customAttributes: ["Method": "handlerDidUpdate"])
         accountManager!.silentlyUpdateAccountWith(accessToken: token, refreshToken: refreshToken)
         Answers.logLogin(withMethod: "token refresh", success: 1, customAttributes: nil)
-        Answers.logCustomEvent(withName: "Token Refresh", customAttributes: ["Method": "handlerDidUpdate"])
     }
 
     func handlerDidFailedToUpdateToken() {
-        LogManager.shared.log("Token Refresh", getVaList(["handlerDidFailedToUpdateToken"]))
+        LogManager.shared.logCrashAndEvent(withName: "Token Refresh", customAttributes: ["Method": "handlerDidFailedToUpdateToken"])
         accountManager!.logoutAccount()
         Answers.logLogin(withMethod: "token refresh", success: 0, customAttributes: nil)
-        Answers.logCustomEvent(withName: "Token Refresh", customAttributes: ["Method": "handlerDidFailedToUpdateToken"])
     }
 
     func refreshTokenRequest() -> DataRequest {
+        LogManager.shared.logCrashAndEvent(withName: "refreshTokenRequest", customAttributes: ["refreshToken" : account?.refreshToken ?? "nil account"])
         let parameters = ["grant_type": "refresh_token",
                           "client_id": Config.shared.kinopubClientId,
                           "client_secret": Config.shared.kinopubClientSecret,

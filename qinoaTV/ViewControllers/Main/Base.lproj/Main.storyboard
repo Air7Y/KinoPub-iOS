@@ -78,7 +78,7 @@
                                 <rect key="frame" x="766" y="337" width="389" height="407"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Circled User Male-100" translatesAutoresizingMaskIntoConstraints="NO" id="fUN-3Q-iRf">
-                                        <rect key="frame" x="94" y="0.0" width="200" height="200"/>
+                                        <rect key="frame" x="95" y="0.0" width="200" height="200"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="Zd8-Tp-t0T"/>
                                             <constraint firstAttribute="width" secondItem="fUN-3Q-iRf" secondAttribute="height" multiplier="1:1" id="Zma-eZ-hOi"/>
@@ -90,7 +90,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" text="Name" textAlignment="center" lineBreakMode="tailTruncation" minimumFontSize="10" translatesAutoresizingMaskIntoConstraints="NO" id="zEq-FU-wV5">
-                                        <rect key="frame" x="147" y="216" width="94" height="43"/>
+                                        <rect key="frame" x="148" y="216" width="94" height="43"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="36"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -136,10 +136,10 @@
         <scene sceneID="kfA-P0-zQI">
             <objects>
                 <collectionViewController id="alG-ru-hXY" customClass="ItemsCollectionVC" customModule="qinoaTV" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="yNo-4d-OwU">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="always" dataMode="prototypes" id="yNo-4d-OwU">
                         <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="pzw-QF-Hjb">
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="20" minimumInteritemSpacing="0.0" sectionInsetReference="safeArea" id="ofU-Jd-nbW">
                             <size key="itemSize" width="50" height="50"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -151,6 +151,7 @@
                             <outlet property="delegate" destination="alG-ru-hXY" id="Rqh-ze-1aB"/>
                         </connections>
                     </collectionView>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="" image="second" id="aEb-TJ-wZf"/>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K6N-kH-Pmb" userLabel="First Responder" sceneMemberID="firstResponder"/>

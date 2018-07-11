@@ -109,6 +109,7 @@
 		695922821F7DB20000CE3224 /* DetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 695922801F7DB1FC00CE3224 /* DetailViewController.storyboard */; };
 		695922831F7DB20000CE3224 /* OldDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695922811F7DB1FC00CE3224 /* OldDetailViewController.swift */; };
 		695B27131F97B2BF00081EB0 /* DTSPlayerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695B27121F97B2BF00081EB0 /* DTSPlayerUtils.swift */; };
+		695C9FF920F539EC00388604 /* RevealServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 695C9FF820F539EC00388604 /* RevealServer.framework */; };
 		69676D20200D61EF0046F4D2 /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69676D1F200D61EF0046F4D2 /* FilterManager.swift */; };
 		69676D242013A1A70046F4D2 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69676D232013A1A70046F4D2 /* Helper.swift */; };
 		6968D71F20F0FD1900945078 /* RequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69512B2D1F7D47CA00BF5A89 /* RequestFactory.swift */; };
@@ -416,6 +417,7 @@
 		695922811F7DB1FC00CE3224 /* OldDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldDetailViewController.swift; sourceTree = "<group>"; };
 		695922841F7DB34400CE3224 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		695B27121F97B2BF00081EB0 /* DTSPlayerUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTSPlayerUtils.swift; sourceTree = "<group>"; };
+		695C9FF820F539EC00388604 /* RevealServer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = RevealServer.framework; sourceTree = "<group>"; };
 		69676D1F200D61EF0046F4D2 /* FilterManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterManager.swift; sourceTree = "<group>"; };
 		69676D232013A1A70046F4D2 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		6968D74920F1087500945078 /* Fabric.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Fabric.framework; sourceTree = "<group>"; };
@@ -569,6 +571,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				695C9FF920F539EC00388604 /* RevealServer.framework in Frameworks */,
 				4A8CABFA67D63919F2E43C13 /* Pods_qinoaTV.framework in Frameworks */,
 				6968D74C20F1087600945078 /* Crashlytics.framework in Frameworks */,
 				6968D74B20F1087600945078 /* Fabric.framework in Frameworks */,
@@ -861,9 +864,7 @@
 		695922391F7DA12D00CE3224 /* ItemCells */ = {
 			isa = PBXGroup;
 			children = (
-				6959223D1F7DA15C00CE3224 /* ItemCollectionViewCell.swift */,
 				6959223A1F7DA15B00CE3224 /* ItemCollectionViewCell.xib */,
-				6959223B1F7DA15B00CE3224 /* LoadingItemCollectionViewCell.swift */,
 				6959223C1F7DA15C00CE3224 /* LoadingItemCollectionViewCell.xib */,
 				69D529CA1FF15EEC00431AC4 /* SearchCollectionReusableView.swift */,
 				69D529CB1FF15EEC00431AC4 /* SearchCollectionReusableView.xib */,
@@ -953,6 +954,7 @@
 		6968D72220F1001F00945078 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				69EF344220F5274F005E5C0C /* Views */,
 				6968D77520F140BA00945078 /* ViewControllers */,
 				69512B401F7D4A8600BF5A89 /* DTOs */,
 				69512B271F7D367100BF5A89 /* Infrastructure */,
@@ -966,6 +968,7 @@
 		6968D74820F1084600945078 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				695C9FF820F539EC00388604 /* RevealServer.framework */,
 				6968D74A20F1087500945078 /* Crashlytics.framework */,
 				6968D74920F1087500945078 /* Fabric.framework */,
 			);
@@ -1302,6 +1305,23 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		69EF344220F5274F005E5C0C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				69EF344320F52768005E5C0C /* ItemCells */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		69EF344320F52768005E5C0C /* ItemCells */ = {
+			isa = PBXGroup;
+			children = (
+				6959223D1F7DA15C00CE3224 /* ItemCollectionViewCell.swift */,
+				6959223B1F7DA15B00CE3224 /* LoadingItemCollectionViewCell.swift */,
+			);
+			path = ItemCells;
+			sourceTree = "<group>";
+		};
 		69F0FB181FEA9B96004505EF /* Resources */ = {
 			isa = PBXGroup;
 			children = (
@@ -1390,6 +1410,7 @@
 				41E261E038CE350415F7A928 /* [CP] Embed Pods Frameworks */,
 				6968D74720F101D200945078 /* ShellScript */,
 				6968D77E20F197E900945078 /* R.swift */,
+				695C9FFA20F53D6100388604 /* Reveal */,
 			);
 			buildRules = (
 			);
@@ -1687,6 +1708,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Fabric/run\" f74c5aad8e6589dca3987411b4fe66c40bed16f6 92144ccd7892ca97dd0b931e82730c73180839977b2e618f5af10ce7a8358c61\n\"${PODS_ROOT}/EasyAbout/settings-script.sh\"\n";
+		};
+		695C9FFA20F53D6100388604 /* Reveal */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Reveal;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "export REVEAL_SERVER_FILENAME=\"RevealServer.framework\"\n\n# Update this path to point to the location of RevealServer.framework in your project.\nexport REVEAL_SERVER_PATH=\"${SRCROOT}/qinoaTV/Frameworks/${REVEAL_SERVER_FILENAME}\"\n\n# If configuration is not Debug, skip this script.\n[ \"${CONFIGURATION}\" != \"Debug\" ] && exit 0\n\n# If RevealServer.framework exists at the specified path, run code signing script.\nif [ -d \"${REVEAL_SERVER_PATH}\" ]; then\n\"${REVEAL_SERVER_PATH}/Scripts/copy_and_codesign_revealserver.sh\"\nelse\necho \"Reveal Server not loaded: RevealServer.framework could not be found.\"\nfi";
 		};
 		6968D74720F101D200945078 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -2252,6 +2287,60 @@
 				);
 				INFOPLIST_FILE = qinoaTV/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Alamofire\"",
+					"-framework",
+					"\"AlamofireImage\"",
+					"-framework",
+					"\"AlamofireNetworkActivityLogger\"",
+					"-framework",
+					"\"AlamofireObjectMapper\"",
+					"-framework",
+					"\"Atributika\"",
+					"-framework",
+					"\"CDMarkdownKit\"",
+					"-framework",
+					"\"CFNetwork\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"DGCollectionViewPaginableBehavior\"",
+					"-framework",
+					"\"KeychainSwift\"",
+					"-framework",
+					"\"Kingfisher\"",
+					"-framework",
+					"\"LKAlertController\"",
+					"-framework",
+					"\"Mixpanel\"",
+					"-framework",
+					"\"ObjectMapper\"",
+					"-framework",
+					"\"PMKVObserver\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"Rswift\"",
+					"-framework",
+					"\"Security\"",
+					"-framework",
+					"\"SwifterSwift\"",
+					"-framework",
+					"\"SwiftyBeaver\"",
+					"-framework",
+					"\"SwiftyUserDefaults\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+					"-ObjC",
+					"-weak_framework",
+					RevealServer,
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = xyz.dats.KinoPub;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;

@@ -24,6 +24,7 @@ class ItemsCollectionVC: UICollectionViewController {
         // self.clearsSelectionOnViewWillAppear = false
 
         // Register cell classes
+        collectionView?.contentInset = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
         collectionView?.register(UINib(nibName: String(describing: ItemCollectionViewCell.self), bundle: Bundle.main),
                                 forCellWithReuseIdentifier: String(describing: ItemCollectionViewCell.self))
         collectionView?.register(UINib(nibName:String(describing:LoadingItemCollectionViewCell.self), bundle: Bundle.main),
@@ -109,9 +110,9 @@ extension ItemsCollectionVC {
 // MARK: DGCollectionViewPaginableBehaviorDelegate
 extension ItemsCollectionVC: DGCollectionViewPaginableBehaviorDelegate {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let constant: CGFloat = 6.0
-        let width = (collectionView.bounds.width - (collectionView.contentInset.left + collectionView.contentInset.right)) / constant
-        let height = width * 1.569
+        let constant: CGFloat = 7.5
+        let width = collectionView.bounds.width / constant
+        let height = width * 1.665
         let size = CGSize(width: width.floor, height: height.floor)
         return size
     }

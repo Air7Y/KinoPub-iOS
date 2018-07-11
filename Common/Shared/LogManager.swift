@@ -15,4 +15,13 @@ class LogManager {
     func log(_ format: String, _ ap: CVaListPointer) {
         CLSLogv(format, ap)
     }
+    
+    func logCustomEvent(withName eventName: String, customAttributes customAttributesOrNil: [String : Any]? = nil) {
+        Answers.logCustomEvent(withName: eventName, customAttributes: customAttributesOrNil)
+    }
+    
+    func logCrashAndEvent(withName eventName: String, customAttributes customAttributesOrNil: [String : Any]? = nil) {
+        logCustomEvent(withName: eventName, customAttributes: customAttributesOrNil)
+        log(eventName, getVaList([(customAttributesOrNil?.values as? CVarArg) ?? "nil"]))
+    }
 }

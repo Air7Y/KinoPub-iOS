@@ -15,7 +15,7 @@ class AnalyticsManager {
     }
     
     func setup() {
-        Fabric.with([Crashlytics()])
+        Fabric.with([Crashlytics.self])
         #if os(iOS)
         FirebaseApp.configure()
         #endif
