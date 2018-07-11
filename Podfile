@@ -1,4 +1,4 @@
-source 'https://github.com/CocoaPods/Specs.git'
+source 'https://github.com/cocoapods/specs.git'
 use_frameworks!
 inhibit_all_warnings!
 
@@ -21,6 +21,7 @@ pod 'SwiftyBeaver'
 pod 'Mixpanel'
 pod 'R.swift'
 pod 'PMKVObserver'
+pod 'MarqueeLabel'
 
 target 'qinoa' do
     platform :ios, '9.0'

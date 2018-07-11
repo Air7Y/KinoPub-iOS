@@ -81,6 +81,9 @@ PODS:
   - Kingfisher (4.8.0)
   - Letters (2.1.1)
   - LKAlertController (1.12.1)
+  - MarqueeLabel (3.1.6):
+    - MarqueeLabel/ObjC (= 3.1.6)
+  - MarqueeLabel/ObjC (3.1.6)
   - MarqueeLabel/Swift (3.1.6)
   - Mixpanel (3.3.3)
   - nanopb (0.3.8):
@@ -156,6 +159,7 @@ DEPENDENCIES:
   - Kingfisher
   - Letters
   - LKAlertController (from `../LKAlertController/`)
+  - MarqueeLabel
   - Mixpanel
   - NDYoutubePlayer (from `https://github.com/hintoz/NDYoutubePlayer.git`)
   - NotificationBannerSwift
@@ -311,6 +315,6 @@ SPEC CHECKSUMS:
   TMDBSwift: 4d3b8e5a6af395d43b934fd67c35f8d498705394
   UIEmptyState: e6331312fb788880575701cb9c6230e5d2eaf6b0
 
-PODFILE CHECKSUM: 335cd85597d9c9bf57f547afd2b16ccdff92d778
+PODFILE CHECKSUM: abe3377f0610ce3dc25d36a02b7ea67b970b8abf
 
 COCOAPODS: 1.5.3
