@@ -13,39 +13,38 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="LoadingItemCollectionViewCell" customModule="qinoaTV" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="154" height="222"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-            <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="poster-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="R1O-3C-73Z">
-                    <rect key="frame" x="8" y="8" width="138" height="207"/>
-                    <constraints>
-                        <constraint firstAttribute="width" secondItem="R1O-3C-73Z" secondAttribute="height" multiplier="1:1.5" id="BrD-vV-2br"/>
-                    </constraints>
-                    <userDefinedRuntimeAttributes>
-                        <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                            <real key="value" value="6"/>
-                        </userDefinedRuntimeAttribute>
-                    </userDefinedRuntimeAttributes>
-                </imageView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="MME-yD-ZCw">
-                    <rect key="frame" x="67" y="101" width="20" height="20"/>
-                </activityIndicatorView>
-            </subviews>
-            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <collectionViewCell opaque="NO" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="LoadingItemCollectionViewCell" id="Rz2-K0-ksD" customClass="LoadingItemCollectionViewCell" customModule="qinoaTV" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="250" height="460"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="250" height="460"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="poster-placeholder" adjustsImageWhenAncestorFocused="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C8E-zg-hUk">
+                        <rect key="frame" x="0.0" y="0.0" width="250" height="376"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="C8E-zg-hUk" secondAttribute="height" multiplier="1:1.5" id="xVb-7j-IGb"/>
+                        </constraints>
+                    </imageView>
+                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="hn9-uC-ghd">
+                        <rect key="frame" x="115" y="178" width="20" height="20"/>
+                    </activityIndicatorView>
+                </subviews>
+            </view>
             <constraints>
-                <constraint firstItem="R1O-3C-73Z" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="0mH-37-FLe"/>
-                <constraint firstItem="MME-yD-ZCw" firstAttribute="centerY" secondItem="R1O-3C-73Z" secondAttribute="centerY" id="PLZ-iV-1Th"/>
-                <constraint firstItem="R1O-3C-73Z" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="8" id="Q4F-fP-tf5"/>
-                <constraint firstItem="MME-yD-ZCw" firstAttribute="centerX" secondItem="R1O-3C-73Z" secondAttribute="centerX" id="U0l-al-4dL"/>
-                <constraint firstAttribute="trailing" secondItem="R1O-3C-73Z" secondAttribute="trailing" constant="8" id="cLH-2X-aRL"/>
+                <constraint firstItem="hn9-uC-ghd" firstAttribute="centerY" secondItem="C8E-zg-hUk" secondAttribute="centerY" id="1aq-mg-4DB"/>
+                <constraint firstAttribute="trailing" secondItem="C8E-zg-hUk" secondAttribute="trailing" id="Bnv-l0-EW4"/>
+                <constraint firstItem="C8E-zg-hUk" firstAttribute="leading" secondItem="Rz2-K0-ksD" secondAttribute="leading" id="JCn-cM-0Ii"/>
+                <constraint firstItem="hn9-uC-ghd" firstAttribute="centerX" secondItem="C8E-zg-hUk" secondAttribute="centerX" id="h5u-xT-Mpx"/>
+                <constraint firstItem="C8E-zg-hUk" firstAttribute="top" secondItem="Rz2-K0-ksD" secondAttribute="top" id="o2R-8Q-Obs"/>
             </constraints>
-            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <viewLayoutGuide key="safeArea" id="Pmt-tb-8Ig"/>
+            <viewLayoutGuide key="safeArea" id="7PP-Ag-gPX"/>
+            <size key="customSize" width="145" height="264"/>
             <connections>
-                <outlet property="loadingIndicator" destination="MME-yD-ZCw" id="RDE-4o-JFY"/>
+                <outlet property="loadingIndicator" destination="hn9-uC-ghd" id="5XP-9E-oru"/>
             </connections>
-        </view>
+            <point key="canvasLocation" x="116.5" y="215"/>
+        </collectionViewCell>
     </objects>
     <resources>
         <image name="poster-placeholder" width="164" height="246"/>

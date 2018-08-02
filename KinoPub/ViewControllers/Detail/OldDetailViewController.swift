@@ -413,7 +413,7 @@ class OldDetailViewController: UIViewController, SideMenuItemContent {
         let actionVC = ActionSheet(message: "Выберите качество")
         guard let files = model.files else { return }
         for file in files {
-            actionVC.addAction(file.quality!, style: .default, handler: { (_) in
+            actionVC.addAction(file.quality, style: .default, handler: { (_) in
                 if play {
                     var urlString = ""
                     if Config.shared.streamType == "http" {
@@ -424,7 +424,7 @@ class OldDetailViewController: UIViewController, SideMenuItemContent {
                     self.model.mediaItem.url = URL(string: urlString)
                     self.playVideo()
                 } else {
-                    self.showDownloadAction(with: (file.url?.http)!, quality: file.quality!, inView: view)
+                    self.showDownloadAction(with: (file.url?.http)!, quality: file.quality, inView: view)
                 }
             })
         }
@@ -654,6 +654,10 @@ extension OldDetailViewController: UIScrollViewDelegate {
 }
 
 extension OldDetailViewController: VideoItemModelDelegate {
+    func didLoadKpInfo() {
+        
+    }
+    
     func didUpdateSimilar() {
         
     }

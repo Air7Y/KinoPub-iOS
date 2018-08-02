@@ -11,6 +11,15 @@ import UIKit
 class FirstViewController: UIViewController {
     fileprivate let accountManager = Container.Manager.account
     var playButtonGesture: UITapGestureRecognizer!
+    
+    @IBOutlet weak var segment: UISegmentedControl!
+    
+    var environmentsToFocus: [UIFocusEnvironment] = []
+    
+    override var preferredFocusEnvironments: [UIFocusEnvironment] {
+        return environmentsToFocus.isEmpty ? super.preferredFocusEnvironments : environmentsToFocus
+    }
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +28,10 @@ class FirstViewController: UIViewController {
         playButtonGesture.allowedPressTypes = [NSNumber(value: UIPressType.playPause.rawValue)]
         playButtonGesture.delegate = self
         view.addGestureRecognizer(playButtonGesture)
+        
+        environmentsToFocus = [segment]
     }
+    
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

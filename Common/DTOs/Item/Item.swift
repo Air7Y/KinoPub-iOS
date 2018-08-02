@@ -62,7 +62,7 @@ public class Item: Mappable {
   public var type: String?
   public var voice: String?
   public var subtitles: String?
-  public var id: Int?
+  public var id: Int!
   public var ac3: Int?
   public var director: String?
   public var videos: [Episodes]?
@@ -98,6 +98,8 @@ public class Item: Mappable {
     public var total: Int?
     public var watched: Int?
     public var new: Int?
+    
+    public var kinopoiskData: KPData?
 
   public required init?(map: Map) {
 
@@ -149,4 +151,14 @@ public class Item: Mappable {
     watched <- map[SerializationKeys.watched]
     new <- map[SerializationKeys.new]
   }
+}
+
+extension Item: Hashable {
+    public var hashValue: Int {
+        return id.hashValue
+    }
+    
+    public static func == (lhs: Item, rhs: Item) -> Bool {
+        return lhs.id == rhs.id
+    }
 }

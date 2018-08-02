@@ -165,7 +165,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         let actionVC = ActionSheet(message: "Выберите качество").tint(.kpBlack)
         
         for file in (model.getEpisode(indexPathEpisode, forSeason: indexPathSeason)?.files)! {
-            actionVC.addAction(file.quality!, style: .default, handler: { [weak self] (_) in
+            actionVC.addAction(file.quality, style: .default, handler: { [weak self] (_) in
                 guard let strongSelf = self else { return }
                 if play {
                     var urlString = ""
@@ -177,7 +177,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
                     strongSelf.mediaItem.url = URL(string: urlString)
                     strongSelf.playVideo()
                 } else {
-                    strongSelf.showDownloadAction(with: (file.url?.http)!, quality: file.quality!)
+                    strongSelf.showDownloadAction(with: (file.url?.http)!, quality: file.quality)
                 }
             })
         }

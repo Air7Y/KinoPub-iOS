@@ -1,0 +1,6 @@
+framework module MarqueeLabel {
+  umbrella header "MarqueeLabel-tvOS-umbrella.h"
+
+  export *
+  module * { export * }
+}

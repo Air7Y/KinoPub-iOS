@@ -23,6 +23,15 @@ public protocol DGCollectionViewPaginableBehaviorDelegate: UICollectionViewDeleg
     * The method will be called every time the automatic fetch is completed.
     */
     @objc optional func paginableBehavior(_ paginableBehavior: DGCollectionViewPaginableBehavior, didAutoFetchDataFor section: Int)
+    
+    @objc optional func paginableBehavior(_ paginableBehavior: DGCollectionViewPaginableBehavior, scrollViewDidScroll scrollView: UIScrollView)
+    
+    @objc optional func paginableBehavior(_ paginableBehavior: DGCollectionViewPaginableBehavior, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
+    
+    #if os(tvOS)
+    @objc optional func paginableBehavior(_ paginableBehavior: DGCollectionViewPaginableBehavior, collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator)
+    @objc optional func indexPathForPreferredFocusedViewIn(_ collectionView: UICollectionView) -> IndexPath?
+    #endif
 }
 
 open class DGCollectionViewPaginableBehavior: NSObject {
@@ -174,4 +183,22 @@ extension DGCollectionViewPaginableBehavior: UICollectionViewDelegateFlowLayout 
             }
 		}
 	}
+    
+    public func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        delegate?.paginableBehavior?(self, scrollViewDidScroll: scrollView)
+    }
+    
+    public func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        delegate?.paginableBehavior?(self, collectionView: collectionView, didSelectItemAt: indexPath)
+    }
+    
+    #if os(tvOS)
+    public func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        delegate?.paginableBehavior?(self, collectionView: collectionView, didUpdateFocusIn: context, with: coordinator)
+    }
+    
+    public func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
+        return delegate?.indexPathForPreferredFocusedViewIn?(collectionView)
+    }
+    #endif
 }

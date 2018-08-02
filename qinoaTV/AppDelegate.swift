@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        NetworkActivityLogger.shared.level = .error
+        NetworkActivityLogger.shared.level = .debug
         NetworkActivityLogger.shared.startLogging()
         
         analyticsManager.setup()
@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         registerSettingsBundle()
         setDefaults()
+        
+        awakeObjects()
         
         return true
     }
@@ -53,11 +55,21 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
+    func awakeObjects() {
+        let typeCount = Int(objc_getClassList(nil, 0))
+        let types = UnsafeMutablePointer<AnyClass?>.allocate(capacity: typeCount)
+        let autoreleasingTypes = AutoreleasingUnsafeMutablePointer<AnyObject.Type>(types)
+        objc_getClassList(autoreleasingTypes, Int32(typeCount))
+        for index in 0 ..< typeCount { (types[index] as? Object.Type)?.awake() }
+        types.deallocate()
+    }
+    
     func configAppearance() {
         UINavigationBar.appearance().tintColor = .kpOffWhite
         UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite]
         UITextField.appearance().keyboardAppearance = .dark
         UITableViewCell.appearance().backgroundColor = .clear
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite], for: .normal)
     }
 
     func registerSettingsBundle() {

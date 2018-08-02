@@ -15,6 +15,7 @@ protocol VideoItemsModelDelegate: class {
 class VideoItemsModel: AccountManagerDelegate {
     weak var delegate: VideoItemsModelDelegate?
     var videoItems = [Item]()
+    var videoItemsDict = [String : [Item]]()
     var parameters = [String : String]()
     var from: String?
     var page: Int = 1
@@ -69,16 +70,42 @@ class VideoItemsModel: AccountManagerDelegate {
                 completed(count)
             })
         default:
-            loadVideos(completed: { (count) in
+            loadVideos(completed: { (count, error) in
                 completed(count)
             })
         }
     }
     
+    func loadVideoItems(completed: @escaping (_ count: Int?, _ error: Error?) -> ()) {
+        guard accountManager.hasAccount else { return }
+        switch from {
+        case "watching"?:
+            loadWatchingSeries(completed: { (count) in
+                completed(count, nil)
+            })
+        case "used"?:
+            loadWatchingSeries(0, completed: { (count) in
+                completed(count, nil)
+            })
+        case "usedMovie"?:
+            loadWatchingMovie(completed: { (count) in
+                completed(count, nil)
+            })
+        case "collections"?:
+            loadItemsCollection(completed: { (count) in
+                completed(count, nil)
+            })
+        default:
+            loadVideos(completed: { (count, error)  in
+                completed(count, error)
+            })
+        }
+    }
+    
     // Load Movies (all, fresh, hot popular), Series, Docu, TV Show, Concert
-    private func loadVideos(completed: @escaping (_ count: Int?) -> ()) {
+    private func loadVideos(completed: @escaping (_ count: Int?, _ error: Error?) -> ()) {
         parameters["page"] = "\(page)"
-        parameters["perpage"] = "100"
+        parameters["perpage"] = countPerPage().string
         var param = parameters
         if let parameters = filter.parameters {
             param.unionInPlace(parameters)
@@ -88,7 +115,7 @@ class VideoItemsModel: AccountManagerDelegate {
             var count: Int?
             defer {
                 strongSelf.delegate?.didUpdateItems(model: strongSelf)
-                completed(count)
+                completed(count, error)
             }
             if let itemsData = response {
                 guard var items = itemsData.items else { return }
@@ -98,6 +125,9 @@ class VideoItemsModel: AccountManagerDelegate {
                     items = items.filter{!($0.genres?.contains(Genres(id: 25, title: "Аниме")))!}
                 }
                 strongSelf.videoItems.append(contentsOf: items)
+                if let key = param["type"] {
+                    strongSelf.videoItemsDict[key]?.append(contentsOf: items)
+                }
                 count = items.count
             } else {
                 Helper.showError(error?.localizedDescription)
@@ -117,6 +147,7 @@ class VideoItemsModel: AccountManagerDelegate {
             if let itemsData = response {
                 guard let items = itemsData.items else { return }
                 strongSelf.videoItems.append(contentsOf: items)
+                strongSelf.videoItems.unique()
                 count = items.count
             } else {
                 Helper.showError(error?.localizedDescription)
@@ -281,7 +312,7 @@ class VideoItemsModel: AccountManagerDelegate {
         }
     }
     
-    func setParameter(_ key: String, value: String) {
+    func setParameter(_ key: String, value: String?) {
         parameters[key] = value
     }
     

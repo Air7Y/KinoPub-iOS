@@ -32,6 +32,8 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
 
         self.allowsPictureInPicturePlayback = true
         self.delegate = self
+        
+        addKVOForItemStatus()
     }
 
     override func didReceiveMemoryWarning() {
@@ -45,14 +47,7 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        guard let view = playBackControlsView else { return }
-        _ = KVObserver(observer: self, object: view, keyPath: #keyPath(UIView.isHidden), options: [.new], block: { (observer, object, change, _) in
-            guard let newValue = change.new as? Bool else {
-                observer.nextItemView?.isHidden = object.isHidden
-                return
-            }
-            observer.nextItemView?.isHidden = newValue
-        })
+        addKVOForControlsIsHidden()
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -105,6 +100,55 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
     private func playNextItem() {
         (player as! AVQueuePlayer).advanceToNextItem()
         NotificationCenter.default.post(name: .DTSPlayerUserTappedNextButton, object: self, userInfo: nil)
+    }
+    
+    private func checkHDR() {
+        
+    }
+    
+    private func addKVOForControlsIsHidden() {
+        guard let view = playBackControlsView else { return }
+        _ = KVObserver(observer: self, object: view, keyPath: #keyPath(UIView.isHidden), options: [.new], block: { (observer, object, change, _) in
+            guard let newValue = change.new as? Bool else {
+                observer.nextItemView?.isHidden = object.isHidden
+                return
+            }
+            observer.nextItemView?.isHidden = newValue
+        })
+    }
+    
+    private func addKVOForItemStatus() {
+        guard let currentItem = player?.currentItem else { return }
+        _ = KVObserver(observer: self, object: currentItem, keyPath: #keyPath(AVPlayerItem.status), options: [.new], block: { (observer, object, change, kvo) in
+            let status: AVPlayerItemStatus
+            if let statusNumber = change.new as? NSNumber {
+                status = AVPlayerItemStatus(rawValue: statusNumber.intValue)!
+            } else {
+                status = .unknown
+            }
+            
+            switch status {
+            case .readyToPlay:
+                // Player item is ready to play.
+                print("STATUS: readyToPlay")
+            case .failed:
+                // Player item failed. See error.
+                print("STATUS: failed")
+                print(object.error ?? "Unknown")
+                self.dismiss(message: object.error?.localizedDescription)
+            case .unknown:
+                // Player item is not yet ready.
+                print("STATUS: unknown")
+                print(object.error ?? "Unknown error")
+                self.dismiss(message: object.error?.localizedDescription)
+            }
+        })
+    }
+    
+    private func dismiss(message: String?) {
+        dismiss(animated: true) {
+            Helper.showError(message)
+        }
     }
 
 }

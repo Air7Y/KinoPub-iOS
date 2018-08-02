@@ -136,15 +136,15 @@ class SeasonTableViewController: UITableViewController {
         
         if episode != nil {
             for file in (episode?.files)! {
-                actionVC.addAction(file.quality!, style: .default, handler: { [weak self] (_) in
-                    self?.showDownloadAction(with: (file.url?.http)!, episode: episode!, quality: file.quality!, at: indexPath!)
+                actionVC.addAction(file.quality, style: .default, handler: { [weak self] (_) in
+                    self?.showDownloadAction(with: (file.url?.http)!, episode: episode!, quality: file.quality, at: indexPath!)
                 })
             }
             actionVC.setPresentingSource(self.tableView.cellForRow(at: indexPath!)!)
         } else if season {
             for (index, file) in (self.model.getSeason(indexPathSeason)?.episodes.first?.files?.enumerated())! {
-                actionVC.addAction(file.quality!, style: .default, handler: { [weak self] (action) in
-                    self?.downloadSeason(index: index, quality: file.quality!)
+                actionVC.addAction(file.quality, style: .default, handler: { [weak self] (action) in
+                    self?.downloadSeason(index: index, quality: file.quality)
                 })
             }
             actionVC.setBarButtonItem(moreButton)

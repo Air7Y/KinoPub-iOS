@@ -1,6 +1,6 @@
 import Foundation
 
-struct MenuItems: Codable, Equatable {
+struct MenuItems: Codable {
     let id: String
     let name: String
     let icon: String
@@ -60,6 +60,7 @@ struct MenuItems: Codable, Equatable {
         return MenuItems(id: "SettingsNavVC", name: "Настройки", icon: "Settings", tag: nil)
     }
     
+    #if os(iOS)
     static let hiddenMenuItemsDefault = [movies4kVC, movies3dVC]
     static let configurableMenuItems = [filmsVC, seriesVC, cartoonsVC, docMoviesVC, docSeriesVC, tvShowsVC, concertsVC, collectionsVC, movies4kVC, movies3dVC, tvSportVC]
     static let jsonFileForHiddenMenuItems = "configMenu.json"
@@ -68,6 +69,16 @@ struct MenuItems: Codable, Equatable {
     static let contentMenu = [mainVC] + Config.shared.hiddenMenusService.loadConfigMenu()
     static let settingsMenu = [settingsVC]
     static let all = userMenu + contentMenu + settingsMenu
+    #endif
+    
+    static let atvMenu = [filmsVC, seriesVC, cartoonsVC, movies4kVC, movies3dVC, docMoviesVC, docSeriesVC, tvShowsVC, concertsVC]
+    
+}
+
+extension MenuItems: Hashable {
+    public var hashValue: Int {
+        return name.hashValue
+    }
     
     static func ==(lhs: MenuItems, rhs: MenuItems) -> Bool {
         return lhs.name == rhs.name

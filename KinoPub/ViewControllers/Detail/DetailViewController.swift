@@ -396,15 +396,15 @@ extension DetailViewController {
         if let season = season {
             guard let files = model.getSeason(season)?.episodes.first?.files else { return }
             for (index, file) in files.enumerated() {
-                actionVC.addAction(file.quality!, style: .default, handler: { [weak self] (action) in
+                actionVC.addAction(file.quality, style: .default, handler: { [weak self] (action) in
                     guard let strongSelf = self else { return }
-                    strongSelf.downloadSeason(season: season, index: index, quality: file.quality!)
+                    strongSelf.downloadSeason(season: season, index: index, quality: file.quality)
                 })
             }
         } else {
             guard let files = model.files else { return }
             for file in files {
-                actionVC.addAction(file.quality!, style: .default, handler: { [weak self] (_) in
+                actionVC.addAction(file.quality, style: .default, handler: { [weak self] (_) in
                     guard let strongSelf = self else { return }
                     if play {
                         var urlString = ""
@@ -416,7 +416,7 @@ extension DetailViewController {
                         strongSelf.model.mediaItems[0].url = URL(string: urlString)
                         strongSelf.playVideo()
                     } else {
-                        strongSelf.showDownloadAction(with: (file.url?.http)!, quality: file.quality!, inView: view, forButton: button)
+                        strongSelf.showDownloadAction(with: (file.url?.http)!, quality: file.quality, inView: view, forButton: button)
                     }
                 })
             }
@@ -586,7 +586,7 @@ extension DetailViewController: UITableViewDataSource {
             }
             return 0
         case 6:
-            return (model.item?.cast == "" || model.item?.director == "") ? 0 : 1
+            return (model.item?.cast != "" || model.item?.director != "" || model.item.kinopoiskData?.creators != nil) ? 1 : 0
         case 7:
             return model.similarItems.count > 0 ? 1 : 0
         case 8:
@@ -624,6 +624,9 @@ extension DetailViewController: UITableViewDataSource {
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CastTableViewCell.self), for: indexPath) as! CastTableViewCell
             cell.selectionStyle = .none
             cell.configure(with: model.item?.cast, directors: model.item?.director)
+            if let creators = model.item.kinopoiskData?.creators {
+                cell.config(with: creators)
+            }
             return cell
         case 4:
             let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: SeasonTableViewCell.self), for: indexPath) as! SeasonTableViewCell
@@ -699,8 +702,13 @@ extension DetailViewController: UITableViewDelegate {
 
 // MARK: - VideoItemModelDelegate
 extension DetailViewController: VideoItemModelDelegate {
+    func didLoadKpInfo() {
+        tableView.reloadSections([6], with: .automatic)
+    }
+    
     func didUpdateSimilar() {
-        tableView.reloadData()
+//        tableView.reloadData()
+        tableView.reloadSections([7], with: .automatic)
     }
 }
 

@@ -97,6 +97,7 @@ class AccountManagerImp: AccountManager {
     
     func loginToSelectedAccount(_ accountName: String) {
         self.accountName = accountName
+        Defaults[.currentAccount] = accountName
         resetAccountAndSessionManager()
         checkIfAccountExist()
     }

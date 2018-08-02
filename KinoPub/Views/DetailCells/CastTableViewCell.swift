@@ -9,8 +9,8 @@
 import UIKit
 
 class CastTableViewCell: UITableViewCell {
-    var actors = [String]()
-    var directors = [String]()
+    var actors = [Any]()
+    var directors = [Any]()
 
     @IBOutlet weak var actorsTitleLabel: UILabel!
     @IBOutlet weak var directorsTitleLabel: UILabel!
@@ -56,8 +56,21 @@ class CastTableViewCell: UITableViewCell {
         configure(actors: actors)
         actorCollectionView.reloadData()
     }
+    
+    func config(with cast: [[Creators]]) {
+        var directors = [Creators]()
+        var actors = [Creators]()
+        for creators in cast {
+            directors.append(contentsOf: creators.filter{ $0.professionKey == "director" })
+            actors.append(contentsOf: creators.filter{ $0.professionKey == "actor" })
+        }
+        configure(directors: directors)
+        directorCollectionView.reloadData()
+        configure(actors: actors)
+        actorCollectionView.reloadData()
+    }
 
-    func configure(actors: String?) {
+    private func configure(actors: String?) {
         guard actors != "" else {
             actorsStackView.isHidden = true
             return
@@ -70,8 +83,20 @@ class CastTableViewCell: UITableViewCell {
             }
         }
     }
+    
+    private func configure(actors: [Creators]) {
+        guard !actors.isEmpty else {
+            actorsStackView.isHidden = true
+            return
+        }
+        
+        self.actors = actors
+        if actors.count > 3 {
+            actorCellectionHeightConstraint.constant = 170
+        }
+    }
 
-    func configure(directors: String?) {
+    private func configure(directors: String?) {
         guard directors != "" else {
             directorStackView.isHidden = true
             return
@@ -81,27 +106,56 @@ class CastTableViewCell: UITableViewCell {
             self.directors = directors
         }
     }
+    
+    private func configure(directors: [Creators]) {
+        guard !directors.isEmpty else {
+            directorStackView.isHidden = true
+            return
+        }
+        
+        self.directors = directors
+    }
 
-    func configureLabels() {
+    private func configureLabels() {
         actorsTitleLabel.textColor = .kpGreyishBrown
         directorsTitleLabel.textColor = .kpGreyishBrown
     }
     
-    @objc func tapDirector(_ sender: UITapGestureRecognizer) {
+    @objc private  func tapDirector(_ sender: UITapGestureRecognizer) {
         if let indexPath = self.directorCollectionView.indexPathForItem(at: sender.location(in: self.directorCollectionView)) {
-            let parameters = ["director" : directors[indexPath.row]]
+            let parameters: [String : String]
+            switch directors.first {
+            case is String:
+                parameters = ["director" : directors[indexPath.row] as! String]
+            case is Creators:
+                let director = (directors[indexPath.row] as! Creators)
+                let name = director.nameRU!.isEmpty ? director.nameEN : director.nameRU
+                parameters = ["director" : name ?? "Oops"]
+            default:
+                return
+            }
             showItemVC(withParameters: parameters)
         }
     }
     
-    @objc func tapActor(_ sender: UITapGestureRecognizer) {
+    @objc private func tapActor(_ sender: UITapGestureRecognizer) {
         if let indexPath = self.actorCollectionView.indexPathForItem(at: sender.location(in: self.actorCollectionView)) {
-            let parameters = ["actor" : actors[indexPath.row]]
+            let parameters: [String : String]
+            switch actors.first {
+            case is String:
+                parameters = ["actor" : actors[indexPath.row] as! String]
+            case is Creators:
+                let actor = (actors[indexPath.row] as! Creators)
+                let name = actor.nameRU!.isEmpty ? actor.nameEN : actor.nameRU
+                parameters = ["actor" : name ?? "Oops"]
+            default:
+                return
+            }
             showItemVC(withParameters: parameters)
         }
     }
     
-    func showItemVC(withParameters parameters: [String : String]) {
+    private func showItemVC(withParameters parameters: [String : String]) {
         if let itemVC = ActorCollectionViewController.storyboardInstance() {
             itemVC.viewModel.parameters = parameters
             itemVC.title = parameters["director"] ?? parameters["actor"]
@@ -123,11 +177,27 @@ extension CastTableViewCell: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == directorCollectionView {
             let cell = directorCollectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ActorCollectionViewCell.self), for: indexPath) as! ActorCollectionViewCell
-            cell.configure(with: directors[indexPath.row])
+            switch directors.first {
+            case is String:
+                cell.config(with: directors[indexPath.row] as! String)
+            case is Creators:
+                cell.config(with: directors[indexPath.row] as! Creators)
+            default:
+                break
+            }
+            
             return cell
         } else {
             let cell = actorCollectionView.dequeueReusableCell(withReuseIdentifier: String(describing: ActorCollectionViewCell.self), for: indexPath) as! ActorCollectionViewCell
-            cell.configure(with: actors[indexPath.row])
+            switch actors.first {
+            case is String:
+                cell.config(with: actors[indexPath.row] as! String)
+            case is Creators:
+                cell.config(with: actors[indexPath.row] as! Creators)
+            default:
+                break
+            }
+            
             return cell
         }
     }

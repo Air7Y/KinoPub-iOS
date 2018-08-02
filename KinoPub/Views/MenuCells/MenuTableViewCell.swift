@@ -16,11 +16,6 @@ class MenuTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
         iconImageView.tintColor = selected ? .kpMarigold : .kpGreyishTwo
-//        if selected {
-//            iconImageView.tintColor = .kpMarigold
-//        } else {
-//            iconImageView.tintColor = .kpGreyishTwo
-//        }
     }
     
     func configView() {

@@ -84,7 +84,12 @@ class MediaManager {
         self.mediaItems = mediaItems
         
         for item in mediaItems {
-            playerItems.append(AVPlayerItem(url: item.url!))
+            var option = [String : Any]()
+            if #available(iOS 10.0, *) { option = [AVURLAssetAllowsCellularAccessKey: true] }
+            let assetKeys = ["playable"]
+            let asset = AVURLAsset(url: item.url!, options: option)
+            playerItems.append(AVPlayerItem(asset: asset, automaticallyLoadedAssetKeys: assetKeys))
+//            playerItems.append(AVPlayerItem(url: item.url!))
         }
         
         Defaults[.isCustomPlayer] ? playWithCustomPlayer(mediaItems: mediaItems, userinfo: userinfo) : playWithNativePlayer(mediaItems: playerItems, userinfo: userinfo)
@@ -94,6 +99,7 @@ class MediaManager {
     func playWithNativePlayer(mediaItems: [AVPlayerItem], userinfo: [AnyHashable : Any]? = nil) {
         guard let activityViewController = DTSPlayerUtils.activityViewController() else { return }
         playerNative = AVQueuePlayer(items: mediaItems)
+        playerNative?.actionAtItemEnd = .advance
         
         playerNative?.allowsExternalPlayback = true
         playerNative?.usesExternalPlaybackWhileExternalScreenIsActive = true
