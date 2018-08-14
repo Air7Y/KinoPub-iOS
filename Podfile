@@ -23,6 +23,7 @@ pod 'R.swift'
 pod 'PMKVObserver'
 pod 'MarqueeLabel/Swift'
 pod 'CryptoSwift'
+pod 'CocoaLumberjack/Swift'
 
 target 'qinoa' do
     platform :ios, '9.0'
@@ -56,6 +57,8 @@ end
 
 target 'qinoaTV' do
     platform :tvos, '10.0'
+    
+    pod 'FocusTvButton'
 end
 
 post_install do |installer|

@@ -149,6 +149,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper-tvOS/AlamofireObjectMapper.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Atributika-tvOS/Atributika.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CDMarkdownKit-tvOS/CDMarkdownKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CocoaLumberjack-tvOS/CocoaLumberjack.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CryptoSwift-tvOS/CryptoSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DGCollectionViewPaginableBehavior-tvOS/DGCollectionViewPaginableBehavior.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KeychainSwift-tvOS/KeychainSwift.framework"
@@ -162,6 +163,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SwifterSwift-tvOS/SwifterSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-tvOS/SwiftyBeaver.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults-tvOS/SwiftyUserDefaults.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FocusTvButton/FocusTvButton.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/Alamofire-tvOS/Alamofire.framework"
@@ -170,6 +172,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/AlamofireObjectMapper-tvOS/AlamofireObjectMapper.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Atributika-tvOS/Atributika.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CDMarkdownKit-tvOS/CDMarkdownKit.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/CocoaLumberjack-tvOS/CocoaLumberjack.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/CryptoSwift-tvOS/CryptoSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/DGCollectionViewPaginableBehavior-tvOS/DGCollectionViewPaginableBehavior.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/KeychainSwift-tvOS/KeychainSwift.framework"
@@ -183,6 +186,7 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/SwifterSwift-tvOS/SwifterSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-tvOS/SwiftyBeaver.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults-tvOS/SwiftyUserDefaults.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/FocusTvButton/FocusTvButton.framework"
 fi
 if [ "${COCOAPODS_PARALLEL_CODE_SIGN}" == "true" ]; then
   wait
