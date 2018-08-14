@@ -49,7 +49,7 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        filterButton?.image = model.filter.isSet ? R.image.filtersFill() : R.image.filters()
+        filterButton?.image = model.filter.isSet ? R.image.filtersFillNavBar() : R.image.filtersNavBar()
     }
     
     func beginLoad() {
