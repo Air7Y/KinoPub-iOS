@@ -39,12 +39,10 @@ class SecondViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tabBarController?.tabBar.items?[2].title = "Account"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        tabBarController?.tabBar.items?[2].title = ""
     }
     
     func configProfile() {

@@ -166,7 +166,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KDQ-7y-JMM">
-                                <rect key="frame" x="0.0" y="313" width="1920" height="642"/>
+                                <rect key="frame" x="0.0" y="313" width="1920" height="637"/>
                                 <connections>
                                     <segue destination="alG-ru-hXY" kind="embed" identifier="embed" id="Tln-ba-FT4"/>
                                 </connections>
@@ -202,23 +202,17 @@
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Hzl-4D-HsM">
-                                <rect key="frame" x="100" y="955" width="256" height="75"/>
-                                <color key="backgroundColor" red="0.26666666666666666" green="0.25490196078431371" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hzl-4D-HsM" customClass="TVButton" customModule="qinoaTV" customModuleProvider="target">
+                                <rect key="frame" x="100" y="950" width="256" height="80"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="256" id="dFl-8h-P9H"/>
                                 </constraints>
-                                <color key="tintColor" red="0.67450980392156867" green="0.64313725490196072" blue="0.59215686274509804" alpha="1" colorSpace="calibratedRGB"/>
-                                <inset key="contentEdgeInsets" minX="0.0" minY="20" maxX="0.0" maxY="20"/>
+                                <fontDescription key="fontDescription" name="SFProDisplay-Regular" family="SF Pro Display" pointSize="30"/>
+                                <color key="tintColor" red="0.67450980392156867" green="0.64313725490196072" blue="0.59215686274509804" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <inset key="contentEdgeInsets" minX="-10" minY="12" maxX="0.0" maxY="12"/>
                                 <inset key="titleEdgeInsets" minX="25" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <state key="normal" image="first">
-                                    <attributedString key="attributedTitle">
-                                        <fragment content="Фильтры">
-                                            <attributes>
-                                                <font key="NSFont" size="30" name="SFProDisplay-Regular"/>
-                                            </attributes>
-                                        </fragment>
-                                    </attributedString>
+                                <state key="normal" title="Фильтры" image="Filters">
+                                    <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
                             </button>
                         </subviews>
@@ -240,20 +234,44 @@
                         <viewLayoutGuide key="safeArea" id="ecz-1J-8t6"/>
                     </view>
                     <navigationItem key="navigationItem" id="fJB-AE-m0g"/>
+                    <connections>
+                        <outlet property="filterButton" destination="Hzl-4D-HsM" id="xjK-15-72W"/>
+                        <outlet property="subTitleLabel" destination="u0a-dy-6vi" id="gNU-Sg-0ra"/>
+                        <outlet property="titleLabel" destination="E1m-7T-e30" id="iEe-UY-heW"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R4B-bp-zQA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="4356" y="-55"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="Ijr-5K-fML">
+            <objects>
+                <viewController id="hhU-Wz-vkz" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="DzK-JR-VTt"/>
+                        <viewControllerLayoutGuide type="bottom" id="rQx-E2-uXP"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="drt-pF-8U2">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="gSs-J4-NEP"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="9Xc-1y-wLv"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L9T-zM-YDa" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3234" y="1563"/>
         </scene>
         <!--CollectionVC-->
         <scene sceneID="kfA-P0-zQI">
             <objects>
                 <collectionViewController storyboardIdentifier="CollectionVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="alG-ru-hXY" customClass="CollectionVC" customModule="qinoaTV" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" delaysContentTouches="NO" dataMode="prototypes" prefetchingEnabled="YES" id="yNo-4d-OwU">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="642"/>
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="637"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="30" minimumInteritemSpacing="30" id="ofU-Jd-nbW">
+                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="50" minimumInteritemSpacing="0.0" id="ofU-Jd-nbW">
                             <size key="itemSize" width="250" height="460"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -270,7 +288,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="K6N-kH-Pmb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6738" y="799"/>
+            <point key="canvasLocation" x="8870" y="798.5"/>
         </scene>
         <!--Tab BarVC-->
         <scene sceneID="yl2-sM-qoP">
@@ -282,6 +300,7 @@
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
+                        <segue destination="Jk9-q0-Kty" kind="relationship" relationship="viewControllers" id="5HK-qQ-LdF"/>
                         <segue destination="uVP-xm-wYx" kind="relationship" relationship="viewControllers" id="snc-gL-yJJ"/>
                         <segue destination="9pv-A4-QxB" kind="relationship" relationship="viewControllers" id="u7Y-xg-7CH"/>
                         <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
@@ -299,11 +318,11 @@
             </objects>
             <point key="canvasLocation" x="-1103" y="-245"/>
         </scene>
-        <!--Navigation Controller-->
+        <!--Библиотека-->
         <scene sceneID="NMa-JW-Geg">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" navigationBarHidden="YES" id="uVP-xm-wYx" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="" image="kino-pub" id="Vqd-MN-T4f" userLabel="Items"/>
+                    <tabBarItem key="tabBarItem" title="Библиотека" id="Vqd-MN-T4f" userLabel="Items"/>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Sry-Hz-76q">
@@ -431,25 +450,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TAa-Ow-SOp" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2440" y="2126"/>
-        </scene>
-        <!--View Controller-->
-        <scene sceneID="SBZ-hk-I1V">
-            <objects>
-                <viewController id="UZo-b4-lSB" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ik6-aS-rwq"/>
-                        <viewControllerLayoutGuide type="bottom" id="JDk-L9-C3U"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="Lnj-8q-ZeD">
-                        <rect key="frame" x="0.0" y="0.0" width="1920" height="1080"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="XSj-ur-LxE"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="bAO-NW-e7B" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="492" y="1707"/>
+            <point key="canvasLocation" x="1102" y="3918"/>
         </scene>
         <!--CollectionVC-->
         <scene sceneID="2ES-E0-0kM">
@@ -476,9 +477,29 @@
             </objects>
             <point key="canvasLocation" x="6738" y="-438"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="87W-N8-guk">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Jk9-q0-Kty" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="" image="kino-pub" id="Lkb-Zd-Kf9"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="4Ap-yk-vo9">
+                        <rect key="frame" x="0.0" y="0.0" width="1920" height="145"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="hhU-Wz-vkz" kind="relationship" relationship="rootViewController" id="koc-J2-yXg"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dWI-rw-bJT" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1102" y="1563"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Circled User Male-100" width="50" height="50"/>
+        <image name="Filters" width="56" height="56"/>
         <image name="first" width="30" height="30"/>
         <image name="kino-pub" width="202" height="56"/>
         <image name="second" width="30" height="30"/>

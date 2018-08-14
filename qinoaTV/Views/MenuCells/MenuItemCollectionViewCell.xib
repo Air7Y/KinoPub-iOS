@@ -27,7 +27,7 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="URN-Fi-Ob8">
-                        <rect key="frame" x="70" y="23" width="147" height="35"/>
+                        <rect key="frame" x="70" y="23" width="74" height="35"/>
                         <attributedString key="attributedText">
                             <fragment content="Label">
                                 <attributes>
@@ -48,6 +48,11 @@
             </constraints>
             <viewLayoutGuide key="safeArea" id="Glk-N1-m9R"/>
             <size key="customSize" width="217" height="80"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="p4W-7v-cx0"/>
+                </mask>
+            </variation>
             <connections>
                 <outlet property="imageView" destination="pXk-5h-ZLo" id="yGd-lg-bP0"/>
                 <outlet property="label" destination="URN-Fi-Ob8" id="j6R-aX-4mn"/>

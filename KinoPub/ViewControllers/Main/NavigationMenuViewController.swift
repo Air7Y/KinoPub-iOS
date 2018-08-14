@@ -152,7 +152,7 @@ extension NavigationMenuViewController: UITableViewDelegate, UITableViewDataSour
 
         if let navVC = menuContainerViewController.contentViewControllers[indexPathRow] as? NavigationController, let iVC = navVC.viewControllers.first as? ItemsCollectionViewController {
             menuContainerViewController.selectContentViewController(menuContainerViewController.contentViewControllers[indexPathRow])
-            iVC.itemsTag = menu[indexPathRow].tag!
+            iVC.itemsTag = menu[indexPathRow].tag!.rawValue
         } else {
            menuContainerViewController.selectContentViewController(menuContainerViewController.contentViewControllers[indexPathRow])
         }

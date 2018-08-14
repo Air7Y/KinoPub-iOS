@@ -63,7 +63,7 @@ class HostViewController: MenuContainerViewController {
         }
         if let navVC = contentViewControllers[Config.shared.menuItem] as? NavigationController, let iVC = navVC.viewControllers.first as? ItemsCollectionViewController {
             self.selectContentViewController(contentViewControllers[Config.shared.menuItem])
-            iVC.itemsTag = menu[Config.shared.menuItem].tag!
+            iVC.itemsTag = menu[Config.shared.menuItem].tag!.rawValue
         } else {
             self.selectContentViewController(contentViewControllers[Config.shared.menuItem])
         }

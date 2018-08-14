@@ -51,6 +51,7 @@ class CollectionVC: ResponsiveCollectionVC {
     
     let behavior = DGCollectionViewPaginableBehavior()
     var refreshing: Bool = false
+    var loadable: Bool = true
     
     fileprivate var errorView: ErrorBackgroundView?
     
@@ -153,11 +154,12 @@ extension CollectionVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        guard loadable else { return dataSources[safe: section]?.count ?? 0 }
         return (dataSources[safe: section]?.count ?? 0) + (behavior.sectionStatus(forSection: section).done ? 0 : 1)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard indexPath.row < dataSources[safe: indexPath.section]?.count ?? 0 else {
+        guard (indexPath.row < dataSources[safe: indexPath.section]?.count ?? 0) || !loadable else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.loadingItemCollectionViewCell, for: indexPath)!
             
             if !self.refreshing {
@@ -166,7 +168,7 @@ extension CollectionVC {
             return cell
         }
         
-        let item = dataSources[indexPath.section][indexPath.row]
+        guard let item = dataSources[safe: indexPath.section]?[safe: indexPath.row] else { return UICollectionViewCell() }
         switch item {
         case is Item:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.itemCollectionViewCell, for: indexPath)!
@@ -175,13 +177,14 @@ extension CollectionVC {
         case is MenuItems:
             #if os(tvOS)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: R.reuseIdentifier.menuItemCollectionViewCell, for: indexPath)!
+            if focusIndexPath == indexPath { cell.setFirstFocus() }
             cell.configureCell(with: item)
             return cell
             #endif
         default:
             fatalError("Unknown type in dataSource.")
         }
-
+        
         return UICollectionViewCell()
     }
     
@@ -212,13 +215,13 @@ extension CollectionVC: DGCollectionViewPaginableBehaviorDelegate {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        let isTv = UIDevice.current.userInterfaceIdiom == .tv
         if let dataSource = dataSources[safe: section], !dataSource.isEmpty {
             if let inset = delegate?.collectionView(collectionView, insetForSectionAt: section) { return inset }
-            let isTv = UIDevice.current.userInterfaceIdiom == .tv
             return isTv ? UIEdgeInsets(top: 50, left: 100, bottom: 0, right: 100) : UIEdgeInsets(top: 15, left: 15, bottom: 15, right: 15)
         }
         
-        return .zero
+        return isTv ? UIEdgeInsets(top: 50, left: 100, bottom: 0, right: 100) : .zero
     }
     
     func paginableBehavior(_ paginableBehavior: DGCollectionViewPaginableBehavior, countPerPageInSection section: Int) -> Int {
@@ -232,7 +235,7 @@ extension CollectionVC: DGCollectionViewPaginableBehaviorDelegate {
     }
     
     func paginableBehavior(_ paginableBehavior: DGCollectionViewPaginableBehavior, scrollViewDidScroll scrollView: UIScrollView) {
-        updateNavigationItemOffset()
+        //updateNavigationItemOffset()
     }
     
     func paginableBehavior(_ paginableBehavior: DGCollectionViewPaginableBehavior, collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
@@ -261,7 +264,7 @@ extension CollectionVC: ErrorBackgroundViewDelegate {
 
 extension CollectionVC {
     private struct AssociatedKeys {
-        static var focusIndexPathKey = "CollectionViewController.focusIndexPathKey"
+        static var focusIndexPathKey = "CollectionVC.focusIndexPathKey"
     }
     
     var focusIndexPath: IndexPath {
@@ -271,8 +274,4 @@ extension CollectionVC {
             objc_setAssociatedObject(self, &AssociatedKeys.focusIndexPathKey, indexPath, .OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    
-//    override func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
-//        return focusIndexPath
-//    }
 }

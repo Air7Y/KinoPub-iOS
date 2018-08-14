@@ -44,12 +44,12 @@ class MainVC: UIViewController, CollectionVCDelegate {
         
 //        setNeedsFocusUpdate()
 //        updateFocusIfNeeded()
-//        
+//
 //        environmentsToFocus.removeAll()
 //        
 //        collectionView?.setNeedsFocusUpdate()
 //        collectionView?.updateFocusIfNeeded()
-//        
+//
 //        collectionView?.reloadData()
     }
     
@@ -74,7 +74,8 @@ class MainVC: UIViewController, CollectionVCDelegate {
             #endif
         } else if let segue = R.segue.itemsVC.embedMenu(segue: segue) {
             menuCollectionVC = segue.destination
-//            menuCollectionVC.focusIndexPath = IndexPath(row: 0, section: 0)
+            menuCollectionVC.loadable = false
+            menuCollectionVC.dataSources[0] = MenuItems.atvMenu as [AnyHashable]
             menuCollectionVC.delegate = self
         }
     }

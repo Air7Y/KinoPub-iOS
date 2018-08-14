@@ -11,15 +11,38 @@ import UIKit
 class ItemsVC: MediaVC {
     let model = Container.ViewModel.videoItems()
     fileprivate let accountManager = Container.Manager.account
+    
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var subTitleLabel: UILabel!
+    @IBOutlet weak var filterButton: TVButton!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        initVars()
+        configView()
         model.delegate = self
         accountManager.addDelegate(delegate: self)
     }
+    
+    func initVars() {
+        model.type = ItemType(rawValue: TabBarItemTag(rawValue: 0)!.stringValue)
+        setTitles()
+    }
+    
+    func configView() {
+        titleLabel.textColor = .kpOffWhite
+        subTitleLabel.textColor = .kpGreyishTwo
+    }
+    
+    func setTitles() {
+        guard let title = model.type?.description else { return }
+        titleLabel.text = title
+        subTitleLabel.text = "Все " + title.lowercased()
+    }
 
     func refreshData() {
+        collectionViewController.dataSources[0] = []
         model.refresh()
         collectionViewController.refresh()
     }
@@ -32,11 +55,6 @@ class ItemsVC: MediaVC {
                 strongSelf.collectionViewController.error = error as NSError?
                 completion(done ? 0 : count ?? 0)
             }
-        } else if collectionView == menuCollectionVC.collectionView {
-            menuCollectionVC.dataSources[0] = MenuItems.atvMenu as [AnyHashable]
-            menuCollectionVC.dataDidLoaded()
-            completion(MenuItems.atvMenu.count)
-//            menuCollectionVC.focusIndexPath = IndexPath(row: 0, section: 0)
         }
     }
     
@@ -72,45 +90,32 @@ class ItemsVC: MediaVC {
     }
     
     override func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        didUpdateFocusIn(context)
+        
         if collectionView == menuCollectionVC.collectionView {
             guard let item = context.nextFocusedItem, item is MenuItemCollectionViewCell else { return }
-            print(menuCollectionVC.focusIndexPath)
+            guard context.previouslyFocusedIndexPath != nil else { return }
             guard let tag = MenuItems.atvMenu[menuCollectionVC.focusIndexPath.row].tag else { return }
-            model.setParameter("genre", value: nil)
-            switch tag {
-            case TabBarItemTag.movies.rawValue:
-                model.type = ItemType.movies
-                navigationItem.title = ItemType.movies.description
-            case TabBarItemTag.shows.rawValue:
-                model.type = ItemType.shows
-                navigationItem.title = ItemType.shows.description
-            case TabBarItemTag.documovie.rawValue:
-                model.type = ItemType.documovie
-                navigationItem.title = ItemType.documovie.description
-            case TabBarItemTag.docuserial.rawValue:
-                model.type = ItemType.docuserial
-                navigationItem.title = ItemType.docuserial.description
-            case TabBarItemTag.concert.rawValue:
-                model.type = ItemType.concerts
-                navigationItem.title = ItemType.concerts.description
-            case TabBarItemTag.tvshow.rawValue:
-                model.type = ItemType.tvshows
-                navigationItem.title = ItemType.tvshows.description
-            case TabBarItemTag.cartoons.rawValue:
-                model.setParameter("genre", value: "23")
-                navigationItem.title = "Мультфильмы"
-            case TabBarItemTag.movies4k.rawValue:
-                model.type = ItemType.movies4k
-                navigationItem.title = ItemType.movies4k.description
-            case TabBarItemTag.movies3d.rawValue:
-                model.type = ItemType.movies3d
-                navigationItem.title = ItemType.movies3d.description
-            default:
-                break
+            guard let itemType = ItemType(rawValue: tag.stringValue) else { return }
+
+            model.type = itemType
+            setTitles()
+            
+            if let data = model.videoItemsDict[itemType.rawValue] {
+                collectionViewController.dataSources[0] = data
+                collectionViewController.collectionView?.reloadSections([0])
+            } else {
+                refreshData()
             }
-            refreshData()
+            
         }
     }
+    
+    func didUpdateFocusIn(_ context: UICollectionViewFocusUpdateContext) {
+        (context.nextFocusedItem as? MenuItemCollectionViewCell)?.focusedView()
+        (context.previouslyFocusedItem as? MenuItemCollectionViewCell)?.unfocusedView()
+    }
+    
 }
 
 // MARK: AccountManager Delegate
@@ -126,7 +131,8 @@ extension ItemsVC: AccountManagerDelegate {
 // MARK: VideoItemsModel Delegate
 extension ItemsVC: VideoItemsModelDelegate {
     func didUpdateItems(model: VideoItemsModel) {
-        collectionViewController.dataSources[0] = model.videoItems as [AnyHashable]
-        collectionViewController.dataDidLoaded()
+        defer { collectionViewController.dataDidLoaded() }
+        guard let index = model.type?.rawValue, let data = model.videoItemsDict[index] else { return }
+        collectionViewController.dataSources[0] = data as [AnyHashable]
     }
 }

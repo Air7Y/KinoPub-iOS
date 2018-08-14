@@ -21,29 +21,42 @@ class MenuItemCollectionViewCell: UICollectionViewCell {
     
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         guard let item = context.nextFocusedItem, item is MenuItemCollectionViewCell else { return }
-        coordinator.addCoordinatedAnimations({
-            self.focusDidChange()
+        coordinator.addCoordinatedAnimations({ [weak self] in
+            self?.focusDidChange()
         })
     }
     
-    func configView() {
+    private func configView() {
         backgroundColor = .clear
-        label.textColor = .kpGreyish
+        label.textColor = .kpGreyishTwo
         label.highlightedTextColor = .kpMarigold
         imageView.tintColor = .kpGreyishBrown
+        cornerRadius = 12
     }
     
     private func focusDidChange() {
         imageView.tintColor = isFocused ? .kpMarigold : .kpGreyishBrown
-        label.textColor = isFocused ? .kpMarigold : .kpGreyish
+        label.textColor = isFocused ? .kpMarigold : .kpGreyishTwo
+    }
+    
+    func setFirstFocus() {
+        imageView.tintColor = .kpMarigold
+        label.textColor = .kpMarigold
+    }
+    
+    func focusedView() {
+        backgroundColor = .kpGreyishBrown
+    }
+    
+    func unfocusedView() {
+        backgroundColor = .clear
     }
 }
 
 extension MenuItemCollectionViewCell: CellCustomizing {
     func configureCell<T>(with item: T) {
         guard let item = item as? MenuItems else { fatalError(">>> initializing cell with invalid item") }
-        isHidden = false
-        imageView.image = UIImage(named: item.icon) ?? UIImage(named: "first")
+        imageView.image = UIImage(named: item.icon) ?? UIImage(named: "Placeholder")
         label.text = item.name
     }
 }

@@ -4,41 +4,41 @@ struct MenuItems: Codable {
     let id: String
     let name: String
     let icon: String
-    let tag: Int?
+    let tag: TabBarItemTag?
     
     // Content Menu
     static var mainVC: MenuItems {
         return MenuItems(id: "HomeNavVc", name: "Главная", icon: "Main", tag: nil)
     }
     static var filmsVC: MenuItems {
-        return MenuItems(id: "ItemNavVC", name: "Фильмы", icon: "Movies", tag: TabBarItemTag.movies.rawValue)
+        return MenuItems(id: "ItemNavVC", name: "Фильмы", icon: "Movies", tag: .movies)
     }
     static var seriesVC: MenuItems {
-        return MenuItems(id: "ItemNavVC", name: "Сериалы", icon: "Series", tag: TabBarItemTag.shows.rawValue)
+        return MenuItems(id: "ItemNavVC", name: "Сериалы", icon: "Series", tag: .shows)
     }
     static var cartoonsVC: MenuItems {
-        return MenuItems(id: "ItemNavVC", name: "Мультфильмы", icon: "Cartoons", tag: TabBarItemTag.cartoons.rawValue)
+        return MenuItems(id: "ItemNavVC", name: "Мультфильмы", icon: "Cartoons", tag: .cartoons)
     }
     static var docMoviesVC: MenuItems {
-        return MenuItems(id: "ItemNavVC", name: "Документальные фильмы", icon: "Documentary Movie", tag: TabBarItemTag.documovie.rawValue)
+        return MenuItems(id: "ItemNavVC", name: "Документальные фильмы", icon: "Documentary Movie", tag: .documovie)
     }
     static var docSeriesVC: MenuItems {
-        return MenuItems(id: "ItemNavVC", name: "Документальные сериалы", icon: "Documentary Series", tag: TabBarItemTag.docuserial.rawValue)
+        return MenuItems(id: "ItemNavVC", name: "Документальные сериалы", icon: "Documentary Series", tag: .docuserial)
     }
     static var tvShowsVC: MenuItems {
-        return MenuItems(id: "ItemNavVC", name: "ТВ шоу", icon: "Television", tag: TabBarItemTag.tvshow.rawValue)
+        return MenuItems(id: "ItemNavVC", name: "ТВ шоу", icon: "Television", tag: .tvshow)
     }
     static var concertsVC: MenuItems {
-        return MenuItems(id: "ItemNavVC", name: "Концерты", icon: "Concert", tag: TabBarItemTag.concert.rawValue)
+        return MenuItems(id: "ItemNavVC", name: "Концерты", icon: "Concert", tag: .concert)
     }
     static var collectionsVC: MenuItems {
-        return MenuItems(id: "CollectionsNavVC", name: "Подборки", icon: "Collection", tag: TabBarItemTag.collections.rawValue)
+        return MenuItems(id: "CollectionsNavVC", name: "Подборки", icon: "Collection", tag: .collections)
     }
     static var movies4kVC: MenuItems {
-        return MenuItems(id: "ItemNavVC", name: "4K", icon: "4K", tag: TabBarItemTag.movies4k.rawValue)
+        return MenuItems(id: "ItemNavVC", name: "4K", icon: "4K", tag: .movies4k)
     }
     static var movies3dVC: MenuItems {
-        return MenuItems(id: "ItemNavVC", name: "3D", icon: "3D", tag: TabBarItemTag.movies3d.rawValue)
+        return MenuItems(id: "ItemNavVC", name: "3D", icon: "3D", tag: .movies3d)
     }
     static var tvSportVC: MenuItems {
         return MenuItems(id: "SportNavVC", name: "Спортивные каналы", icon: "Sports", tag: nil)
@@ -46,7 +46,7 @@ struct MenuItems: Codable {
     
     // User Menu
     static var watchlistVC: MenuItems {
-        return MenuItems(id: "ItemNavVC", name: "Я смотрю", icon: "Eye", tag: TabBarItemTag.watchlist.rawValue)
+        return MenuItems(id: "ItemNavVC", name: "Я смотрю", icon: "Eye", tag: .watchlist)
     }
     static var bookmarksVC: MenuItems {
         return MenuItems(id: "BokmarksNavVC", name: "Закладки", icon: "Folder", tag: nil)

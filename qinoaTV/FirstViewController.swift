@@ -39,12 +39,10 @@ class FirstViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        tabBarController?.tabBar.items?[1].title = "First"
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        tabBarController?.tabBar.items?[1].title = ""
     }
     
     @objc func playButtonTapped(_ sender: Any) {

@@ -1230,10 +1230,9 @@
 		6968D78220F1998900945078 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				69FE43062123121400E9CBFE /* MenuCells */,
 				6968D78320F1999800945078 /* ItemCells */,
 				69C19A1220F9464700A98B94 /* ErrorBackgroundView.xib */,
-				6941BB41210A18B800A0CE65 /* MenuItemCollectionViewCell.swift */,
-				6941BB42210A18B800A0CE65 /* MenuItemCollectionViewCell.xib */,
 				6972F928211CE20900673E41 /* TVButton.swift */,
 			);
 			path = Views;
@@ -1526,6 +1525,15 @@
 				695B27121F97B2BF00081EB0 /* DTSPlayerUtils.swift */,
 			);
 			path = DTSPlayer;
+			sourceTree = "<group>";
+		};
+		69FE43062123121400E9CBFE /* MenuCells */ = {
+			isa = PBXGroup;
+			children = (
+				6941BB41210A18B800A0CE65 /* MenuItemCollectionViewCell.swift */,
+				6941BB42210A18B800A0CE65 /* MenuItemCollectionViewCell.xib */,
+			);
+			path = MenuCells;
 			sourceTree = "<group>";
 		};
 		72FDDD930CF66C00EE9E0FCE /* Pods */ = {

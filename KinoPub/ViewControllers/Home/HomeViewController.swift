@@ -207,14 +207,14 @@ extension HomeViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: ItemsTableViewCell.self), for: indexPath) as! ItemsTableViewCell
-        cell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.section) //???
+        cell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.section)
         cell.selectionStyle = .none
         return cell
     }
     
     func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let tableViewCell = cell as? ItemsTableViewCell else { return }
-        tableViewCell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.section) //???
+        tableViewCell.setCollectionViewDataSourceDelegate(self, forRow: indexPath.section)
         tableViewCell.collectionViewOffset = storedOffsets[indexPath.section] ?? 0
         let tap = KPGestureRecognizer(target: self, action: #selector(showItems(_:)))
         tableViewCell.addGestureRecognizer(tap)

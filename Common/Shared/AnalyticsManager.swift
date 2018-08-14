@@ -2,6 +2,7 @@ import Foundation
 import Mixpanel
 import Fabric
 import Crashlytics
+import CocoaLumberjack
 #if os(iOS)
 import Firebase
 #endif
@@ -10,8 +11,12 @@ class AnalyticsManager {
     private let mixpanelManager: Mixpanel
     
     private let gcmMessageIDKey = Config.firebase.gcmMessageIDKey
+    
+    private var fileLogger: DDFileLogger
+    
     init() {
         mixpanelManager = Mixpanel.sharedInstance(withToken: Config.Mixpanel.token)
+        fileLogger = DDFileLogger() // File Logger
     }
     
     func setup() {
@@ -19,6 +24,16 @@ class AnalyticsManager {
         #if os(iOS)
         FirebaseApp.configure()
         #endif
+        
+        DDLog.add(DDTTYLogger.sharedInstance)
+        DDLog.add(DDASLLogger.sharedInstance)
+        
+        fileLogger.rollingFrequency = TimeInterval(60*60)  // 1 hours
+        fileLogger.logFileManager.maximumNumberOfLogFiles = 7
+        DDLog.add(fileLogger)
+        
+        DDLogVerbose("LOGGING STARTED")
+        DDASLLogCapture.start()
     }
     
     func flush() {
@@ -30,6 +45,20 @@ class AnalyticsManager {
             Fabric.sharedSDK().debug = debug
         }
     }
+    
+    func writeTTYToFile() {
+        let logFilePath = fileLogger.logFileManager.logsDirectory.appendingPathComponent("/Console0.log")
+        
+        if (isatty(STDIN_FILENO) == 0) {
+            freopen(logFilePath, "a+", stderr)
+            freopen(logFilePath, "a+", stdin)
+            freopen(logFilePath, "a+", stdout)
+            print("stderr, stdin, stdout redirected to \"\(logFilePath)\"")
+        } else {
+            print("stderr, stdin, stdout NOT redirected, STDIN_FILENO = \(STDIN_FILENO)")
+        }
+    }
+    
 }
 
 // Remote Notifications

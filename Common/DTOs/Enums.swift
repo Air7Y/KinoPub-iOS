@@ -17,6 +17,30 @@ enum ItemType: String, CustomStringConvertible {
     case documovie = "documovie"
     case docuserial = "docuserial"
     case movies4k = "4k"
+    case cartoons = "cartoons"
+    
+    var tag: Int {
+        switch self {
+        case .movies:
+            return 0
+        case .shows:
+            return 1
+        case .cartoons:
+            return 2
+        case .tvshows:
+            return 5
+        case .movies3d:
+            return 10
+        case .concerts:
+            return 6
+        case .documovie:
+            return 3
+        case .docuserial:
+            return 4
+        case .movies4k:
+            return 9
+        }
+    }
     
     var description: String {
         switch self {
@@ -36,6 +60,8 @@ enum ItemType: String, CustomStringConvertible {
             return "Документальные сериалы"
         case .movies4k:
             return "4K"
+        case .cartoons:
+            return "Мультфильмы"
         }
     }
     
@@ -46,7 +72,7 @@ enum ItemType: String, CustomStringConvertible {
         switch self {
         case .tvshows:
             return .tvshow
-        case .movies, .shows, .movies3d, .movies4k:
+        case .movies, .shows, .movies3d, .movies4k, .cartoons:
             return .movie
         case .concerts:
             return .music
@@ -174,7 +200,7 @@ enum SortOption: String, CustomStringConvertible {
     }
 }
 
-enum TabBarItemTag: Int {
+enum TabBarItemTag: Int, Codable {
     case movies = 0
     case shows = 1
     case cartoons = 2
@@ -211,6 +237,31 @@ enum TabBarItemTag: Int {
             return "Свежие сериалы"
         default:
             return "default"
+        }
+    }
+    
+    var stringValue: String {
+        switch self {
+        case .movies:
+            return "movie"
+        case .shows:
+            return "serial"
+        case .cartoons:
+            return "cartoons"
+        case .documovie:
+            return "documovie"
+        case .docuserial:
+            return "docuserial"
+        case .tvshow:
+            return "tvshow"
+        case .concert:
+            return "concert"
+        case .movies4k:
+            return "4k"
+        case .movies3d:
+            return "3d"
+        default:
+            return "nil"
         }
     }
 }

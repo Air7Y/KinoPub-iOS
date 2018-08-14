@@ -23,6 +23,9 @@ class VideoItemsModel: AccountManagerDelegate {
     var type: ItemType? {
         didSet {
             parameters["type"] = type?.rawValue
+            if let type = type {
+                parameters["genre"] = type == .cartoons ? "23" : ""
+            }
         }
     }
     // Search
@@ -126,6 +129,9 @@ class VideoItemsModel: AccountManagerDelegate {
                 }
                 strongSelf.videoItems.append(contentsOf: items)
                 if let key = param["type"] {
+                    if strongSelf.videoItemsDict[key] == nil {
+                        strongSelf.videoItemsDict[key] = [Item]()
+                    }
                     strongSelf.videoItemsDict[key]?.append(contentsOf: items)
                 }
                 count = items.count
@@ -323,6 +329,8 @@ class VideoItemsModel: AccountManagerDelegate {
     func refresh() {
         page = 1
         videoItems.removeAll()
+        guard let index = type?.rawValue else { return }
+        videoItemsDict[index]?.removeAll()
     }
     
     func refreshSearch() {
