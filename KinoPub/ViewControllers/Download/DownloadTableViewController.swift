@@ -34,7 +34,7 @@ class DownloadTableViewController: UITableViewController, SideMenuItemContent {
 //        NTDownloadManager.shared.resumeAllTask()
         
         // Pull to refresh
-        control.addTarget(self, action: #selector(initdata), for: UIControlEvents.valueChanged)
+        control.addTarget(self, action: #selector(initdata), for: UIControl.Event.valueChanged)
         control.tintColor = UIColor.kpOffWhite
         if #available(iOS 10.0, *) {
             tableView?.refreshControl = control
@@ -53,7 +53,7 @@ class DownloadTableViewController: UITableViewController, SideMenuItemContent {
         tableView.register(UINib(nibName: String(describing: DowloadedTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: DowloadedTableViewCell.self))
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorColor = UIColor.kpOffWhiteSeparator
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 15, bottom: 0, right: 15)
         
@@ -89,7 +89,7 @@ class DownloadTableViewController: UITableViewController, SideMenuItemContent {
             .addAction("Отменить", style: .cancel)
             .setBarButtonItem(sender as! UIBarButtonItem)
             .show()
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
     func removeAllTask() {
@@ -101,7 +101,7 @@ class DownloadTableViewController: UITableViewController, SideMenuItemContent {
         }
         .addAction("Нет", style: .cancel)
         .show()
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
     @IBAction func showMoreMenu(_ sender: Any) {
@@ -194,7 +194,7 @@ extension DownloadTableViewController {
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         if indexPath.section == 1 {
-            let delete = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Удалить") { [weak self] (_, indexPath) in
+            let delete = UITableViewRowAction(style: UITableViewRowAction.Style.destructive, title: "Удалить") { [weak self] (_, indexPath) in
                 guard let strongSelf = self else { return }
                 NTDownloadManager.shared.removeTask(downloadTask: strongSelf.downed[indexPath.row])
                 strongSelf.downed.remove(at: indexPath.row)
@@ -216,7 +216,7 @@ extension DownloadTableViewController {
             
             return [delete, share]
         } else if indexPath.section == 0 {
-            let delete = UITableViewRowAction(style: UITableViewRowActionStyle.destructive, title: "Удалить") { [weak self] (_, indexPath) in
+            let delete = UITableViewRowAction(style: UITableViewRowAction.Style.destructive, title: "Удалить") { [weak self] (_, indexPath) in
                 guard let strongSelf = self else { return }
                 NTDownloadManager.shared.removeTask(downloadTask: strongSelf.downing[indexPath.row])
                 strongSelf.downing.remove(at: indexPath.row)
@@ -276,7 +276,7 @@ extension DownloadTableViewController {
         }
         .addAction("Нет", style: .cancel)
         .show()
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
     func openInPlayer() {

@@ -44,12 +44,12 @@ class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationController?.navigationItem.largeTitleDisplayMode = .always
-            let attributes = [NSAttributedStringKey.foregroundColor : UIColor.kpOffWhite]
+            let attributes = [NSAttributedString.Key.foregroundColor : UIColor.kpOffWhite]
             navigationController?.navigationBar.largeTitleTextAttributes = attributes
         }
         
         // Pull to refresh
-        control.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        control.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         control.tintColor = UIColor.kpOffWhite
         if #available(iOS 10.0, *) {
             tableView?.refreshControl = control
@@ -123,7 +123,7 @@ class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
     }
     
     @IBAction func addFolderButtonTapped(_ sender: UIBarButtonItem) {
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
         showNewFolderAlert()
     }
     
@@ -200,14 +200,14 @@ extension BookmarksTableViewController: UIEmptyStateDelegate, UIEmptyStateDataSo
     }
     
     var emptyStateTitle: NSAttributedString {
-        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite,
-                     NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)]
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.kpOffWhite,
+                     NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)]
         return NSAttributedString(string: "Здесь будут отображаться ваши папки. Создайте первую, нажав на кнопку ниже.", attributes: attrs)
     }
     
     var emptyStateButtonTitle: NSAttributedString? {
-        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.black,
-                     NSAttributedStringKey.font: UIFont.init(name: "UniSansSemiBold", size: 12) ?? UIFont.systemFont(ofSize: 12)]
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black,
+                     NSAttributedString.Key.font: UIFont.init(name: "UniSansSemiBold", size: 12) ?? UIFont.systemFont(ofSize: 12)]
         return NSAttributedString(string: "СОЗДАТЬ", attributes: attrs)
     }
     
@@ -223,7 +223,7 @@ extension BookmarksTableViewController: UIEmptyStateDelegate, UIEmptyStateDataSo
     }
     
     func emptyStatebuttonWasTapped(button: UIButton) {
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
         showNewFolderAlert()
     }
 }

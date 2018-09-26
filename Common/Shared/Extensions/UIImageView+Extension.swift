@@ -14,7 +14,7 @@ extension UIImageView {
         layer.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: size)
         layer.cornerRadius = 6
         layer.masksToBounds = true
-        layer.contentsGravity = "resizeAspectFill"
+        layer.contentsGravity = CALayerContentsGravity(rawValue: "resizeAspectFill")
         layer.contents = image.cgImage
         UIGraphicsBeginImageContext(size)
         layer.render(in: UIGraphicsGetCurrentContext()!)
@@ -28,7 +28,7 @@ extension UIImageView {
         layer.frame = CGRect(origin: CGPoint(x: 0, y: 0), size: self.bounds.size)
         layer.cornerRadius = radius
         layer.masksToBounds = true
-        layer.contentsGravity = "resizeAspectFill"
+        layer.contentsGravity = CALayerContentsGravity(rawValue: "resizeAspectFill")
         layer.contents = self.image?.cgImage
         UIGraphicsBeginImageContext(size)
         layer.render(in: UIGraphicsGetCurrentContext()!)

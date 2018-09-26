@@ -1,3 +1,11 @@
+//
+//  AccountManager.swift
+//  KinoPub
+//
+//  Created by hintoz on 03.03.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import Foundation
 import SwiftyUserDefaults
 import KeychainSwift
@@ -49,16 +57,17 @@ class AccountManagerImp: AccountManager {
     var accountName: String
     
     var accessTokenKey: String {
-        return AccountKeys.accessToken.rawValue + accountName.hashValue.string
+        return AccountKeys.accessToken.rawValue + accountName
     }
     var refreshTokenKey: String {
-        return AccountKeys.refreshToken.rawValue + accountName.hashValue.string
+        return AccountKeys.refreshToken.rawValue + accountName
     }
 
     init() {
         requestFactory = RequestFactory()
         accountNetworkingService = AccountNetworkingService(requestFactory: requestFactory)
         keychain = KeychainSwift()
+        keychain.synchronizable = true
         accountName = Defaults[.currentAccount] ?? "Defaults"
         checkIfAccountExist()
     }

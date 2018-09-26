@@ -77,15 +77,15 @@ extension SeasonTableViewCell: UICollectionViewDelegate, UICollectionViewDataSou
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        self.episodesCollectionView.register(UINib(nibName: String(describing: SeasonHeaderView.self), bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: String(describing: SeasonHeaderView.self))
-        self.episodesCollectionView.register(UINib(nibName: String(describing: SeasonFooterView.self), bundle: nil), forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: String(describing: SeasonFooterView.self))
+        self.episodesCollectionView.register(UINib(nibName: String(describing: SeasonHeaderView.self), bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: String(describing: SeasonHeaderView.self))
+        self.episodesCollectionView.register(UINib(nibName: String(describing: SeasonFooterView.self), bundle: nil), forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: String(describing: SeasonFooterView.self))
         switch kind {
-        case UICollectionElementKindSectionHeader:
+        case UICollectionView.elementKindSectionHeader:
             let sectionHeaderView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: SeasonHeaderView.self), for: indexPath) as! SeasonHeaderView
             
             sectionHeaderView.label.text = "\(model.getSeason(indexPathSeason)?.number ?? 0)"
             return sectionHeaderView
-        case UICollectionElementKindSectionFooter:
+        case UICollectionView.elementKindSectionFooter:
             let sectionFooterView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: String(describing: SeasonFooterView.self), for: indexPath) as! SeasonFooterView
             return sectionFooterView
         default:

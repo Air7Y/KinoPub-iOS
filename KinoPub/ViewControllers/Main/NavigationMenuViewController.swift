@@ -67,13 +67,13 @@ class NavigationMenuViewController: MenuViewController {
         
         //Select the initial row
         if Config.shared.menuItem > menu.count - 1 {
-            tableView.selectRow(at: IndexPath(row: 0, section: 1), animated: false, scrollPosition: UITableViewScrollPosition.none)
+            tableView.selectRow(at: IndexPath(row: 0, section: 1), animated: false, scrollPosition: UITableView.ScrollPosition.none)
         } else {
             var row: Int
             var section: Int
             section = Config.shared.menuItem > MenuItems.userMenu.count - 1 ? 1 : 0
             row = Config.shared.menuItem > MenuItems.userMenu.count - 1 ? Config.shared.menuItem - MenuItems.userMenu.count : Config.shared.menuItem
-            tableView.selectRow(at: IndexPath(row: row, section: section), animated: false, scrollPosition: UITableViewScrollPosition.none)
+            tableView.selectRow(at: IndexPath(row: row, section: section), animated: false, scrollPosition: UITableView.ScrollPosition.none)
         }
     }
     

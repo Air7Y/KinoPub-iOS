@@ -21,7 +21,7 @@ class NavigationController: UINavigationController, SideMenuItemContent {
         
         if #available(iOS 11.0, *) {
             navigationBar.prefersLargeTitles = true
-            let attributes = [NSAttributedStringKey.foregroundColor : UIColor.kpOffWhite]
+            let attributes = [NSAttributedString.Key.foregroundColor : UIColor.kpOffWhite]
             navigationBar.largeTitleTextAttributes = attributes
             navigationItem.largeTitleDisplayMode = .always
         }

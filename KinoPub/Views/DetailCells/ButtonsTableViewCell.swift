@@ -65,7 +65,7 @@ class ButtonsTableViewCell: UITableViewCell {
         bookmarksModel.loadBookmarks { [weak self] (bookmarks) in
             guard let strongSelf = self else { return }
             defer {
-                Helper.hapticGenerate(style: .medium)
+                if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
                 strongSelf.bookmarkButton.removeLoadingViews(animated: true)
             }
             guard let bookmarks = bookmarks else { return }
@@ -82,7 +82,7 @@ class ButtonsTableViewCell: UITableViewCell {
             for folder in bookmarks {
                 guard var folderTitle = folder.title else { continue }
                 guard let itemFolders = strongSelf.model.item.bookmarks else { continue }
-                var style = UIAlertActionStyle.default
+                var style = UIAlertAction.Style.default
                 if itemFolders.contains(folder) {
                     folderTitle = "✓ " + folderTitle
                     style = .destructive
@@ -130,7 +130,7 @@ class ButtonsTableViewCell: UITableViewCell {
         actionVC.addAction("Отмена", style: .cancel)
         actionVC.setPresentingSource(watchlistAndDownloadButton)
         actionVC.show()
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
     @objc func showQualitySelectAction() {
@@ -147,7 +147,7 @@ class ButtonsTableViewCell: UITableViewCell {
         actionVC.addAction("Отменить", style: .cancel)
         actionVC.setPresentingSource(watchlistAndDownloadButton)
         actionVC.show()
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
     func showDownloadAction(with url: String, quality: String, inView view: UIView) {

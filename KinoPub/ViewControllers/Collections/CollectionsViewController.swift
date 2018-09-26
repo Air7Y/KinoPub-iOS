@@ -31,14 +31,14 @@ class CollectionsViewController: ContentCollectionViewController, SideMenuItemCo
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationController?.navigationItem.largeTitleDisplayMode = .always
-            let attributes = [NSAttributedStringKey.foregroundColor : UIColor.kpOffWhite]
+            let attributes = [NSAttributedString.Key.foregroundColor : UIColor.kpOffWhite]
             navigationController?.navigationBar.largeTitleTextAttributes = attributes
         } else {
             // Fallback on earlier versions
         }
         
         // Pull to refresh
-        control.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        control.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         control.tintColor = UIColor.kpOffWhite
         if #available(iOS 10.0, *) {
             collectionView?.refreshControl = control

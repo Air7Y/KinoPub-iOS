@@ -1,3 +1,11 @@
+//
+//  UILabel+KPAdditions.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 26.01.2018.
+//  Copyright © 2018 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 
 extension UILabel {
@@ -5,14 +13,14 @@ extension UILabel {
         guard let text = text else { return }
         let textRange = NSMakeRange(0, text.count)
         let attributedText = NSMutableAttributedString(string: text)
-        attributedText.addAttribute(NSAttributedStringKey.underlineStyle , value: NSUnderlineStyle.styleSingle.rawValue, range: textRange)
+        attributedText.addAttribute(NSAttributedString.Key.underlineStyle , value: NSUnderlineStyle.single.rawValue, range: textRange)
         // Add other attributes if needed
         self.attributedText = attributedText
     }
     
     func addCharactersSpacing(_ value: CGFloat = 1.15) {
         if let textString = text {
-            let attrs: [NSAttributedStringKey : Any] = [.kern: value]
+            let attrs: [NSAttributedString.Key : Any] = [.kern: value]
             attributedText = NSAttributedString(string: textString, attributes: attrs)
         }
     }
@@ -23,7 +31,7 @@ extension UILabel {
             style.minimumLineHeight = min
             style.maximumLineHeight = max
             style.alignment = NSTextAlignment.center
-            let attrs: [NSAttributedStringKey : Any] = [.paragraphStyle: style]
+            let attrs: [NSAttributedString.Key : Any] = [.paragraphStyle: style]
             attributedText = NSAttributedString(string: textString, attributes: attrs)
             self.baselineAdjustment = .alignCenters
         }
@@ -36,7 +44,7 @@ extension UILabel {
             let style = NSMutableParagraphStyle()
             
             style.lineSpacing = lineHeight
-            attributeString.addAttribute(NSAttributedStringKey.paragraphStyle, value: style, range: NSMakeRange(0, text.count))
+            attributeString.addAttribute(NSAttributedString.Key.paragraphStyle, value: style, range: NSMakeRange(0, text.count))
             self.attributedText = attributeString
         }
     }

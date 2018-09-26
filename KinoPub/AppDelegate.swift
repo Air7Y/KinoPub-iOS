@@ -1,8 +1,14 @@
+//
+//  AppDelegate.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 28.09.2017.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import CoreData
 import AlamofireNetworkActivityLogger
-//import Fabric
-//import Crashlytics
 import Firebase
 import AVFoundation
 import SwifterSwift
@@ -17,7 +23,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     let gcmMessageIDKey = Config.firebase.gcmMessageIDKey
     var window: UIWindow?
     
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         NetworkActivityLogger.shared.level = .debug
         NetworkActivityLogger.shared.startLogging()
@@ -29,7 +35,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         configAppearance()
         
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryPlayback)
+            if #available(iOS 11.0, *) {
+                try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback, mode: AVAudioSession.Mode.moviePlayback, policy: AVAudioSession.RouteSharingPolicy.default)
+            } else {
+                //try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category.playback)
+            }
         } catch let error as NSError {
             print(error.localizedDescription)
         }
@@ -66,7 +76,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func configAppearance() {
         UINavigationBar.appearance().tintColor = .kpOffWhite
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.kpOffWhite]
         UIApplication.shared.statusBarStyle = .lightContent
         UITextField.appearance().keyboardAppearance = .dark
         UITableViewCell.appearance().backgroundColor = .clear

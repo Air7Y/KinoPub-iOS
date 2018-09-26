@@ -16,7 +16,7 @@ class ActorCollectionViewCell: UICollectionViewCell {
     func config<T>(with item: T) {
         if let name = item as? String {
             namePersonLabel.text = name
-            personImageView.setImage(string: name, color: .kpGreyishBrown, circular: true, textAttributes: [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite])
+            personImageView.setImage(string: name, color: .kpGreyishBrown, circular: true, textAttributes: [NSAttributedString.Key.foregroundColor: UIColor.kpOffWhite])
         } else if let creator = item as? Creators {
             namePersonLabel.text = creator.nameRU!.isEmpty ? creator.nameEN : creator.nameRU
             if let posterURL = creator.posterURL,
@@ -29,7 +29,7 @@ class ActorCollectionViewCell: UICollectionViewCell {
                                             imageTransition: .crossDissolve(0.2),
                                             runImageTransitionIfCached: false)
             } else {
-                personImageView.setImage(string: namePersonLabel.text, color: .kpGreyishBrown, circular: true, textAttributes: [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite])
+                personImageView.setImage(string: namePersonLabel.text, color: .kpGreyishBrown, circular: true, textAttributes: [NSAttributedString.Key.foregroundColor: UIColor.kpOffWhite])
             }
         }
     }

@@ -121,7 +121,7 @@ class DetailViewController: UIViewController, SideMenuItemContent {
             footerView.setNeedsLayout()
             footerView.layoutIfNeeded()
             
-            let height = footerView.systemLayoutSizeFitting(UILayoutFittingCompressedSize).height
+            let height = footerView.systemLayoutSizeFitting(UIView.layoutFittingCompressedSize).height
             var frame = footerView.frame
             frame.size.height = height
             footerView.frame = frame
@@ -156,7 +156,7 @@ class DetailViewController: UIViewController, SideMenuItemContent {
 
     func configTableView() {
         tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
 //        let fixWrapper = UIView(frame: CGRect(x: 0, y: 0, width: UIScreen.main.bounds.width, height: 195))
 //        let tableFooterView: TableFooterView = TableFooterView.fromNib()
 //        tableFooterView.autoresizingMask = [.flexibleWidth]
@@ -183,7 +183,7 @@ class DetailViewController: UIViewController, SideMenuItemContent {
     }
     
     func configPullToRefresh() {
-        control.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        control.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         control.tintColor = .kpOffWhite
         if #available(iOS 10.0, *) {
             tableView.refreshControl = control
@@ -428,7 +428,7 @@ extension DetailViewController {
             actionVC.setPresentingSource(view)
         }
         actionVC.show()
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
     func showDownloadAction(with url: String, quality: String, inView view: UIView? = nil, forButton button: UIBarButtonItem? = nil) {
@@ -454,7 +454,7 @@ extension DetailViewController {
             actionVC.setPresentingSource(view)
         }
         actionVC.show()
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
     func downloadSeason(season: Int, index: Int, quality: String) {
@@ -484,7 +484,7 @@ extension DetailViewController {
         activityViewController.popoverPresentationController?.barButtonItem = sender as? UIBarButtonItem
         activityViewController.view.tintColor = .kpBlack
         self.present(activityViewController, animated: true, completion: nil)
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
     @IBAction func downloadButtonTapped(_ sender: Any) {

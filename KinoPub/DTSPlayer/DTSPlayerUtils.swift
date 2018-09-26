@@ -18,10 +18,10 @@ public class DTSPlayerUtils {
         guard var window = UIApplication.shared.keyWindow else {
             return nil
         }
-        if window.windowLevel != UIWindowLevelNormal {
+        if window.windowLevel != UIWindow.Level.normal {
             let windows = UIApplication.shared.windows
             for tmpWin in windows {
-                if tmpWin.windowLevel == UIWindowLevelNormal {
+                if tmpWin.windowLevel == UIWindow.Level.normal {
                     window = tmpWin
                     break
                 }

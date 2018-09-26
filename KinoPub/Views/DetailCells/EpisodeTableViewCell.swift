@@ -162,7 +162,7 @@ class EpisodeTableViewCell: UITableViewCell {
         actionVC.addAction("Отменить", style: .cancel)
         actionVC.setPresentingSource(contentView)
         actionVC.show()
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
     func showDownloadAction(with url: String, quality: String) {

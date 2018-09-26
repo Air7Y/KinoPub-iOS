@@ -1,3 +1,11 @@
+//
+//  SetViewController.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 29.07.17.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import Eureka
 import SwiftyUserDefaults
@@ -15,7 +23,7 @@ class SetViewController: FormViewController, SideMenuItemContent {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationController?.navigationItem.largeTitleDisplayMode = .always
-            let attributes = [NSAttributedStringKey.foregroundColor : UIColor.kpOffWhite]
+            let attributes = [NSAttributedString.Key.foregroundColor : UIColor.kpOffWhite]
             navigationController?.navigationBar.largeTitleTextAttributes = attributes
         }
         navigationItem.leftBarButtonItem = UIBarButtonItem.init(image: UIImage(named: "Kinopub (Menu)")?.withRenderingMode(.alwaysTemplate), style: .plain, target: self, action: #selector(showMenu))

@@ -120,9 +120,9 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
     private func addKVOForItemStatus() {
         guard let currentItem = player?.currentItem else { return }
         _ = KVObserver(observer: self, object: currentItem, keyPath: #keyPath(AVPlayerItem.status), options: [.new], block: { (observer, object, change, kvo) in
-            let status: AVPlayerItemStatus
+            let status: AVPlayerItem.Status
             if let statusNumber = change.new as? NSNumber {
-                status = AVPlayerItemStatus(rawValue: statusNumber.intValue)!
+                status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
             } else {
                 status = .unknown
             }

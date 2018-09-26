@@ -43,13 +43,13 @@ class CommentsVC: UIViewController {
         tableView.delegate = self
         tableView.dataSource = self
         tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.backgroundColor = UIColor.kpBackground
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.register(UINib(nibName: String(describing: CommentsTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: CommentsTableViewCell.self))
         
         // Pull to refresh
-        control.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        control.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         control.tintColor = UIColor.kpOffWhite
         if #available(iOS 10.0, *) {
             tableView.refreshControl = control

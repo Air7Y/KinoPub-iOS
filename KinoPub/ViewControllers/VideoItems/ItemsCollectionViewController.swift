@@ -91,7 +91,7 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
         behavior.options = DGCollectionViewPaginableBehavior.Options(automaticFetch: true, countPerPage: 20, animatedUpdates: true)
         collectionView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
         // Pull to refresh
-        control.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        control.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         control.tintColor = UIColor.kpOffWhite
         if #available(iOS 10.0, *) {
             collectionView?.refreshControl = control
@@ -339,11 +339,11 @@ extension ItemsCollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         var reusableView : UICollectionReusableView!
-        if (kind == UICollectionElementKindSectionHeader) {
+        if (kind == UICollectionView.elementKindSectionHeader) {
             let cell = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "HeaderCell", for: indexPath)
             reusableView = cell
         }
-        if (kind == UICollectionElementKindSectionFooter) {
+        if (kind == UICollectionView.elementKindSectionFooter) {
             reusableView = nil
         }
         
@@ -421,14 +421,14 @@ extension ItemsCollectionViewController: UIEmptyStateDelegate, UIEmptyStateDataS
     }
     
     var emptyStateTitle: NSAttributedString {
-        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite,
-                     NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)]
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.kpOffWhite,
+                     NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)]
         return NSAttributedString(string: "Нет результатов.", attributes: attrs)
     }
     
     var emptyStateButtonTitle: NSAttributedString? {
-        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.black,
-                     NSAttributedStringKey.font: UIFont.init(name: "UniSansSemiBold", size: 12) ?? UIFont.systemFont(ofSize: 12)]
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black,
+                     NSAttributedString.Key.font: UIFont.init(name: "UniSansSemiBold", size: 12) ?? UIFont.systemFont(ofSize: 12)]
         return NSAttributedString(string: "ОБНОВИТЬ", attributes: attrs)
     }
     
@@ -444,7 +444,7 @@ extension ItemsCollectionViewController: UIEmptyStateDelegate, UIEmptyStateDataS
     }
     
     func emptyStatebuttonWasTapped(button: UIButton) {
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
         refresh()
     }
 }

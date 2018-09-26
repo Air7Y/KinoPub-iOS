@@ -1,3 +1,11 @@
+//
+//  UIView+KPAdditions.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 05.01.2018.
+//  Copyright © 2018 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 
 extension UIView {
@@ -29,8 +37,8 @@ extension UIView {
         self.layer.rasterizationScale = scale ? UIScreen.main.scale : 1
     }
     
-    func addBlurEffect(with style: UIBlurEffectStyle, orColor color: UIColor, vibrancyView: UIView? = nil) {
-        guard !UIAccessibilityIsReduceTransparencyEnabled() else {
+    func addBlurEffect(with style: UIBlurEffect.Style, orColor color: UIColor, vibrancyView: UIView? = nil) {
+        guard !UIAccessibility.isReduceTransparencyEnabled else {
             self.backgroundColor = color
             return
         }

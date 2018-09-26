@@ -53,7 +53,7 @@ class HomeViewController: UIViewController, SideMenuItemContent {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationController?.navigationItem.largeTitleDisplayMode = .always
-            let attributes = [NSAttributedStringKey.foregroundColor : UIColor.kpOffWhite]
+            let attributes = [NSAttributedString.Key.foregroundColor : UIColor.kpOffWhite]
             navigationController?.navigationBar.largeTitleTextAttributes = attributes
         }
     }
@@ -62,13 +62,13 @@ class HomeViewController: UIViewController, SideMenuItemContent {
         tableView.backgroundColor = .clear
         tableView.tintColor = .kpOffWhite
         tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.rowHeight = UITableView.automaticDimension
         tableView.tableFooterView = UIView(frame: CGRect.zero)
         tableView.register(UINib(nibName: String(describing: ItemsTableViewCell.self), bundle: Bundle.main), forCellReuseIdentifier: String(describing: ItemsTableViewCell.self))
     }
     
     func configPullToRefresh() {
-        control.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        control.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         control.tintColor = .kpOffWhite
         if #available(iOS 10.0, *) {
             tableView?.refreshControl = control
@@ -256,14 +256,14 @@ extension HomeViewController: UIEmptyStateDelegate, UIEmptyStateDataSource {
     }
     
     var emptyStateTitle: NSAttributedString {
-        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite,
-                     NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)]
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.kpOffWhite,
+                     NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)]
         return NSAttributedString(string: "Нет результатов.\nВозможно, отсутствует интернет соединение или сервис временно недоступен.", attributes: attrs)
     }
     
     var emptyStateButtonTitle: NSAttributedString? {
-        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.black,
-                     NSAttributedStringKey.font: UIFont.init(name: "UniSansSemiBold", size: 12) ?? UIFont.systemFont(ofSize: 12)]
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black,
+        NSAttributedString.Key.font: UIFont.init(name: "UniSansSemiBold", size: 12) ?? UIFont.systemFont(ofSize: 12)]
         return NSAttributedString(string: "ОБНОВИТЬ", attributes: attrs)
     }
     
@@ -279,7 +279,7 @@ extension HomeViewController: UIEmptyStateDelegate, UIEmptyStateDataSource {
     }
     
     func emptyStatebuttonWasTapped(button: UIButton) {
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
         refresh()
     }
 }

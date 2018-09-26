@@ -42,7 +42,7 @@ open class PickerCellCustom<T> : Cell<T>, CellType, UIPickerViewDataSource, UIPi
     
     private var pickerRow: _PickerRowCustom<T>? { return row as? _PickerRowCustom<T> }
     
-    public required init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    public required init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         let pickerView = UIPickerView()
         self.picker = pickerView
         self.picker?.translatesAutoresizingMaskIntoConstraints = false
@@ -62,7 +62,7 @@ open class PickerCellCustom<T> : Cell<T>, CellType, UIPickerViewDataSource, UIPi
         super.setup()
         accessoryType = .none
         editingAccessoryType = .none
-        height = { UITableViewAutomaticDimension }
+        height = { UITableView.automaticDimension }
         picker.delegate = self
         picker.dataSource = self
     }
@@ -96,7 +96,7 @@ open class PickerCellCustom<T> : Cell<T>, CellType, UIPickerViewDataSource, UIPi
     
     open func pickerView(_ pickerView: UIPickerView, attributedTitleForRow row: Int, forComponent component: Int) -> NSAttributedString? {
         let title = pickerRow?.displayValueFor?(pickerRow?.options[row]) ?? ""
-        return NSAttributedString(string: title, attributes: [NSAttributedStringKey.foregroundColor: pickerTextColor])
+        return NSAttributedString(string: title, attributes: [NSAttributedString.Key.foregroundColor: pickerTextColor])
     }
     
     open func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {

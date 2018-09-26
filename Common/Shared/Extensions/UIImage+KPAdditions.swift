@@ -1,3 +1,11 @@
+//
+//  UIImage+KPAdditions.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 21.01.2018.
+//  Copyright © 2018 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 
 extension UIImage {

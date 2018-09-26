@@ -63,7 +63,7 @@ class Share {
             action.setPresentingSource(view)
         }
         action.show()
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
     func open(url rawUrl: String, player: PlayerApplication, pasteboardValue: String? = nil) {
@@ -100,6 +100,6 @@ class Share {
             action.setPresentingSource(view)
         }
         action.show()
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
 }

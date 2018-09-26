@@ -15,7 +15,7 @@ class FadeImageView: UIImageView {
                 CATransaction.setAnimationDuration(self.fadeDuration)
 
                 let transition = CATransition()
-                transition.type = kCATransitionFade
+                transition.type = CATransitionType.fade
 
                 super.layer.add(transition, forKey: kCATransition)
                 super.image = img

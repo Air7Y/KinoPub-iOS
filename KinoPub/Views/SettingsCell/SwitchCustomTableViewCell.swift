@@ -15,7 +15,7 @@ open class SwitchCustomTableViewCell: Cell<Bool>, CellType {
     @IBOutlet public weak var titleLabel: UILabel!
     @IBOutlet public weak var iconImageView: UIImageView!
 
-    required public init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    required public init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
 //        let switchC = UISwitch()
 //        switchControl = switchC

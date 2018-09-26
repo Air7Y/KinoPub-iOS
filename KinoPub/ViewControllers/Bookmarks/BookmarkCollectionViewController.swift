@@ -56,7 +56,7 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
         
         collectionView?.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(tap)))
         // Pull to refresh
-        control.addTarget(self, action: #selector(refresh), for: UIControlEvents.valueChanged)
+        control.addTarget(self, action: #selector(refresh), for: UIControl.Event.valueChanged)
         control.tintColor = UIColor.kpOffWhite
         if #available(iOS 10.0, *) {
             collectionView?.refreshControl = control
@@ -140,7 +140,7 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
         viewModel.loadBookmarks { [weak self] (bookmarks) in
             guard let strongSelf = self else { return }
             defer {
-                Helper.hapticGenerate(style: .medium)
+                if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
                 cell.moveFromBookmarkButton.removeLoadingViews(animated: true)
             }
             guard var bookmarks = bookmarks else { return }
@@ -223,7 +223,7 @@ extension BookmarkCollectionViewController: ItemCollectionViewCellDelegate {
                 strongSelf.removeFromBookmark(item: strongSelf.viewModel.items[indexPath.row], indexPath: indexPath)
             })
             .show()
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
     func didPressMoveButton(_ item: Item) {
@@ -312,14 +312,14 @@ extension BookmarkCollectionViewController: UIEmptyStateDelegate, UIEmptyStateDa
     }
     
     var emptyStateTitle: NSAttributedString {
-        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite,
-                     NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)]
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.kpOffWhite,
+                     NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)]
         return NSAttributedString(string: "Здесь будет храниться ваш контент, который вы добавите в папку.", attributes: attrs)
     }
     
     var emptyStateButtonTitle: NSAttributedString? {
-        let attrs = [NSAttributedStringKey.foregroundColor: UIColor.black,
-                     NSAttributedStringKey.font: UIFont.init(name: "UniSansSemiBold", size: 12) ?? UIFont.systemFont(ofSize: 12)]
+        let attrs = [NSAttributedString.Key.foregroundColor: UIColor.black,
+                     NSAttributedString.Key.font: UIFont.init(name: "UniSansSemiBold", size: 12) ?? UIFont.systemFont(ofSize: 12)]
         return NSAttributedString(string: "ОБНОВИТЬ", attributes: attrs)
     }
     
@@ -335,7 +335,7 @@ extension BookmarkCollectionViewController: UIEmptyStateDelegate, UIEmptyStateDa
     }
     
     func emptyStatebuttonWasTapped(button: UIButton) {
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
         refresh()
     }
 }

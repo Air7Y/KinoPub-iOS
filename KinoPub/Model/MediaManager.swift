@@ -51,7 +51,7 @@ class MediaManager {
     }
     
     private func addPlayerItemTimeObserver(){
-        timeObserver = playerNative?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(Config.shared.delayViewMarkTime, CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main, using: { time in
+        timeObserver = playerNative?.addPeriodicTimeObserver(forInterval: CMTimeMakeWithSeconds(Config.shared.delayViewMarkTime, preferredTimescale: CMTimeScale(NSEC_PER_SEC)), queue: DispatchQueue.main, using: { time in
             NotificationCenter.default.post(name: .DTSPlayerPlaybackTimeDidChange, object: self, userInfo: nil)
         })
     }

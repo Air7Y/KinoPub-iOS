@@ -65,7 +65,7 @@ class FilterViewController: FormViewController {
         if #available(iOS 11.0, *) {
             navigationController?.navigationBar.prefersLargeTitles = true
             navigationController?.navigationItem.largeTitleDisplayMode = .always
-            let attributes = [NSAttributedStringKey.foregroundColor : UIColor.kpOffWhite]
+            let attributes = [NSAttributedString.Key.foregroundColor : UIColor.kpOffWhite]
             navigationController?.navigationBar.largeTitleTextAttributes = attributes
         }
         
@@ -80,7 +80,7 @@ class FilterViewController: FormViewController {
             if let navBarHeight = navigationController?.navigationBar.frame.height {
                 offset = navBarHeight
             }
-            tableView.contentInset = UIEdgeInsetsMake(offset, 0, 0, 0)
+            tableView.contentInset = UIEdgeInsets(top: offset, left: 0, bottom: 0, right: 0)
         }
     }
     

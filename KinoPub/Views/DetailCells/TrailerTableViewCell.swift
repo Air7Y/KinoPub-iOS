@@ -72,7 +72,7 @@ class TrailerTableViewCell: UITableViewCell {
         })
         guard let id = youtubeID else { return }
         MediaManager.shared.playYouTubeVideo(withID: id)
-        Helper.hapticGenerate(style: .medium)
+        if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
 }

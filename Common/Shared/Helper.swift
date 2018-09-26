@@ -1,3 +1,11 @@
+//
+//  Helper.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 20.01.2018.
+//  Copyright © 2018 Evgeny Dats. All rights reserved.
+//
+
 import UIKit
 import LKAlertController
 #if os(iOS)
@@ -27,13 +35,12 @@ class Helper {
         #endif
     }
     
-    static func hapticGenerate(style: UIImpactFeedbackStyle) {
+    @available(iOS 10.0, *)
+    static func hapticGenerate(style: UIImpactFeedbackGenerator.FeedbackStyle) {
         #if os(iOS)
-        if #available(iOS 10.0, *) {
-            let feedbackGenerator = UIImpactFeedbackGenerator(style: style)
-            feedbackGenerator.prepare()
-            feedbackGenerator.impactOccurred()
-        }
+        let feedbackGenerator = UIImpactFeedbackGenerator(style: style)
+        feedbackGenerator.prepare()
+        feedbackGenerator.impactOccurred()
         #endif
     }
     
