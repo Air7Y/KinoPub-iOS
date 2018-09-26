@@ -160,6 +160,7 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/ObjectMapper-tvOS/ObjectMapper.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/PMKVObserver-tvOS/PMKVObserver.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/R.swift.Library-tvOS/Rswift.framework"
+  install_framework "${PODS_ROOT}/Reveal-SDK/RevealServer-18/tvOS/RevealServer.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwifterSwift-tvOS/SwifterSwift.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyBeaver-tvOS/SwiftyBeaver.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SwiftyUserDefaults-tvOS/SwiftyUserDefaults.framework"

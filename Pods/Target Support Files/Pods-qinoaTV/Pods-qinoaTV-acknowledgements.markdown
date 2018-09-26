@@ -199,7 +199,7 @@ Fabric: Copyright 2018 Google, Inc. All Rights Reserved. Use of this software is
 
 The MIT License
 
-Copyright (c) 2015 Marketplacer
+Copyright (c) 2015 Evgenii Neumerzhitckii
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

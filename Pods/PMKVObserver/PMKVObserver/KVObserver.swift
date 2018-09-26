@@ -71,13 +71,15 @@ extension KVObserver {
         /// The old value from the change.
         /// - seealso: `NSKeyValueChangeKey.oldKey`
         public var old: Value? {
-            return rawDict[.oldKey] as? Value
+            guard let value = rawDict[.oldKey] else { return nil }
+            return value as? Value
         }
         
         /// The new value from the change.
         /// - seealso: `NSKeyValueChangeKey.newKey`
         public var new: Value? {
-            return rawDict[.newKey] as? Value
+            guard let value = rawDict[.newKey] else { return nil }
+            return value as? Value
         }
         
         /// Whether this callback is being sent prior to the change.
@@ -111,3 +113,53 @@ extension KVObserver {
         return __isCancelled
     }
 }
+
+extension KVObserver.Change where Value: RawRepresentable {
+    // Override old and new to do RawRepresentable conversions
+    
+    /// The old value from the change.
+    /// - seealso: `NSKeyValueChangeKey.oldKey`
+    public var old: Value? {
+        guard let value = rawDict[.oldKey] else { return nil }
+        return (value as? Value.RawValue).flatMap(Value.init(rawValue:))
+    }
+    
+    /// The new value from the change.
+    /// - seealso: `NSKeyValueChangeKey.newKey`
+    public var new: Value? {
+        guard let value = rawDict[.newKey] else { return nil }
+        return (value as? Value.RawValue).flatMap(Value.init(rawValue:))
+    }
+}
+
+#if swift(>=4.1)
+public protocol _OptionalRawRepresentable: ExpressibleByNilLiteral {
+    associatedtype _Wrapped: RawRepresentable
+    init(_ some: _Wrapped)
+}
+extension Optional: _OptionalRawRepresentable where Wrapped: RawRepresentable {
+    public typealias _Wrapped = Wrapped
+}
+
+extension KVObserver.Change where Value: _OptionalRawRepresentable {
+    /// The old value from the change.
+    /// - seealso: `NSKeyValueChangeKey.oldKey`
+    public var old: Value? {
+        guard let value = rawDict[.oldKey] else { return nil }
+        guard let rawValue = value as? Value._Wrapped.RawValue,
+            let wrappedValue = Value._Wrapped(rawValue: rawValue)
+            else { return .some(nil) }
+        return .some(Value(wrappedValue))
+    }
+    
+    /// The new value from the change.
+    /// - seealso: `NSKeyValueChangeKey.newKey`
+    public var new: Value? {
+        guard let value = rawDict[.newKey] else { return nil }
+        guard let rawValue = value as? Value._Wrapped.RawValue,
+            let wrappedValue = Value._Wrapped(rawValue: rawValue)
+            else { return .some(nil) }
+        return .some(Value(wrappedValue))
+    }
+}
+#endif

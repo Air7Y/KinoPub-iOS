@@ -49,7 +49,7 @@ public protocol AttributedTextProtocol {
 
 extension AttributedTextProtocol {
     
-    private func makeAttributedString(getAttributes: (Style)-> [NSAttributedStringKey: Any]) -> NSAttributedString {
+    private func makeAttributedString(getAttributes: (Style)-> [AttributedStringKey: Any]) -> NSAttributedString {
         let attributedString = NSMutableAttributedString(string: string, attributes: getAttributes(baseStyle))
         
         for d in detections {
@@ -162,15 +162,15 @@ extension String: AttributedTextProtocol {
         return Style()
     }
     
-    public func style(tags: [Style], transformers: [TagTransformer] = [TagTransformer.brTransformer]) -> AttributedText {
+    public func style(tags: [Style], transformers: [TagTransformer] = [TagTransformer.brTransformer], tuner: (Style, Tag) -> Style = { s, _ in return  s}) -> AttributedText {
         let (string, tagsInfo) = detectTags(transformers: transformers)
         
         var ds: [Detection] = []
         
         tagsInfo.forEach { t in
             
-            if let style = (tags.first { style in style.name == t.tag.name }) {
-                ds.append(Detection(type: .tag(t.tag), style: style, range: t.range))
+            if let style = (tags.first { style in style.name.lowercased() == t.tag.name.lowercased() }) {
+                ds.append(Detection(type: .tag(t.tag), style: tuner(style, t.tag), range: t.range))
             } else {
                 ds.append(Detection(type: .tag(t.tag), style: Style(), range: t.range))
             }
@@ -179,8 +179,8 @@ extension String: AttributedTextProtocol {
         return AttributedText(string: string, detections: ds, baseStyle: baseStyle)
     }
     
-    public func style(tags: Style..., transformers: [TagTransformer] = [TagTransformer.brTransformer]) -> AttributedText {
-        return style(tags: tags, transformers: transformers)
+    public func style(tags: Style..., transformers: [TagTransformer] = [TagTransformer.brTransformer], tuner: (Style, Tag) -> Style = { s, _ in return  s}) -> AttributedText {
+        return style(tags: tags, transformers: transformers, tuner: tuner)
     }
 }
 
