@@ -409,14 +409,15 @@ extension DetailViewController {
                     if play {
                         var urlString = ""
                         if Config.shared.streamType == "http" {
-                            urlString = (file.url?.http)!
+                            urlString = file.url.http ?? ""
                         } else if Config.shared.streamType == "hls" {
-                            urlString = (file.url?.hls)!
+                            urlString = file.url.hls ?? ""
                         }
                         strongSelf.model.mediaItems[0].url = URL(string: urlString)
                         strongSelf.playVideo()
                     } else {
-                        strongSelf.showDownloadAction(with: (file.url?.http)!, quality: file.quality, inView: view, forButton: button)
+                        guard let url = file.url.http else { return }
+                        strongSelf.showDownloadAction(with: url, quality: file.quality, inView: view, forButton: button)
                     }
                 })
             }
