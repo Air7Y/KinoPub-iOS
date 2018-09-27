@@ -160,8 +160,7 @@ class ProfileViewController: UITableViewController, ProfileModelDelegate, SideMe
     }
 
     @objc func logOutButtonTapped() {
-        Alert(message: "Отвязать устройство?")
-            .tint(.kpBlack)
+        Alert(message: "Отвязать устройство?", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite).textColor(.kpOffWhite)
             .addAction("Нет", style: .cancel)
             .addAction("Да", style: .default, handler: { [weak self] (action) in
                 self?.accountManager.logoutAccount()

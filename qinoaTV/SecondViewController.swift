@@ -56,7 +56,7 @@ class SecondViewController: UIViewController {
     }
     
     func showAccounts() {
-        let action = ActionSheet(title: "Смена аккаунта", message: "Выберите аккаунт, чтобы назначить его текущим.")
+        let action = ActionSheet(title: "Смена аккаунта", message: "Выберите аккаунт, чтобы назначить его текущим.", blurStyle: .dark).tint(.kpOffWhite)
         for account in Defaults[.accountsArray] {
             action.addAction(account, style: .default) { [weak self] (_) in
                 self?.accountManager.loginToSelectedAccount(account)

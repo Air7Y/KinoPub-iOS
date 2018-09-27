@@ -150,7 +150,7 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
                 return
             }
             
-            let action = ActionSheet(message: "Выберите папку").tint(.kpBlack)
+            let action = ActionSheet(message: "Выберите папку", blurStyle: .dark).tint(.kpOffWhite)
             action.addAction("+ Новая папка", style: .default, handler: { (_) in
                 strongSelf.showNewFolderAlert(indexPath)
             })
@@ -169,7 +169,7 @@ class BookmarkCollectionViewController: ContentCollectionViewController {
     func showNewFolderAlert(_ indexPath: IndexPath) {
         var textField = UITextField()
         textField.placeholder = "Название"
-        Alert(title: "Новая папка", message: "Придумайте короткое и ёмкое название для новой папки").tint(.kpBlack)
+        Alert(title: "Новая папка", message: "Придумайте короткое и ёмкое название для новой папки", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite)
             .addTextField(&textField)
             .addAction("Отмена", style: .cancel)
             .addAction("Создать", style: .default, preferredAction: true) { [weak self] (action) in
@@ -216,7 +216,7 @@ extension BookmarkCollectionViewController: ItemCollectionViewCellDelegate {
     func didPressDeleteButton(_ item: Item) {
         guard let index = viewModel.items.index(where: { $0 === item }) else { return }
         let indexPath = IndexPath(row: index, section: 0)
-        Alert(message: "Удалить?").tint(.kpBlack)
+        Alert(message: "Удалить?", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite)
             .addAction("Отмена", style: .cancel)
             .addAction("Да", style: .default, handler: { [weak self] (_) in
                 guard let strongSelf = self else { return }

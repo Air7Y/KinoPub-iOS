@@ -106,7 +106,7 @@ class HostViewController: MenuContainerViewController {
         if let authViewController = AuthViewController.storyboardInstance() {
             present(authViewController, animated: true, completion: nil)
         } else {
-            Alert(title: "Ошибка", message: "Что-то пошло не так.")
+            Alert(title: "Ошибка", message: "Что-то пошло не так.", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite)
                 .showOkay()
         }
     }

@@ -115,8 +115,7 @@ class MediaManager {
 //            strongSelf.configTitle()
             strongSelf.configNextButton()
             if let item = strongSelf.playerNative?.currentItem, let index = strongSelf.playerItems.index(of: item), let timeToSeek = strongSelf.mediaItems[index].watchingTime {
-                Alert(message: "Продолжить с \(timeToSeek.timeIntervalAsString("hh:mm:ss"))?")
-                    .tint(.kpBlack)
+                Alert(message: "Продолжить с \(timeToSeek.timeIntervalAsString("hh:mm:ss"))?", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite)
                     .addAction("Нет", style: .cancel)
                     .addAction("Да", style: .default, handler: { (_) in
                         strongSelf.fullScreenViewController?.player?.seek(to: CMTime(seconds: timeToSeek, preferredTimescale: 1))
@@ -272,7 +271,7 @@ class MediaManager {
         if let item = notifiaction.object as? EZPlayer {
             if item.state == .readyToPlay, let timeToSeek = mediaItems.first?.watchingTime {
                 fixReadyToPlay = true
-                Alert(message: "Продолжить с \(timeToSeek.timeIntervalAsString("hh:mm:ss"))?").tint(.kpBlack)
+                Alert(message: "Продолжить с \(timeToSeek.timeIntervalAsString("hh:mm:ss"))?", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite)
                 .addAction("Нет", style: .cancel)
                 .addAction("Да", style: .default, handler: { [weak self] (_) in
                     self?.playerCustom?.seek(to: timeToSeek)

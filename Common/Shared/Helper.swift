@@ -45,17 +45,17 @@ class Helper {
     }
     
     static func showError(_ message: String?) {
-        let alert = Alert(title: "Ошибка", message: message ?? "Unknown")
+        let alert = Alert(title: "Ошибка", message: message ?? "Unknown", blurStyle: .dark).textColor(.kpOffWhite)
         #if os(iOS)
-        alert.tint(.kpBlack)
+        alert.tint(.kpOffWhite)
         #endif
         alert.addAction("Ok").show()
     }
     
     static func showErrorTrailerAlert() {
-        let alert = Alert(title: "Ошибка", message: "Трейлер не найден. \n По возможности сообщите в стол заказов в Telegram.")
+        let alert = Alert(title: "Ошибка", message: "Трейлер не найден. \n По возможности сообщите в стол заказов в Telegram.", blurStyle: .dark).textColor(.kpOffWhite)
         #if os(iOS)
-        alert.tint(.kpBlack)
+        alert.tint(.kpOffWhite)
         alert.addAction("Перейти в Telegram", style: .default, handler: { (_) in
             guard let telegram = URL(string: "https://t.me/kinopubrequest") else { return }
             UIApplication.shared.open(url: telegram)

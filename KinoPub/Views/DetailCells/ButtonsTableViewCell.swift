@@ -75,19 +75,14 @@ class ButtonsTableViewCell: UITableViewCell {
             }
             guard let itemId = strongSelf.model.item.id else { return }
             
-            let action = ActionSheet(message: "Выберите папку").tint(.kpBlack)
+            let action = ActionSheet(message: "Выберите папку", blurStyle: .dark).tint(.kpOffWhite)
             action.addAction("+ Новая папка", style: .default, handler: { (_) in
                 strongSelf.showNewFolderAlert()
             })
             for folder in bookmarks {
-                guard var folderTitle = folder.title else { continue }
+                guard let folderTitle = folder.title else { continue }
                 guard let itemFolders = strongSelf.model.item.bookmarks else { continue }
-                var style = UIAlertAction.Style.default
-                if itemFolders.contains(folder) {
-                    folderTitle = "✓ " + folderTitle
-                    style = .destructive
-                }
-                action.addAction(folderTitle, style: style, handler: { (_) in
+                action.addAction(folderTitle, style: .default, preferredAction: itemFolders.contains(folder), handler: { (_) in
                     strongSelf.bookmarksModel.toggleItemToFolder(item: itemId.string, folder: folder.id.string)
                 })
             }
@@ -100,7 +95,7 @@ class ButtonsTableViewCell: UITableViewCell {
     func showNewFolderAlert() {
         var textField = UITextField()
         textField.placeholder = "Название"
-        Alert(title: "Новая папка", message: "Придумайте короткое и ёмкое название для новой папки").tint(.kpBlack)
+        Alert(title: "Новая папка", message: "Придумайте короткое и ёмкое название для новой папки", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite)
             .addTextField(&textField)
             .addAction("Отмена", style: .cancel)
             .addAction("Создать", style: .default, preferredAction: true) { [weak self] (action) in
@@ -117,7 +112,7 @@ class ButtonsTableViewCell: UITableViewCell {
     
     @objc func showWatchAction() {
         guard let watch = model.item?.videos?.first?.watching?.status else { return }
-        let actionVC = ActionSheet().tint(.kpBlack)
+        let actionVC = ActionSheet(blurStyle: .dark).tint(.kpOffWhite)
         
         actionVC.addAction(watch == Status.watching ? "Удалить из «Я смотрю»" : "Добавить в «Я смотрю»", style: .default) { [weak self] (_) in
             guard let strongSelf = self else { return }
@@ -134,7 +129,7 @@ class ButtonsTableViewCell: UITableViewCell {
     }
     
     @objc func showQualitySelectAction() {
-        let actionVC = ActionSheet(message: "Выберите качество").tint(.kpBlack)
+        let actionVC = ActionSheet(message: "Выберите качество", blurStyle: .dark).tint(.kpOffWhite)
         
         guard let files = model.files else { return }
         for file in files {

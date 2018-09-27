@@ -640,6 +640,8 @@
 		689420869740134A6D53317F978069B3 /* FIRMessagingLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = A66DDCBF198312FBF0553E161DEA0716 /* FIRMessagingLogger.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		6898B9EBDC67DAB6F04E17EDEB179A1E /* GTMSessionUploadFetcher.m in Sources */ = {isa = PBXBuildFile; fileRef = D4CAC5F8243C5F50DF6FBC0E8E3225BF /* GTMSessionUploadFetcher.m */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		68A1030E32CD7D32A9E6C165F8A4E9C7 /* DDAbstractDatabaseLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = D83E69A119F162E99A9692BC831E8168 /* DDAbstractDatabaseLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		690A13DE215C524B00965A49 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690A13DC215C511C00965A49 /* Extensions.swift */; };
+		690A13DF215C524C00965A49 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 690A13DC215C511C00965A49 /* Extensions.swift */; };
 		693BEB9591CFA0585A035A2BBACA334C /* UIGestureRecognizerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1F3320AE71F74474897B2D0ADE8E71D /* UIGestureRecognizerExtensions.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks -w -Xanalyzer -analyzer-disable-all-checks"; }; };
 		694B5A482334A4127EEA81CC4D617926 /* DDFileLogger.h in Headers */ = {isa = PBXBuildFile; fileRef = 21A2A865D1CC4E1852978FF19CF4BABC /* DDFileLogger.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		695BC88F442E1E32BD4E494476123EFA /* EZPlayerFloatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E93A09CE5A7580E2E1FFB525F0DA0905 /* EZPlayerFloatView.swift */; settings = {COMPILER_FLAGS = "-w -Xanalyzer -analyzer-disable-all-checks"; }; };
@@ -2771,6 +2773,7 @@
 		6895551680DA49679EA6B38C40480D49 /* EZPlayerFloatContainerRootViewController.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = EZPlayerFloatContainerRootViewController.swift; path = EZPlayer/EZPlayerFloatContainerRootViewController.swift; sourceTree = "<group>"; };
 		68A3879BB29AC55CD700D4D87CDC3747 /* Operators.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = Operators.swift; path = Sources/Operators.swift; sourceTree = "<group>"; };
 		68F38DAB382406C1ABBF2A7574874CEB /* SwiftyUserDefaults-tvOS.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; name = "SwiftyUserDefaults-tvOS.modulemap"; path = "../SwiftyUserDefaults-tvOS/SwiftyUserDefaults-tvOS.modulemap"; sourceTree = "<group>"; };
+		690A13DC215C511C00965A49 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		694CFE494E963FB5728C89736E271F04 /* FIRMessagingClient.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = FIRMessagingClient.m; path = Firebase/Messaging/FIRMessagingClient.m; sourceTree = "<group>"; };
 		697240740366AF8E901317ABCA0D8B62 /* Atributika-tvOS.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Atributika-tvOS.xcconfig"; path = "../Atributika-tvOS/Atributika-tvOS.xcconfig"; sourceTree = "<group>"; };
 		69D016D598F25244CE1A602D4DA05CF8 /* Mixpanel-iOS-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Mixpanel-iOS-umbrella.h"; sourceTree = "<group>"; };
@@ -6271,6 +6274,7 @@
 			isa = PBXGroup;
 			children = (
 				ED371B2307061608DC3553FDB67B0287 /* LKAlertController.swift */,
+				690A13DC215C511C00965A49 /* Extensions.swift */,
 				E85644440E9EF8DE701DA0037711A0BC /* Pod */,
 				FAE53FD66E7732694A1C53B8A7936AB6 /* Support Files */,
 			);
@@ -9727,6 +9731,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5CA3F5959DF67AA2A78E7446080A9B74 /* LKAlertController-iOS-dummy.m in Sources */,
+				690A13DE215C524B00965A49 /* Extensions.swift in Sources */,
 				FCA15CA0319F8E348FFE10C1F048C0EC /* LKAlertController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -10144,6 +10149,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				28EF9AA60121381AF9AE92A0D3F69C67 /* LKAlertController-tvOS-dummy.m in Sources */,
+				690A13DF215C524C00965A49 /* Extensions.swift in Sources */,
 				8D73FDEFB7D2BBCD114990F17EF596C9 /* LKAlertController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -11441,7 +11447,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/LKAlertController-iOS/LKAlertController-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/LKAlertController-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/LKAlertController-iOS/LKAlertController-iOS.modulemap";
 				PRODUCT_MODULE_NAME = LKAlertController;
@@ -15489,7 +15495,7 @@
 				GCC_PREFIX_HEADER = "Target Support Files/LKAlertController-iOS/LKAlertController-iOS-prefix.pch";
 				INFOPLIST_FILE = "Target Support Files/LKAlertController-iOS/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MODULEMAP_FILE = "Target Support Files/LKAlertController-iOS/LKAlertController-iOS.modulemap";
 				PRODUCT_MODULE_NAME = LKAlertController;

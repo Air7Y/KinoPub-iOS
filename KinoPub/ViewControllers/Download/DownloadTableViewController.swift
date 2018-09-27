@@ -75,8 +75,7 @@ class DownloadTableViewController: UITableViewController, SideMenuItemContent {
     }
     
     func showMoreAction(_ sender: Any) {
-        ActionSheet()
-            .tint(.kpBlack)
+        ActionSheet(blurStyle: .dark).tint(.kpOffWhite)
             .addAction("Приостановить все", style: .default) { (_) in
                 NTDownloadManager.shared.pauseAllTask()
             }
@@ -93,8 +92,7 @@ class DownloadTableViewController: UITableViewController, SideMenuItemContent {
     }
     
     func removeAllTask() {
-        Alert(message: "Удалить все загрузки?")
-            .tint(.kpBlack)
+        Alert(message: "Удалить все загрузки?", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite)
         .addAction("Да", style: .destructive) { [weak self] (_) in
             NTDownloadManager.shared.removeAllTask()
             self?.initdata()
@@ -266,8 +264,7 @@ extension DownloadTableViewController {
     }
     
     func showConfirmAlert() {
-        Alert(message: "Удалить?")
-            .tint(.kpBlack)
+        Alert(message: "Удалить?", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite)
         .addAction("Да", style: .destructive) { [weak self] (_) in
             guard let strongSelf = self else { return }
             NTDownloadManager.shared.removeTask(downloadTask: strongSelf.downing[strongSelf.selectedIndexPath.row])

@@ -16,7 +16,7 @@ class DetailVC: UIViewController {
     @IBOutlet var tableView: UITableView!
     
     @IBAction func buttonTapped(_ sender: Any) {
-        Alert(message: KPUtils.timestamp).showOkay()
+        Alert(message: KPUtils.timestamp, blurStyle: .dark).showOkay()
     }
 
     override func viewDidLoad() {

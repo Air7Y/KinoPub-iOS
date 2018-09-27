@@ -35,10 +35,10 @@ struct MenuItems: Codable {
         return MenuItems(id: "CollectionsNavVC", name: "Подборки", icon: "Collection", tag: .collections)
     }
     static var movies4kVC: MenuItems {
-        return MenuItems(id: "ItemNavVC", name: "4K", icon: "4K", tag: .movies4k)
+        return MenuItems(id: "ItemNavVC", name: "Фильмы в 4K", icon: "4K", tag: .movies4k)
     }
     static var movies3dVC: MenuItems {
-        return MenuItems(id: "ItemNavVC", name: "3D", icon: "3D", tag: .movies3d)
+        return MenuItems(id: "ItemNavVC", name: "Фильмы в 3D", icon: "3D", tag: .movies3d)
     }
     static var tvSportVC: MenuItems {
         return MenuItems(id: "SportNavVC", name: "Спортивные каналы", icon: "Sports", tag: nil)

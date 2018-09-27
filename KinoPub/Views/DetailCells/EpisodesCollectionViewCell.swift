@@ -123,7 +123,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
         if mediaItem.url != nil {
             mediaManager.playVideo(mediaItems: [mediaItem], userinfo: nil)
         } else {
-            Alert(title: "Ошибка", message: "Что-то пошло не так")
+            Alert(title: "Ошибка", message: "Что-то пошло не так", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite)
                 .showOkay()
         }
     }
@@ -143,8 +143,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
 
     @objc func playButtonLongTapAction(_ sender: UILongPressGestureRecognizer) {
         if sender.state == .began {
-            ActionSheet()
-                .tint(.kpBlack)
+            ActionSheet(blurStyle: .dark).tint(.kpOffWhite)
                 .addAction("Отметить", style: .default, handler: { [weak self] (_) in
                     guard let strongSelf = self else { return }
                     strongSelf.changeWatchingStatus()
@@ -162,7 +161,7 @@ class EpisodesCollectionViewCell: UICollectionViewCell {
     }
 
     func showDownloadAlert(play: Bool = false) {
-        let actionVC = ActionSheet(message: "Выберите качество").tint(.kpBlack)
+        let actionVC = ActionSheet(message: "Выберите качество", blurStyle: .dark).tint(.kpOffWhite)
         
         for file in (model.getEpisode(indexPathEpisode, forSeason: indexPathSeason)?.files)! {
             actionVC.addAction(file.quality, style: .default, handler: { [weak self] (_) in

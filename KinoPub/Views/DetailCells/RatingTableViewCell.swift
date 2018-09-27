@@ -99,7 +99,7 @@ class RatingTableViewCell: UITableViewCell {
         guard let view = sender.userView else { return }
         guard let userinfo = sender.userinfo else { return }
         guard let message = userinfo["message"] as? String else { return }
-        let action = ActionSheet(message: message).tint(.kpBlack)
+        let action = ActionSheet(message: message, blurStyle: .dark).tint(.kpOffWhite)
         if let url = userinfo["url"] as? URL, let title = userinfo["buttonTitle"] as? String {
             action.addAction(title, style: .default, handler: { (_) in
                 UIApplication.shared.open(url: url)

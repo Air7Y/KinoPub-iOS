@@ -105,8 +105,7 @@ class BookmarksTableViewController: UITableViewController, SideMenuItemContent {
     func showNewFolderAlert() {
         var textField = UITextField()
         textField.placeholder = "Название"
-        Alert(title: "Новая папка", message: "Придумайте короткое и ёмкое название для новой папки")
-            .tint(.kpBlack)
+        Alert(title: "Новая папка", message: "Придумайте короткое и ёмкое название для новой папки", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite)
         .addTextField(&textField)
             .addAction("Отмена", style: .cancel)
         .addAction("Создать", style: .default, preferredAction: true) { [weak self] (action) in

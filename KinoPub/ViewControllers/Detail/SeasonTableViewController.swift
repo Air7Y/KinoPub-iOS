@@ -96,8 +96,7 @@ class SeasonTableViewController: UITableViewController {
     }
     
     func showMoreAction() {
-        ActionSheet()
-        .tint(.kpBlack)
+        ActionSheet(blurStyle: .dark).tint(.kpOffWhite)
         .addAction("Отметить весь сезон", style: .default) { [weak self] (_) in
             self?.watchAllSeason()
         }
@@ -111,8 +110,7 @@ class SeasonTableViewController: UITableViewController {
     }
     
     func watchAllSeason() {
-        Alert(message: "Отметить весь сезон?")
-            .tint(.kpBlack)
+        Alert(message: "Отметить весь сезон?", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite)
             .addAction("Нет", style: .cancel)
             .addAction("Да", style: .default) { [weak self] (_) in
                 guard let strongSelf = self else { return }
@@ -132,7 +130,7 @@ class SeasonTableViewController: UITableViewController {
     }
     
     func showDownloadAlert(at indexPath: IndexPath? = nil, episode: Episodes? = nil, season: Bool = false) {
-        let actionVC = ActionSheet(message: "Выберите качество").tint(.kpBlack)
+        let actionVC = ActionSheet(message: "Выберите качество", blurStyle: .dark).tint(.kpOffWhite)
         
         if episode != nil {
             for file in (episode?.files)! {

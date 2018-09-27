@@ -44,8 +44,7 @@ class Share {
     let pasteboard = UIPasteboard.general
     
     func showActions(url: String, title: String, quality: String, poster: String, inView view: UIView? = nil, forButton button: UIBarButtonItem? = nil) {
-        let action = ActionSheet()
-            .tint(.kpBlack)
+        let action = ActionSheet(blurStyle: .dark).tint(.kpOffWhite)
             .addAction("Скачать", style: .default, handler: { (_) in
                 NTDownloadManager.shared.addDownloadTask(urlString: url, fileName: title, fileImage: poster)
                 Helper.showSuccessStatusBarBanner("Добавлено в загрузки")
@@ -77,8 +76,7 @@ class Share {
     }
     
     func openInAppScheme(url: String, title: String, quality: String, inView view: UIView?, forButton button: UIBarButtonItem?) {
-        let action = ActionSheet()
-            .tint(.kpBlack)
+        let action = ActionSheet(blurStyle: .dark).tint(.kpOffWhite)
             .addAction("Открыть в VLC", style: .default, handler: { (_) in
                 self.open(url: url, player: .VLC)
             })
