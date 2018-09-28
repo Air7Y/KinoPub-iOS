@@ -34,6 +34,7 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
         self.delegate = self
         
         addKVOForItemStatus()
+        addKVOForChangeCurrentItem()
     }
 
     override func didReceiveMemoryWarning() {
@@ -142,6 +143,13 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
                 print(object.error ?? "Unknown error")
                 self.dismiss(message: object.error?.localizedDescription)
             }
+        })
+    }
+    
+    private func addKVOForChangeCurrentItem() {
+        _ = KVObserver(observer: self, object: player!, keyPath: "currentItem", options: NSKeyValueObservingOptions.new, block: { (observer, object, change, kvo) in
+            print("New item is playing!")
+            NotificationCenter.default.post(name: .DTSPlayerCurrentItemDidChange, object: self, userInfo: nil)
         })
     }
     

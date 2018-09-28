@@ -8,6 +8,7 @@
 
 import Foundation
 import Crashlytics
+import CocoaLumberjack
 
 class LogManager {
     static let shared = LogManager()
@@ -23,5 +24,9 @@ class LogManager {
     func logCrashAndEvent(withName eventName: String, customAttributes customAttributesOrNil: [String : Any]? = nil) {
         logCustomEvent(withName: eventName, customAttributes: customAttributesOrNil)
         log(eventName, getVaList([(customAttributesOrNil?.values as? CVarArg) ?? "nil"]))
+    }
+    
+    func logVerbose(_ message: String) {
+        DDLogVerbose(message)
     }
 }

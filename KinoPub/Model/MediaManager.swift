@@ -44,6 +44,7 @@ class MediaManager {
             NotificationCenter.default.addObserver(self, selector: #selector(playerDidClosed(_:)), name: NSNotification.Name.DTSPlayerViewControllerDismissed, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(playerTimeDidChange(_:)), name: NSNotification.Name.DTSPlayerPlaybackTimeDidChange, object: nil)
             NotificationCenter.default.addObserver(self, selector: #selector(userTappedNextButton(_:)), name: NSNotification.Name.DTSPlayerUserTappedNextButton, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(currentItemDidChange(_:)), name: NSNotification.Name.DTSPlayerCurrentItemDidChange, object: nil)
     }
     
     deinit {
@@ -282,6 +283,10 @@ class MediaManager {
     
     @objc func userTappedNextButton(_ notifiaction: Notification) {
 //        configTitle()
+        configNextButton()
+    }
+    
+    @objc func currentItemDidChange(_ notifiaction: Notification) {
         configNextButton()
     }
 }
