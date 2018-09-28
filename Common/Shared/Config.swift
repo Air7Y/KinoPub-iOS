@@ -69,11 +69,11 @@ class Config {
     }
     
     var clientHardware: String {
-        return UIDevice().model
+        return UIDevice().type.rawValue
     }
     
     var clientSoftware: String {
-        return UIDevice().type.rawValue + " (" + UIDevice().systemName + " " + UIDevice().systemVersion + ") KinoPub/dats.xyz"
+        return UIDevice().systemName + " " + UIDevice().systemVersion
     }
     
     var menuItem: Int {
