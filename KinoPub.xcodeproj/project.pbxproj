@@ -745,7 +745,6 @@
 		69512B111F7D2EE400BF5A89 /* KinoPub */ = {
 			isa = PBXGroup;
 			children = (
-				6968D75920F10FD400945078 /* DTOs */,
 				69FCF3341F939C9100638A77 /* DTSPlayer */,
 				696D8D221F9970F8001F5CCE /* Merge */,
 				69512B2B1F7D472900BF5A89 /* Model */,
@@ -890,6 +889,7 @@
 				695921F31F7D4E9000CE3224 /* ScreenSize.swift */,
 				692EF3521F8D029000A4D824 /* Filter.swift */,
 				69512B331F7D481500BF5A89 /* MediaItem.swift */,
+				691420542035AA86005A5370 /* MenuItems.swift */,
 			);
 			path = DTOs;
 			sourceTree = "<group>";
@@ -1082,14 +1082,6 @@
 				6968D74920F1087500945078 /* Fabric.framework */,
 			);
 			path = Frameworks;
-			sourceTree = "<group>";
-		};
-		6968D75920F10FD400945078 /* DTOs */ = {
-			isa = PBXGroup;
-			children = (
-				691420542035AA86005A5370 /* MenuItems.swift */,
-			);
-			path = DTOs;
 			sourceTree = "<group>";
 		};
 		6968D75A20F1104C00945078 /* Model */ = {

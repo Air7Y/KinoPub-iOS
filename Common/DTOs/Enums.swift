@@ -51,7 +51,7 @@ enum ItemType: String, CustomStringConvertible {
         case .tvshows:
             return "ТВ-Шоу"
         case .movies3d:
-            return "3D"
+            return "Фильмы в 3D"
         case .concerts:
             return "Концерты"
         case .documovie:
@@ -59,7 +59,7 @@ enum ItemType: String, CustomStringConvertible {
         case .docuserial:
             return "Документальные сериалы"
         case .movies4k:
-            return "4K"
+            return "Фильмы в 4K"
         case .cartoons:
             return "Мультфильмы"
         }
@@ -223,6 +223,26 @@ enum TabBarItemTag: Int, Codable {
 
     var description: String {
         switch self {
+        case .movies:
+            return "Фильмы"
+        case .shows:
+            return "Сериалы"
+        case .tvshow:
+            return "ТВ-Шоу"
+        case .movies3d:
+            return "Фильмы в 3D"
+        case .concert:
+            return "Концерты"
+        case .documovie:
+            return "Документальные фильмы"
+        case .docuserial:
+            return "Документальные сериалы"
+        case .movies4k:
+            return "Фильмы в 4K"
+        case .cartoons:
+            return "Мультфильмы"
+        case .collections:
+            return "Подборки"
         case .newMovies:
             return "Новые фильмы"
         case .newSeries:
