@@ -108,7 +108,7 @@ class VideoItemsModel: AccountManagerDelegate {
     // Load Movies (all, fresh, hot popular), Series, Docu, TV Show, Concert
     private func loadVideos(completed: @escaping (_ count: Int?, _ error: Error?) -> ()) {
         parameters["page"] = "\(page)"
-        parameters["perpage"] = countPerPage().string
+        parameters["perpage"] = "50"
         var param = parameters
         if let parameters = filter.parameters {
             param.unionInPlace(parameters)
