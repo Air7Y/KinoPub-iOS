@@ -60,7 +60,7 @@ class ItemsVC: MediaVC {
     
     override func itemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize? {
         if collectionView == menuCollectionVC.collectionView {
-            let size = MenuItems.atvMenu[indexPath.row].name.size(withAttributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 30.0)])
+            let size = MenuItems.atvMenu[indexPath.row].name.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30.0)])
             return CGSize(width: 80 + size.width, height: 70)
         }
         return nil

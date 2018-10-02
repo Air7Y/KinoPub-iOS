@@ -35,14 +35,14 @@ class Helper {
         #endif
     }
     
+    #if os(iOS)
     @available(iOS 10.0, *)
     static func hapticGenerate(style: UIImpactFeedbackGenerator.FeedbackStyle) {
-        #if os(iOS)
         let feedbackGenerator = UIImpactFeedbackGenerator(style: style)
         feedbackGenerator.prepare()
         feedbackGenerator.impactOccurred()
-        #endif
     }
+    #endif
     
     static func showError(_ message: String?) {
         let alert = Alert(title: "Ошибка", message: message ?? "Unknown", blurStyle: .dark).textColor(.kpOffWhite)

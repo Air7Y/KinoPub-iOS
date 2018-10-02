@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         NetworkActivityLogger.shared.level = .debug
         NetworkActivityLogger.shared.startLogging()
@@ -66,10 +66,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func configAppearance() {
         UINavigationBar.appearance().tintColor = .kpOffWhite
-        UINavigationBar.appearance().titleTextAttributes = [NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite]
+        UINavigationBar.appearance().titleTextAttributes = [NSAttributedString.Key.foregroundColor: UIColor.kpOffWhite]
         UITextField.appearance().keyboardAppearance = .dark
         UITableViewCell.appearance().backgroundColor = .clear
-        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedStringKey.foregroundColor: UIColor.kpOffWhite], for: .normal)
+        UITabBarItem.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: UIColor.kpOffWhite], for: .normal)
     }
 
     func registerSettingsBundle() {

@@ -25,7 +25,7 @@ class FirstViewController: UIViewController {
         super.viewDidLoad()
         accountManager.addDelegate(delegate: self)
         playButtonGesture = UITapGestureRecognizer(target: self, action: #selector(playButtonTapped(_:)))
-        playButtonGesture.allowedPressTypes = [NSNumber(value: UIPressType.playPause.rawValue)]
+        playButtonGesture.allowedPressTypes = [NSNumber(value: UIPress.PressType.playPause.rawValue)]
         playButtonGesture.delegate = self
         view.addGestureRecognizer(playButtonGesture)
         
