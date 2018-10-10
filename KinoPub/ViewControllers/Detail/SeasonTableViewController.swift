@@ -121,7 +121,7 @@ class SeasonTableViewController: UITableViewController {
     
     func downloadSeason(index: Int, quality: String) {
         for episode in (model.getSeason(indexPathSeason)?.episodes)! {
-            let name = self.model.item.title?.replacingOccurrences(of: " /", with: ";") ?? "Без названия; Untitled" + "; Сезон \(self.model.getSeason(indexPathSeason)?.number ?? 0), Эпизод \(episode.number ?? 0)."  + "\(quality).mp4"
+            let name = (self.model.item.title?.replacingOccurrences(of: " /", with: ";") ?? "Без названия; Untitled") + "; Сезон \(self.model.getSeason(indexPathSeason)?.number ?? 0), Эпизод \(episode.number ?? 0)."  + "\(quality).mp4"
             let poster = self.model.item?.posters?.small
             let url = episode.files?[index].url?.http
             NTDownloadManager.shared.addDownloadTask(urlString: url!, fileName: name, fileImage: poster)
@@ -154,7 +154,7 @@ class SeasonTableViewController: UITableViewController {
     }
     
     func showDownloadAction(with url: String, episode: Episodes, quality: String, at indexPath: IndexPath) {
-        let name = self.model.item.title?.replacingOccurrences(of: " /", with: ";") ?? "Без названия; Untitled" + "; Сезон \(self.model.getSeason(indexPathSeason)?.number ?? 0), Эпизод \(episode.number ?? 0)."  + "\(quality).mp4"
+        let name = (self.model.item.title?.replacingOccurrences(of: " /", with: ";") ?? "Без названия; Untitled") + "; Сезон \(self.model.getSeason(indexPathSeason)?.number ?? 0), Эпизод \(episode.number ?? 0)."  + "\(quality).mp4"
         let poster = self.model.item?.posters?.small
         Share().showActions(url: url, title: name, quality: quality, poster: poster!, inView: self.tableView.cellForRow(at: indexPath)!)
     }
