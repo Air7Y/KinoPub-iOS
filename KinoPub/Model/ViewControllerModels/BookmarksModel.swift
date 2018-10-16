@@ -45,6 +45,7 @@ class BookmarksModel {
     }
     
     func loadBookmarks(completed: @escaping (([Bookmarks]?) -> Void)) {
+        guard accountManager.hasAccount else { completed(nil) ; return }
         networkingService.receiveBookmarks { [weak self] (bookmarks, error) in
             guard let strongSelf = self else { return }
             if let itemsData = bookmarks {

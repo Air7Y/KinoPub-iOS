@@ -26,6 +26,7 @@ class TVModel {
     }
     
     func loadSportChannels() {
+        guard accountManager.hasAccount else { return }
         networkingService.receiveTVChanels { [weak self] (response, error) in
             guard let strongSelf = self else { return }
             defer { strongSelf.delegate?.didUpdateChannels(model: strongSelf) }

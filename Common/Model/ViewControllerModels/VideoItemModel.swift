@@ -40,6 +40,7 @@ class VideoItemModel {
     }
     
     func loadItemsInfo() {
+        guard accountManager.hasAccount else { return }
         networkingService.receiveItems(withParameters: parameters, from: item.id?.string) { [weak self] (response, error) in
             guard let strongSelf = self else { return }
             defer { NotificationCenter.default.post(name: .VideoItemDidUpdate, object: self, userInfo: nil) }

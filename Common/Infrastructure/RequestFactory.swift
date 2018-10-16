@@ -256,8 +256,8 @@ extension RequestFactory: OAuthHandlerDelegate {
         let parameters = ["grant_type": "refresh_token",
                           "client_id": Config.shared.kinopubClientId,
                           "client_secret": Config.shared.kinopubClientSecret,
-                          "refresh_token": account?.refreshToken
-        ] as! [String: String]
+                          "refresh_token": account?.refreshToken ?? ""
+        ]
         let requestUrl = baseAPIURL + "oauth2/device"
         return Alamofire.request(requestUrl, method: .post, parameters: parameters, encoding: JSONEncoding.default)
     }

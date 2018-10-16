@@ -10,6 +10,7 @@ import UIKit
 import CustomLoader
 
 class TrailerTableViewCell: UITableViewCell {
+    fileprivate let mediaManager = Container.Manager.media
     
     var youtubeID: String?
     
@@ -71,7 +72,7 @@ class TrailerTableViewCell: UITableViewCell {
             self?.playButtonView.alpha = 1
         })
         guard let id = youtubeID else { return }
-        MediaManager.shared.playYouTubeVideo(withID: id)
+        mediaManager.playYouTubeVideo(withID: id)
         if #available(iOS 10.0, *) { Helper.hapticGenerate(style: .medium) }
     }
     
