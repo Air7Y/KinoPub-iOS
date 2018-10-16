@@ -15,6 +15,11 @@
 		69160A412101591D006A8140 /* ResponsiveCollectionVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6983AF8820F6946F001F387E /* ResponsiveCollectionVC.swift */; };
 		69160A46210161E9006A8140 /* KPRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69160A45210161E9006A8140 /* KPRequestFactory.swift */; };
 		69160A47210161E9006A8140 /* KPRequestFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69160A45210161E9006A8140 /* KPRequestFactory.swift */; };
+		691B663521642488007DFBEA /* MediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C4F3031F7F042800BCD8F9 /* MediaManager.swift */; };
+		691B6636216425E3007DFBEA /* DTSPlayerFullScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FCF3351F939CED00638A77 /* DTSPlayerFullScreenViewController.swift */; };
+		691B663721642608007DFBEA /* AVPlayerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FCF3371F939DFB00638A77 /* AVPlayerExtension.swift */; };
+		691B66382164260B007DFBEA /* DTSPlayerNotification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69FCF3391F939E3800638A77 /* DTSPlayerNotification.swift */; };
+		691B66392164260E007DFBEA /* DTSPlayerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695B27121F97B2BF00081EB0 /* DTSPlayerUtils.swift */; };
 		6920DF8820F674AB00A846D3 /* UICollectionViewCell+ReactiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6920DF8720F674AB00A846D3 /* UICollectionViewCell+ReactiveCell.swift */; };
 		6920DF8920F674AB00A846D3 /* UICollectionViewCell+ReactiveCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6920DF8720F674AB00A846D3 /* UICollectionViewCell+ReactiveCell.swift */; };
 		6922F6A62013EADE003E3713 /* UIImage+KPAdditions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6922F6A52013EADE003E3713 /* UIImage+KPAdditions.swift */; };
@@ -119,6 +124,8 @@
 		695922821F7DB20000CE3224 /* DetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 695922801F7DB1FC00CE3224 /* DetailViewController.storyboard */; };
 		695B27131F97B2BF00081EB0 /* DTSPlayerUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695B27121F97B2BF00081EB0 /* DTSPlayerUtils.swift */; };
 		695C9FF920F539EC00388604 /* RevealServer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 695C9FF820F539EC00388604 /* RevealServer.framework */; };
+		695FAFDA2167F15E008C502D /* LogViewsManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692CF6C21F901969007E539D /* LogViewsManager.swift */; };
+		695FAFDB2167F1C7008C502D /* LogViewsNetworkingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 692EF3561F8D33D800A4D824 /* LogViewsNetworkingService.swift */; };
 		696298E42113030E00DAE77C /* MainVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69C19A1020F907EE00A98B94 /* MainVC.swift */; };
 		696298E52113036E00DAE77C /* OldDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 695922811F7DB1FC00CE3224 /* OldDetailViewController.swift */; };
 		69676D20200D61EF0046F4D2 /* FilterManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 69676D1F200D61EF0046F4D2 /* FilterManager.swift */; };
@@ -724,6 +731,7 @@
 			isa = PBXGroup;
 			children = (
 				69DA0686201BD4B500D908E6 /* CHANGELOG.md */,
+				69FCF3341F939C9100638A77 /* DTSPlayer */,
 				6968D72220F1001F00945078 /* Common */,
 				69512B111F7D2EE400BF5A89 /* KinoPub */,
 				69976B6420AF33F400A035C4 /* qinoaTV */,
@@ -745,7 +753,6 @@
 		69512B111F7D2EE400BF5A89 /* KinoPub */ = {
 			isa = PBXGroup;
 			children = (
-				69FCF3341F939C9100638A77 /* DTSPlayer */,
 				696D8D221F9970F8001F5CCE /* Merge */,
 				69512B2B1F7D472900BF5A89 /* Model */,
 				69F0FB181FEA9B96004505EF /* Resources */,
@@ -779,7 +786,6 @@
 			isa = PBXGroup;
 			children = (
 				69512B341F7D486300BF5A89 /* ViewControllerModels */,
-				69C4F3031F7F042800BCD8F9 /* MediaManager.swift */,
 				692CF6C21F901969007E539D /* LogViewsManager.swift */,
 				69676D1F200D61EF0046F4D2 /* FilterManager.swift */,
 				69C4E19B2032FC93003048D5 /* Storage.swift */,
@@ -815,7 +821,6 @@
 				69D8C4E11F8444850074B692 /* BookmarksNetworkService.swift */,
 				699C5B1D1F87CE3800D7DFE0 /* CollectionsNetworkingService.swift */,
 				699C5B211F88384800D7DFE0 /* FilterNetworkingService.swift */,
-				692EF3561F8D33D800A4D824 /* LogViewsNetworkingService.swift */,
 				69C4E1952030868A003048D5 /* TVNetworkingService.swift */,
 				69BA28ED20E573AE00F7A9EC /* CommentsNetworkingService.swift */,
 			);
@@ -1089,6 +1094,7 @@
 			children = (
 				6968D75B20F1106C00945078 /* ViewControllerModels */,
 				69512B2C1F7D476200BF5A89 /* AccountManager.swift */,
+				69C4F3031F7F042800BCD8F9 /* MediaManager.swift */,
 				69512B321F7D481500BF5A89 /* KinopubAccount.swift */,
 			);
 			path = Model;
@@ -1119,6 +1125,7 @@
 				69512B391F7D496400BF5A89 /* AccountNetworkingService.swift */,
 				69512B3A1F7D496400BF5A89 /* AuthNetworkingService.swift */,
 				695922341F7D9C6900CE3224 /* VideosNetworkingService.swift */,
+				692EF3561F8D33D800A4D824 /* LogViewsNetworkingService.swift */,
 			);
 			path = NetworkingServices;
 			sourceTree = "<group>";
@@ -2253,6 +2260,7 @@
 				6968D72320F1005D00945078 /* CommentsResponse.swift in Sources */,
 				693A4D4A20B0483D009F8668 /* ModelsAssembly.swift in Sources */,
 				69A863E62102B38000C19070 /* KPManager.swift in Sources */,
+				691B663721642608007DFBEA /* AVPlayerExtension.swift in Sources */,
 				6968D72920F1008200945078 /* ProfileRequest.swift in Sources */,
 				6968D75620F10D3500945078 /* AuthNetworkingService.swift in Sources */,
 				6968D75820F10D6100945078 /* UIColor+KPAdditions.swift in Sources */,
@@ -2261,6 +2269,7 @@
 				6968D76720F111C200945078 /* UIImage+KPAdditions.swift in Sources */,
 				69A863C12102A22400C19070 /* KPUtils.swift in Sources */,
 				6968D72020F0FD2B00945078 /* OAuthHandler.swift in Sources */,
+				691B66382164260B007DFBEA /* DTSPlayerNotification.swift in Sources */,
 				6968D73920F100B200945078 /* Subtitles.swift in Sources */,
 				69160A47210161E9006A8140 /* KPRequestFactory.swift in Sources */,
 				6968D73120F1009B00945078 /* Episodes.swift in Sources */,
@@ -2279,15 +2288,18 @@
 				69F60A6220F3BB9A00C7A990 /* TabBarVC.swift in Sources */,
 				69C19A1620F9468E00A98B94 /* ErrorBackgroundView.swift in Sources */,
 				6968D75520F10D0600945078 /* AuthModel.swift in Sources */,
+				691B663521642488007DFBEA /* MediaManager.swift in Sources */,
 				6983AF8420F6896F001F387E /* DispatchQueue+Extension.swift in Sources */,
 				6968D73620F100A900945078 /* Pagination.swift in Sources */,
 				6968D76F20F137BD00945078 /* UIViewController.swift in Sources */,
+				695FAFDB2167F1C7008C502D /* LogViewsNetworkingService.swift in Sources */,
 				69C19A1120F907EE00A98B94 /* MainVC.swift in Sources */,
 				6968D76320F1111300945078 /* Notification+KPAdditions.swift in Sources */,
 				694031842107969700555AEF /* UIImageView+Extension.swift in Sources */,
 				697AAFC12107E25F0068C9A4 /* MediaItem.swift in Sources */,
 				69F60A6320F3BEF700C7A990 /* ItemCollectionViewCell.swift in Sources */,
 				6968D78120F1997100945078 /* R.generated.swift in Sources */,
+				691B6636216425E3007DFBEA /* DTSPlayerFullScreenViewController.swift in Sources */,
 				6968D73820F100AF00945078 /* Seasons.swift in Sources */,
 				6968D72720F1007A00945078 /* TVResponse.swift in Sources */,
 				69FC88872101336E0036F9E6 /* Array+Extension.swift in Sources */,
@@ -2316,11 +2328,13 @@
 				6968D77920F1908800945078 /* VideoItemsModel.swift in Sources */,
 				6968D73520F100A500945078 /* ItemResponse.swift in Sources */,
 				69A863E12102AF1800C19070 /* KPData.swift in Sources */,
+				695FAFDA2167F15E008C502D /* LogViewsManager.swift in Sources */,
 				6968D73420F100A300945078 /* Item.swift in Sources */,
 				69C19A1920F94A5C00A98B94 /* Localization+Extension.swift in Sources */,
 				6968D72C20F1008A00945078 /* User.swift in Sources */,
 				69976B6A20AF33F400A035C4 /* SecondViewController.swift in Sources */,
 				6968D74E20F109B500945078 /* Config.swift in Sources */,
+				691B66392164260E007DFBEA /* DTSPlayerUtils.swift in Sources */,
 				69A863D52102AF1800C19070 /* BudgetData.swift in Sources */,
 				6968D75220F10C6200945078 /* Extensions.swift in Sources */,
 				69976B6620AF33F400A035C4 /* AppDelegate.swift in Sources */,

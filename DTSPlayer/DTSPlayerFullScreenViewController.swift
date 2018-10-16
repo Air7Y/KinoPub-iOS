@@ -12,9 +12,10 @@ import SwifterSwift
 import PMKVObserver
 
 class DTSPlayerFullScreenViewController: AVPlayerViewController {
-    
+    #if os(iOS)
     private var nextItemView: NextItemView?
     private var titleView: TitleView?
+    #endif
     private var playBackControlsView: UIView? {
         let firstSubview = view.subviews.first
         
@@ -30,11 +31,14 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        #if os(iOS)
         self.allowsPictureInPicturePlayback = true
+        #endif
         self.delegate = self
-        
         addKVOForItemStatus()
+        #if os(iOS)
         addKVOForChangeCurrentItem()
+        #endif
     }
 
     override func didReceiveMemoryWarning() {
@@ -48,14 +52,16 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        #if os(iOS)
         addKVOForControlsIsHidden()
+        #endif
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         NotificationCenter.default.post(name: .DTSPlayerViewControllerDismissed, object: self, userInfo: nil)
     }
-    
+    #if os(iOS)
     func configNextItemView(with info: String, image: UIImage? = nil) {
         guard nextItemView == nil else {
             nextItemView?.config(with: info, image: image)
@@ -117,10 +123,11 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
             observer.nextItemView?.isHidden = newValue
         })
     }
+    #endif
     
     private func addKVOForItemStatus() {
         guard let currentItem = player?.currentItem else { return }
-        _ = KVObserver(observer: self, object: currentItem, keyPath: #keyPath(AVPlayerItem.status), options: [.new], block: { (observer, object, change, kvo) in
+        _ = KVObserver(observer: self, object: currentItem, keyPath: #keyPath(AVPlayerItem.status), options: [.new], block: { [weak self] (observer, object, change, kvo) in
             let status: AVPlayerItem.Status
             if let statusNumber = change.new as? NSNumber {
                 status = AVPlayerItem.Status(rawValue: statusNumber.intValue)!
@@ -136,28 +143,31 @@ class DTSPlayerFullScreenViewController: AVPlayerViewController {
                 // Player item failed. See error.
                 print("STATUS: failed")
                 print(object.error ?? "Unknown")
-                self.dismiss(message: object.error?.localizedDescription)
+                self?.dismiss(message: object.error?.localizedDescription)
             case .unknown:
                 // Player item is not yet ready.
                 print("STATUS: unknown")
                 print(object.error ?? "Unknown error")
-                self.dismiss(message: object.error?.localizedDescription)
+                self?.dismiss(message: object.error?.localizedDescription)
             }
         })
     }
     
+    #if os(iOS)
     private func addKVOForChangeCurrentItem() {
         _ = KVObserver(observer: self, object: player!, keyPath: "currentItem", options: NSKeyValueObservingOptions.new, block: { (observer, object, change, kvo) in
             print("New item is playing!")
-            NotificationCenter.default.post(name: .DTSPlayerCurrentItemDidChange, object: self, userInfo: nil)
+            NotificationCenter.default.post(name: .DTSPlayerCurrentItemDidChange, object: nil, userInfo: nil)
         })
     }
+    #endif
     
     private func dismiss(message: String?) {
         dismiss(animated: true) {
             Helper.showError(message)
         }
     }
+    
 
 }
 
@@ -170,8 +180,10 @@ extension DTSPlayerFullScreenViewController: AVPlayerViewControllerDelegate {
     }
 }
 
+#if os(iOS)
 extension DTSPlayerFullScreenViewController: NextItemDelegate {
     func didPressNextButton() {
         playNextItem()
     }
 }
+#endif

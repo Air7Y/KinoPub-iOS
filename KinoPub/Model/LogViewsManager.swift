@@ -1,6 +1,13 @@
+//
+//  LogViewsManager.swift
+//  KinoPub
+//
+//  Created by Евгений Дац on 13.10.2017.
+//  Copyright © 2017 Evgeny Dats. All rights reserved.
+//
+
 import Foundation
 import LKAlertController
-import NotificationBannerSwift
 
 
 protocol LogViewsManager: class {
@@ -17,16 +24,12 @@ protocol LogViewsManagerDelegate {
 }
 
 extension LogViewsManagerDelegate {
-    func didChangeStatus(manager: LogViewsManager) {
-        
-    }
-    func didToggledWatchlist(toggled: Bool) {
-        
-    }
+    func didChangeStatus(manager: LogViewsManager) {}
+    func didToggledWatchlist(toggled: Bool) {}
 }
 
 class LogViewsManagerImp: LogViewsManager {
-    fileprivate let accountManager = Container.Manager.account
+    let accountManager = Container.Manager.account
     var delegatesStorage = DelegatesStorage()
     let networkingService: LogViewsNetworkingService
     
@@ -46,13 +49,13 @@ class LogViewsManagerImp: LogViewsManager {
                     (delegate as! LogViewsManagerDelegate).didChangeStatus(manager: self)
                 }
             } else {
-                let banner = NotificationBanner(title: "Ошибка", subtitle: "\(error?.localizedDescription ?? "")", style: .danger)
-                banner.show(queuePosition: .front)
+                Helper.showErrorBanner(error?.localizedDescription ?? response?.status.string ?? "Unknown")
             }
         }
     }
     
     func changeMarktime(id: Int, time: TimeInterval, video: Int, season: Int?) {
+        guard accountManager.hasAccount else { return }
         networkingService.changeMarktime(id: id, time: time, video: video, season: season) { (_, _) in
             
         }
@@ -65,8 +68,7 @@ class LogViewsManagerImp: LogViewsManager {
                     (delegate as! LogViewsManagerDelegate).didChangeStatus(manager: self)
                 }
             } else {
-                let banner = NotificationBanner(title: "Ошибка", subtitle: "\(error?.localizedDescription ?? "")", style: .danger)
-                banner.show(queuePosition: .front)
+                Helper.showErrorBanner(error?.localizedDescription ?? response?.status.string ?? "Unknown")
             }
         }
     }
@@ -78,15 +80,11 @@ class LogViewsManagerImp: LogViewsManager {
                     (delegate as! LogViewsManagerDelegate).didToggledWatchlist(toggled: (response?.watching)!)
                 }
                 let str = responseData.watching! ? "добавлен в" : "удален из"
-                let banner = StatusBarNotificationBanner(title: "Сериал \(str) \"Я смотрю\"", style: .success)
-                banner.duration = 1
-                banner.show(queuePosition: .front)
+                Helper.showSuccessStatusBarBanner("Сериал \(str) \"Я смотрю\"")
             } else if response?.status == 0 {
-                let banner = NotificationBanner(title: "Ошибка", subtitle: "Невозможно добавить в Watchlist. \(error?.localizedDescription ?? "")", style: .danger)
-                banner.show(queuePosition: .front)
+                Helper.showErrorBanner("Невозможно добавить в Watchlist. \(error?.localizedDescription ?? response?.status.string ?? "Unknown")")
             } else {
-                let banner = NotificationBanner(title: "Ошибка", subtitle: "\(error?.localizedDescription ?? "")", style: .danger)
-                banner.show(queuePosition: .front)
+                Helper.showErrorBanner(error?.localizedDescription ?? response?.status.string ?? "Unknown")
             }
         }
     }

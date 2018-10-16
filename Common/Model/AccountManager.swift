@@ -31,17 +31,9 @@ protocol AccountManagerDelegate {
 }
 
 extension AccountManagerDelegate {
-    func accountManagerDidAuth(accountManager: AccountManager, toAccount account: KinopubAccount) {
-
-    }
-
-    func accountManagerDidLogout(accountManager: AccountManager) {
-
-    }
-
-    func accountManagerDidUpdateToken(accountManager: AccountManager, forAccount account: KinopubAccount) {
-
-    }
+    func accountManagerDidAuth(accountManager: AccountManager, toAccount account: KinopubAccount) {}
+    func accountManagerDidLogout(accountManager: AccountManager) {}
+    func accountManagerDidUpdateToken(accountManager: AccountManager, forAccount account: KinopubAccount) {}
 }
 
 class AccountManagerImp: AccountManager {

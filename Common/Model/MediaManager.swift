@@ -7,44 +7,55 @@
 //
 
 import UIKit
-import EZPlayer
 import LKAlertController
 import SwiftyUserDefaults
 import AVFoundation
 import MediaPlayer
-import SubtleVolume
-import NDYoutubePlayer
 import AVKit
+#if os(iOS)
+import EZPlayer
+import NDYoutubePlayer
+import SubtleVolume
+#endif
 
 class MediaManager {
-    fileprivate let logViewsManager = Container.Manager.logViews
+    #if os(iOS)
+    /*fileprivate*/ let logViewsManager = Container.Manager.logViews
+    #endif
     private var timeObserver: Any?
     var fullScreenViewController: DTSPlayerFullScreenViewController?
+    #if os(iOS)
     var playerCustom: EZPlayer?
+    #endif
     var playerNative: AVQueuePlayer?
     var mediaItems = [MediaItem]()
     var playerItems = [AVPlayerItem]()
     
     var fixReadyToPlay: Bool = false
     var time: TimeInterval = 0
+    #if os(iOS)
     var volume: SubtleVolume?
+    #endif
     var isLive = false
 
     static let shared = MediaManager()
     init() {
+        // Custom
+        #if os(iOS)
         NotificationCenter.default.addObserver(self, selector: #selector(updateDisplayFromDefaults), name: UserDefaults.didChangeNotification, object: nil)
-
-            // Custom
-            NotificationCenter.default.addObserver(self, selector: #selector(playerDidPlayToEnd(_:)), name: NSNotification.Name.EZPlayerPlaybackDidFinish, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(playerTimeDidChange(_:)), name: NSNotification.Name.EZPlayerPlaybackTimeDidChange, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(playerStatusDidChange(_:)), name: NSNotification.Name.EZPlayerStatusDidChange, object: playerCustom)
-
-            // Native
-            NotificationCenter.default.addObserver(self, selector: #selector(playerDidPlayToEnd(_:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerNative?.currentItem)
-            NotificationCenter.default.addObserver(self, selector: #selector(playerDidClosed(_:)), name: NSNotification.Name.DTSPlayerViewControllerDismissed, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(playerTimeDidChange(_:)), name: NSNotification.Name.DTSPlayerPlaybackTimeDidChange, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(userTappedNextButton(_:)), name: NSNotification.Name.DTSPlayerUserTappedNextButton, object: nil)
-            NotificationCenter.default.addObserver(self, selector: #selector(currentItemDidChange(_:)), name: NSNotification.Name.DTSPlayerCurrentItemDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playerDidPlayToEnd(_:)), name: NSNotification.Name.EZPlayerPlaybackDidFinish, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playerTimeDidChange(_:)), name: NSNotification.Name.EZPlayerPlaybackTimeDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playerStatusDidChange(_:)), name: NSNotification.Name.EZPlayerStatusDidChange, object: playerCustom)
+        #endif
+        
+        // Native
+        NotificationCenter.default.addObserver(self, selector: #selector(playerDidPlayToEnd(_:)), name: NSNotification.Name.AVPlayerItemDidPlayToEndTime, object: playerNative?.currentItem)
+        NotificationCenter.default.addObserver(self, selector: #selector(playerDidClosed(_:)), name: NSNotification.Name.DTSPlayerViewControllerDismissed, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(playerTimeDidChange(_:)), name: NSNotification.Name.DTSPlayerPlaybackTimeDidChange, object: nil)
+        #if os(iOS)
+        NotificationCenter.default.addObserver(self, selector: #selector(userTappedNextButton(_:)), name: NSNotification.Name.DTSPlayerUserTappedNextButton, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(currentItemDidChange(_:)), name: NSNotification.Name.DTSPlayerCurrentItemDidChange, object: nil)
+        #endif
     }
     
     deinit {
@@ -59,6 +70,7 @@ class MediaManager {
     
     func playYouTubeVideo(withID id: String) {
         releaseNativePlayer()
+        #if os(iOS)
         releasePlayer()
         NDYoutubeClient.shared.getVideoWithIdentifier(videoIdentifier: id) { [weak self] (video, error) in
             guard let video = video else {
@@ -71,16 +83,19 @@ class MediaManager {
                 self?.playVideo(mediaItems: mediaItems)
             }
         }
+        #endif
     }
     
     func playVideo(mediaItems: [MediaItem], userinfo: [AnyHashable : Any]? = nil, isLive: Bool = false) {
+        #if os(iOS)
         guard playerCustom == nil else {
             playerCustom?.replaceToPlayWithURL((mediaItems.first?.url)!, title: mediaItems.first?.title)
             playerCustom?.toFull()
             return
         }
-        releaseNativePlayer()
         releasePlayer()
+        #endif
+        releaseNativePlayer()
         self.isLive = isLive
         self.mediaItems = mediaItems
         
@@ -93,7 +108,11 @@ class MediaManager {
 //            playerItems.append(AVPlayerItem(url: item.url!))
         }
         
+        #if os(iOS)
         Defaults[.isCustomPlayer] ? playWithCustomPlayer(mediaItems: mediaItems, userinfo: userinfo) : playWithNativePlayer(mediaItems: playerItems, userinfo: userinfo)
+        #else
+        playWithNativePlayer(mediaItems: playerItems, userinfo: userinfo)
+        #endif
     }
     
     // Native Player
@@ -113,8 +132,10 @@ class MediaManager {
             guard let strongSelf = self else { return }
             strongSelf.fullScreenViewController?.player!.play()
             guard !strongSelf.isLive else { return }
+            #if os(iOS)
 //            strongSelf.configTitle()
             strongSelf.configNextButton()
+            #endif
             if let item = strongSelf.playerNative?.currentItem, let index = strongSelf.playerItems.index(of: item), let timeToSeek = strongSelf.mediaItems[index].watchingTime {
                 Alert(message: "Продолжить с \(timeToSeek.timeIntervalAsString("hh:mm:ss"))?", blurStyle: .dark).tint(.kpOffWhite).textColor(.kpOffWhite)
                     .addAction("Нет", style: .cancel)
@@ -126,6 +147,7 @@ class MediaManager {
     }
     
     //Custom Player
+    #if os(iOS)
     func playWithCustomPlayer(mediaItems: [MediaItem], userinfo: [AnyHashable : Any]? = nil ) {
         playerCustom = EZPlayer()
 
@@ -167,6 +189,7 @@ class MediaManager {
         fixReadyToPlay = false
         time = 0
     }
+    #endif
     
     func releaseNativePlayer() {
         if fullScreenViewController != nil {
@@ -183,6 +206,7 @@ class MediaManager {
         }
     }
 
+    #if os(iOS)
     func configVolumeView() {
         volume = SubtleVolume(style: .plain)
         volume?.frame = CGRect(x: 0, y: 20, width: (playerCustom?.view.frame.size.width)!, height: 2)
@@ -208,6 +232,7 @@ class MediaManager {
             fullScreenViewController?.removeNextButton()
         }
     }
+    #endif
 
     func changeMarkTime(force: Bool = false) {
         guard !isLive else { return }
@@ -216,15 +241,21 @@ class MediaManager {
         guard _time - time >= Config.shared.delayViewMarkTime || force else { return }
         if let item = playerNative?.currentItem, let index = playerItems.index(of: item) {
             if let id = mediaItems[index].id, let video = mediaItems[index].video {
+                #if os(iOS)
                 logViewsManager.changeMarktime(id: id, time: (playerNative?.currentTime)!, video: video, season: mediaItems[index].season)
+                #endif
                 time = Date().timeIntervalSinceReferenceDate
             }
-        } else if playerCustom != nil, let id = mediaItems[0].id, let video = mediaItems[0].video {
+        }
+        #if os(iOS)
+        if playerCustom != nil, let id = mediaItems[0].id, let video = mediaItems[0].video {
             logViewsManager.changeMarktime(id: id, time: (playerCustom?.currentTime)!, video: video, season: mediaItems[0].season)
             time = Date().timeIntervalSinceReferenceDate
         }
+        #endif
     }
 
+    #if os(iOS)
     @objc func updateDisplayFromDefaults() {
         playerCustom?.canSlideProgress = Defaults[.canSlideProgress]
 
@@ -247,10 +278,13 @@ class MediaManager {
 
         playerCustom?.slideTrigger = (left:left, right:right)
     }
+    #endif
 
     @objc  func playerDidPlayToEnd(_ notifiaction: Notification) {
         changeMarkTime(force: true)
+        #if os(iOS)
         self.releasePlayer()
+        #endif
         if let item = playerNative?.currentItem, let index = playerItems.index(of: item), index >= playerItems.count - 1 {
             releaseNativePlayer()
         }
@@ -267,6 +301,7 @@ class MediaManager {
         changeMarkTime()
     }
 
+    #if os(iOS)
     @objc func playerStatusDidChange(_ notifiaction: Notification) {
         guard !fixReadyToPlay else { return }
         if let item = notifiaction.object as? EZPlayer {
@@ -289,5 +324,6 @@ class MediaManager {
     @objc func currentItemDidChange(_ notifiaction: Notification) {
         configNextButton()
     }
+    #endif
 }
 

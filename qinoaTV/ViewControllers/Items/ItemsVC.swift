@@ -61,7 +61,7 @@ class ItemsVC: MediaVC {
     override func itemSize(forCellIn collectionView: UICollectionView, at indexPath: IndexPath) -> CGSize? {
         if collectionView == menuCollectionVC.collectionView {
             let size = MenuItems.atvMenu[indexPath.row].name.size(withAttributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 30.0)])
-            return CGSize(width: 80 + size.width, height: 70)
+            return CGSize(width: 80 + size.width + 40, height: 70)
         }
         return nil
     }
@@ -70,7 +70,7 @@ class ItemsVC: MediaVC {
         if collectionView == collectionViewController.collectionView {
             return UIEdgeInsets(top: 50, left: 100, bottom: 0, right: 100)
         } else if collectionView == menuCollectionVC.collectionView {
-            return UIEdgeInsets(top: 20, left: 100, bottom: 25, right: 100)
+            return UIEdgeInsets(top: 25, left: 100, bottom: 25, right: 100)
         }
         return nil
     }
@@ -83,7 +83,7 @@ class ItemsVC: MediaVC {
         if collectionView == collectionViewController.collectionView {
             guard indexPath.row < model.videoItems.count else { return }
             if let detailVC = DetailVC.storyboardInstance() {
-                
+                detailVC.model.item = collectionViewController.dataSources[0][indexPath.row] as? Item
                 navigationController?.show(detailVC, sender: self)
             }
         }

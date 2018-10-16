@@ -3,10 +3,8 @@ import SwiftyBeaver
 struct Container {
     struct Manager {
         static let account: AccountManager = AccountManagerImp()
-        #if os(iOS)
         static let media = MediaManager()
         static let logViews: LogViewsManager = LogViewsManagerImp()
-        #endif
         static let analytics = AnalyticsManager()
     }
     
@@ -24,8 +22,8 @@ struct Container {
         static let auth = { AuthModel(accountManager: Manager.account) }
         static let videoItems = { VideoItemsModel(accountManager: Manager.account) }
         static let profile = { ProfileModel(accountManager: Manager.account) }
-        #if os(iOS)
         static let videoItem = { VideoItemModel(accountManager: Manager.account) }
+        #if os(iOS)
         static let bookmarks = { BookmarksModel(accountManager: Manager.account) }
         static let collection = { CollectionModel(accountManager: Manager.account) }
         static let filter = { FilterModel(accountManager: Manager.account) }
