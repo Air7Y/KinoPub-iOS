@@ -139,6 +139,46 @@ enum SerialStatus: Int, CustomStringConvertible {
     }
 }
 
+enum Period: String, CustomStringConvertible {
+    case allTime
+    case day
+    case week
+    case month
+    case quarter
+    
+    static let all = [allTime, day, week, month, quarter]
+    
+    var description: String {
+        switch self {
+        case .allTime:
+            return "За все время"
+        case .day:
+            return "За сутки"
+        case .week:
+            return "За неделю"
+        case .month:
+            return "За месяц"
+        case .quarter:
+            return "За квартал"
+        }
+    }
+    
+    var condition: String {
+        switch self {
+        case .allTime:
+            return ""
+        case .day:
+            return "created>\(Date().timeIntervalSince1970 - 3600 * 24)"
+        case .week:
+            return "created>\(Date().timeIntervalSince1970 - 3600 * 24 * 7)"
+        case .month:
+            return "created>\(Date().timeIntervalSince1970 - 3600 * 24 * 30)"
+        case .quarter:
+            return "created>\(Date().timeIntervalSince1970 - 3600 * 24 * 91)"
+        }
+    }
+}
+
 enum SortOption: String, CustomStringConvertible {
     
     init?(string stringValue: String) {

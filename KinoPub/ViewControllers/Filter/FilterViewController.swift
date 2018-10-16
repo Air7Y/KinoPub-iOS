@@ -173,6 +173,15 @@ class FilterViewController: FormViewController {
         PickerInlineRowCustom<SortOption>.InlineRow.defaultCellUpdate = { cell, row in
             cell.pickerTextColor = .kpOffWhite
         }
+        
+        PickerInlineRowCustom<Period>.defaultCellUpdate = { cell, row in
+            cell.textLabel?.textColor = .kpOffWhite
+            cell.detailTextLabel?.textColor = .kpGreyishTwo
+            cell.tintColor = .kpMarigold
+        }
+        PickerInlineRowCustom<Period>.InlineRow.defaultCellUpdate = { cell, row in
+            cell.pickerTextColor = .kpOffWhite
+        }
 
         PickerInlineRowCustom<SubtitlesList>.defaultCellUpdate = { cell, row in
             cell.textLabel?.textColor = .kpOffWhite
@@ -369,6 +378,15 @@ class FilterViewController: FormViewController {
                 }
                 .onChange({ [weak self] (row) in
                     self?.model.filter.sort = row.value!
+                })
+            
+            <<< PickerInlineRowCustom<Period>("period"){
+                $0.title = "Период"
+                $0.options = Period.all
+                $0.value = model.filter.period
+                }
+                .onChange({ [weak self] (row) in
+                    self?.model.filter.period = row.value!
                 })
             
             <<< SwitchRow() {

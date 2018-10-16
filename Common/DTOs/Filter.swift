@@ -12,6 +12,7 @@ struct Filter: ReflectedStringConvertible {
     var sort: SortOption!
     var sortAsc: Bool
     var serialStatus: SerialStatus!
+    var period: Period!
     
     static var defaultFilter: Filter {
         let filter = Filter(genres: nil,
@@ -23,7 +24,8 @@ struct Filter: ReflectedStringConvertible {
                             kinopoiskRating: nil,
                             sort: SortOption.updated,
                             sortAsc: false,
-                            serialStatus: .any)
+                            serialStatus: .any,
+                            period: Period.allTime)
         return filter
     }
     
@@ -32,12 +34,12 @@ struct Filter: ReflectedStringConvertible {
             countries != nil ||
             subtitles != nil ||
             year != nil ||
-            sort !=
-            SortOption.updated ||
+            sort != SortOption.updated ||
             sortAsc ||
             serialStatus != .any ||
             imdbRating != nil ||
-            kinopoiskRating != nil {
+            kinopoiskRating != nil ||
+            period != Period.allTime {
             return true
         }
         return false
@@ -87,12 +89,20 @@ extension Filter {
         }
         if let imdbRating = imdbRating {
             for (offset: index, element: (key: key, value: value)) in imdbRating.enumerated() {
-                param["conditions[\(index)]"] = "imdb_rating \(key) \(value.replacingOccurrences(of: " и выше", with: ""))"
+                param["conditions[\(index + 1)]"] = "imdb_rating \(key) \(value.replacingOccurrences(of: " и выше", with: ""))"
             }
         }
         if let kinopoiskRating = kinopoiskRating {
             for (offset: index, element: (key: key, value: value)) in kinopoiskRating.enumerated() {
                 param["conditions[\(index + 2)]"] = "kinopoisk_rating \(key) \(value.replacingOccurrences(of: " и выше", with: ""))"
+            }
+        }
+        if let period = period {
+            switch period {
+            case .allTime:
+                param["conditions[0]"] = nil
+            default:
+                param["conditions[0]"] = period.condition
             }
         }
         param["sort"] = sortAsc ? sort.asc() : sort.desc()

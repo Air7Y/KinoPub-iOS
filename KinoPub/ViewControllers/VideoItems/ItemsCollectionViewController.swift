@@ -149,7 +149,9 @@ class ItemsCollectionViewController: ContentCollectionViewController, SideMenuIt
             navigationItem.title = TabBarItemTag.hotMovies.description
             navigationItem.rightBarButtonItems?[0].customView = UIView()
             model.type = ItemType.movies
-            model.from = "hot"
+//            model.from = "popular"
+            model.filter.sort = SortOption.views
+            model.filter.period = Period.month
         case TabBarItemTag.hotSeries.rawValue:
             navigationItem.title = TabBarItemTag.hotSeries.description
             navigationItem.rightBarButtonItems?[0].customView = UIView()

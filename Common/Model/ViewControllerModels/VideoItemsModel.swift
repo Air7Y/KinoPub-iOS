@@ -252,7 +252,9 @@ class VideoItemsModel: AccountManagerDelegate {
     func loadHotFilms() {
         var param = parameters
         param["type"] = ItemType.movies.rawValue
-        let from = "hot"
+//        let from = "hot"
+        param["conditions[0]"] = "created>\(Date().timeIntervalSince1970 - 3600 * 24 * 30)"
+        param["sort"] = "-views"
         loadItems(with: param, from: from) { [weak self] (items) in
             guard let strongSelf = self else { return }
             if let _items = items {
