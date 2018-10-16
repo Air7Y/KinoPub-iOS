@@ -38,7 +38,8 @@ class CommentsModel: AccountManagerDelegate {
         loadAllComments(for: id) { [weak self] (comments) in
             guard let strongSelf = self else { return }
             defer { strongSelf.delegate?.didUpdateComments() }
-            guard let comments = comments else { return }
+            guard var comments = comments else { return }
+            comments = comments.filter{!$0.deleted!}
             strongSelf.comments = Array(comments.sorted(by: {$0.rating?.int ?? 0 > $1.rating?.int ?? 0}).prefix(3))
         }
     }

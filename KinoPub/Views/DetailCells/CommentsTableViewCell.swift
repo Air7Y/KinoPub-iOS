@@ -8,9 +8,12 @@
 
 import UIKit
 import AlamofireImage
+import Atributika
 
 class CommentsTableViewCell: UITableViewCell {
     var isDepth = true
+    var isHiddenSpoiler = true
+    var atrStyles = [Style]()
     
     @IBOutlet weak var avatarImageView: UIImageView!
     @IBOutlet weak var usernameLabel: UILabel!
@@ -43,12 +46,15 @@ class CommentsTableViewCell: UITableViewCell {
         dateLabel.isHidden = true
         
         for i in 1...9 {
-           let view = getCircleView(i)
+            let view = getCircleView(i)
             self.addSubview(view)
             view.center.y = avatarImageView.center.y
             view.x = CGFloat(15 + (i - 1) * 10)
             view.isHidden = true
         }
+        
+        let spoilerStyle = Style("spoiler").font(.systemFont(ofSize: 15)).foregroundColor(.kpTangerine)
+        atrStyles = [spoilerStyle]
     }
     
     func config(with comment: Comments) {
@@ -61,7 +67,14 @@ class CommentsTableViewCell: UITableViewCell {
         
         usernameLabel.text = comment.user?.name
         ratingLabel.text = comment.rating
-        commentLabel.text = comment.message
+        
+        var message = comment.message ?? ""
+        if isHiddenSpoiler {
+            let regex = try! NSRegularExpression(pattern: "(<spoiler>)(.*?)(</spoiler*>)", options: [.caseInsensitive, .dotMatchesLineSeparators])
+            let range = NSMakeRange(0, message.count)
+            message = regex.stringByReplacingMatches(in: message, options: [], range: range, withTemplate: "$1spoiler$3")
+        }
+        commentLabel.attributedText = message.style(tags: atrStyles).attributedString
         
         let format = DateFormatter()
         format.dateFormat = "@ dd.MM.yyyy в hh:mm"

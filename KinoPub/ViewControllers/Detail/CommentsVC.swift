@@ -13,8 +13,14 @@ class CommentsVC: UIViewController {
     private let model = Container.ViewModel.comments()
     var id: String!
     let control = UIRefreshControl()
+    var isHiddenSpoiler = true
     
     @IBOutlet weak var tableView: UITableView!
+    
+    @IBAction func spoilerButtonTapped(_ sender: Any) {
+        isHiddenSpoiler.toggle()
+        tableView.reloadData()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +43,7 @@ class CommentsVC: UIViewController {
             navigationItem.largeTitleDisplayMode = .always
         }
         model.delegate = self
+        view.backgroundColor = UIColor.kpBackground
     }
     
     func configTableView() {
@@ -90,6 +97,7 @@ extension CommentsVC: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: String(describing: CommentsTableViewCell.self), for: indexPath) as! CommentsTableViewCell
+        cell.isHiddenSpoiler = isHiddenSpoiler
         cell.config(with: model.comments[indexPath.row])
         cell.selectionStyle = .none
         return cell
